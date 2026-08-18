@@ -241,7 +241,7 @@ GO
 -- Car Images (ẢNH LOCAL)
 INSERT INTO CarImages (car_id, image_url, caption) VALUES
 (1, 'assets/images/cars/bugatti-chiron.jpg', N'Ngoại thất góc nghiêng cánh gió W16'),
-(1, 'assets/images/cars/bugatti-chiron-interior.jpg', N'Khoang lái bọc da Alcantara chế tác thủ công'),
+(1, 'assets/images/cars/bugatti-chiron-interior.jpg', N'Góc đuôi xe Atlantic Blue cánh gió carbon W16'),
 (2, 'assets/images/cars/ferrari-sf90.jpg', N'Ngoại thất đỏ Rosso Corsa huyền thoại'),
 (3, 'assets/images/cars/lamborghini-revuelto.jpg', N'Đầu xe chữ Y vị lai Lamborghini Revuelto'),
 (4, 'assets/images/cars/koenigsegg-jesko.jpg', N'Đuôi xe Koenigsegg Jesko Absolut khí động học');
