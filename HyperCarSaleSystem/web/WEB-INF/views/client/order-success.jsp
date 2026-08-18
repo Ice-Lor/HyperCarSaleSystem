@@ -16,21 +16,21 @@
                     <i class="bi bi-patch-check-fill text-gold" style="font-size: 4rem;"></i>
                 </div>
 
-                <h2 class="fw-bold mb-2" style="font-family: 'Cinzel', serif;">ĐẶT CỌC THÀNH CÔNG!</h2>
-                <p class="text-muted">Chúc mừng quý khách đã hoàn tất thủ tục giữ chỗ siêu phẩm Megacar / Hypercar độc bản.</p>
+                <h2 class="fw-bold text-light mb-2" style="font-family: 'Cinzel', serif;">ĐẶT CỌC THÀNH CÔNG!</h2>
+                <p style="color: #b0b3c0;">Chúc mừng quý khách đã hoàn tất thủ tục giữ chỗ siêu phẩm Megacar / Hypercar độc bản.</p>
 
                 <div class="p-3 rounded bg-surface my-4 text-start" style="background-color: #12131b;">
                     <div class="row g-2 small">
-                        <div class="col-6 text-muted">Mã hợp đồng:</div>
+                        <div class="col-6" style="color: #b0b3c0;">Mã hợp đồng:</div>
                         <div class="col-6 text-end fw-bold text-gold">${orderCode}</div>
-                        <div class="col-6 text-muted">Trạng thái hợp đồng:</div>
+                        <div class="col-6" style="color: #b0b3c0;">Trạng thái hợp đồng:</div>
                         <div class="col-6 text-end"><span class="badge bg-warning text-dark">Chờ Xác Nhận Cọc</span></div>
-                        <div class="col-6 text-muted">Thời gian tạo:</div>
+                        <div class="col-6" style="color: #b0b3c0;">Thời gian tạo:</div>
                         <div class="col-6 text-end text-light">Ngay bây giờ</div>
                     </div>
                 </div>
 
-                <p class="text-muted small mb-4">
+                <p class="small mb-4" style="color: #b0b3c0;">
                     Giám đốc phụ trách dịch vụ khách hàng VIP của HyperCar sẽ liên hệ với quý khách trong vòng 15 phút để hoàn tất thủ tục bàn giao và giao kết hợp đồng gốc.
                 </p>
 

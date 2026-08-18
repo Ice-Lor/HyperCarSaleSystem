@@ -31,12 +31,12 @@
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Tên Model Xe *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Tên Model Xe *</label>
                             <input type="text" name="modelName" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.modelName : ''}" required>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label text-muted small">Hãng Sản Xuất *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Hãng Sản Xuất *</label>
                             <select name="brandId" class="form-select bg-dark border-secondary text-light" required>
                                 <c:forEach items="${brands}" var="b">
                                     <option value="${b.brandId}" ${car != null && car.brandId == b.brandId ? 'selected' : ''}>
@@ -46,7 +46,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label text-muted small">Phân Loại *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Phân Loại *</label>
                             <select name="categoryId" class="form-select bg-dark border-secondary text-light" required>
                                 <c:forEach items="${categories}" var="cat">
                                     <option value="${cat.categoryId}" ${car != null && car.categoryId == cat.categoryId ? 'selected' : ''}>
@@ -59,17 +59,17 @@
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-4">
-                            <label class="form-label text-muted small">Giá Niêm Yết ($) *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Giá Niêm Yết ($) *</label>
                             <input type="number" step="0.01" name="price" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.price : ''}" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label text-muted small">Tỷ Lệ Đặt Cọc (%) *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Tỷ Lệ Đặt Cọc (%) *</label>
                             <input type="number" step="0.1" name="depositRate" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.depositRate : '10.0'}" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label text-muted small">Số Lượng Tồn Kho *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Số Lượng Tồn Kho *</label>
                             <input type="number" name="stockQuantity" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.stockQuantity : '1'}" required>
                         </div>
@@ -77,53 +77,53 @@
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-3">
-                            <label class="form-label text-muted small">Năm Sản Xuất *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Năm Sản Xuất *</label>
                             <input type="number" name="year" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.year : '2026'}" required>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label text-muted small">Công Suất (HP) *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Công Suất (HP) *</label>
                             <input type="number" name="horsepower" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.horsepower : ''}" required>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label text-muted small">Tăng Tốc 0-100km/h (s) *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Tăng Tốc 0-100km/h (s) *</label>
                             <input type="number" step="0.01" name="acceleration0100" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.acceleration0100 : ''}" required>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label text-muted small">Tốc Độ Tối Đa (km/h) *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Tốc Độ Tối Đa (km/h) *</label>
                             <input type="number" name="topSpeed" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.topSpeed : ''}" required>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">URL Hình Ảnh Thumbnail *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">URL Hình Ảnh Thumbnail *</label>
                         <input type="url" name="thumbnailUrl" class="form-control bg-dark border-secondary text-light" 
                                value="${car != null ? car.thumbnailUrl : ''}" placeholder="https://..." required>
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Tùy Chọn Màu Sơn (Cách nhau bởi dấu phẩy)</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Tùy Chọn Màu Sơn (Cách nhau bởi dấu phẩy)</label>
                             <input type="text" name="colorOptions" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.colorOptions : 'Nocturne Black, French Racing Blue, Bianco Monocerus'}">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Thông Số Động Cơ</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Thông Số Động Cơ</label>
                             <input type="text" name="engineSpec" class="form-control bg-dark border-secondary text-light" 
                                    value="${car != null ? car.engineSpec : '8.0L Quad-Turbo W16'}">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Mô Tả Chi Tiết</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Mô Tả Chi Tiết</label>
                         <textarea name="description" class="form-control bg-dark border-secondary text-light" rows="3">${car != null ? car.description : ''}</textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label text-muted small">Trạng Thái Hiển Thị</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Trạng Thái Hiển Thị</label>
                         <select name="status" class="form-select bg-dark border-secondary text-light">
                             <option value="1" ${car != null && car.status == 1 ? 'selected' : ''}>Hiển thị trên Showroom</option>
                             <option value="0" ${car != null && car.status == 0 ? 'selected' : ''}>Tạm ẩn / Đang bảo dưỡng</option>

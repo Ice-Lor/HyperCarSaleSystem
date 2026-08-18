@@ -16,7 +16,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h3 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">QUẢN LÝ HỢP ĐỒNG ĐẶT CỌC</h3>
-                    <p class="text-muted small mb-0">Duyệt, xác nhận thanh toán cọc và quản lý tiến độ bàn giao</p>
+                    <p class="small mb-0" style="color: #b0b3c0;">Duyệt, xác nhận thanh toán cọc và quản lý tiến độ bàn giao</p>
                 </div>
                 <a href="${pageContext.request.contextPath}/admin/export-orders" class="btn btn-outline-gold btn-sm">
                     <i class="bi bi-file-earmark-spreadsheet me-1"></i> Xuất Báo Cáo CSV
@@ -32,7 +32,7 @@
                 <div class="table-responsive">
                     <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                         <thead>
-                            <tr class="text-muted small border-bottom border-secondary">
+                            <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                 <th>Mã Hợp Đồng</th>
                                 <th>Khách Hàng VIP</th>
                                 <th>Tổng Giá Trị</th>
@@ -49,9 +49,9 @@
                                     <td class="fw-bold text-gold">${o.orderCode}</td>
                                     <td>
                                         <div class="fw-bold text-light">${o.userName}</div>
-                                        <small class="text-muted">${o.userEmail}</small>
+                                        <small style="color: #b0b3c0;">${o.userEmail}</small>
                                     </td>
-                                    <td><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
+                                    <td class="text-light"><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
                                     <td class="text-gold fw-bold"><fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$"/></td>
                                     <td><span class="badge bg-dark border border-secondary">${o.couponCode != null ? o.couponCode : 'Không'}</span></td>
                                     <td><span class="badge bg-dark border border-secondary">${o.paymentMethod}</span></td>

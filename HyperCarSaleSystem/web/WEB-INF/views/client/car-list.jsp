@@ -11,8 +11,8 @@
 <div class="container py-5">
     <!-- Breadcrumb & Header -->
     <div class="mb-4">
-        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">BỘ SƯU TẬP SIÊU XE TOÀN CẦU</h2>
-        <p class="text-muted small">Tìm thấy <span class="text-gold fw-bold">${totalCars}</span> mẫu siêu phẩm sẵn sàng bàn giao</p>
+        <h2 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">BỘ SƯU TẬP SIÊU XE TOÀN CẦU</h2>
+        <p class="small" style="color: #b0b3c0;">Tìm thấy <span class="text-gold fw-bold">${totalCars}</span> mẫu siêu phẩm sẵn sàng bàn giao</p>
     </div>
 
     <div class="row g-4">
@@ -26,14 +26,14 @@
                 <form action="${pageContext.request.contextPath}/cars" method="GET">
                     <!-- Keyword -->
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Từ khóa</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Từ khóa</label>
                         <input type="text" name="keyword" class="form-control bg-dark border-secondary text-light form-control-sm" 
                                placeholder="Model xe..." value="${keyword}">
                     </div>
 
                     <!-- Brand -->
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Hãng sản xuất</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Hãng sản xuất</label>
                         <select name="brandId" class="form-select bg-dark border-secondary text-light form-select-sm">
                             <option value="">-- Tất Cả Hãng --</option>
                             <c:forEach items="${brands}" var="b">
@@ -46,7 +46,7 @@
 
                     <!-- Category -->
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Phân loại xe</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Phân loại xe</label>
                         <select name="categoryId" class="form-select bg-dark border-secondary text-light form-select-sm">
                             <option value="">-- Tất Cả Phân Loại --</option>
                             <c:forEach items="${categories}" var="cat">
@@ -59,7 +59,7 @@
 
                     <!-- Price Range -->
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Khoảng giá ($)</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Khoảng giá ($)</label>
                         <div class="row g-2">
                             <div class="col-6">
                                 <input type="number" name="minPrice" class="form-control bg-dark border-secondary text-light form-control-sm" 
@@ -74,7 +74,7 @@
 
                     <!-- Sort -->
                     <div class="mb-4">
-                        <label class="form-label text-muted small">Sắp xếp theo</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Sắp xếp theo</label>
                         <select name="sortBy" class="form-select bg-dark border-secondary text-light form-select-sm">
                             <option value="newest" ${sortBy == 'newest' ? 'selected' : ''}>Mới nhất</option>
                             <option value="price_asc" ${sortBy == 'price_asc' ? 'selected' : ''}>Giá: Thấp đến Cao</option>
@@ -97,10 +97,10 @@
         <!-- Car Cards Grid -->
         <div class="col-lg-9">
             <c:if test="${empty cars}">
-                <div class="card card-luxury p-5 text-center text-muted">
+                <div class="card card-luxury p-5 text-center" style="color: #b0b3c0;">
                     <i class="bi bi-search text-gold fs-1 mb-3"></i>
-                    <h5>Không tìm thấy mẫu siêu xe phù hợp</h5>
-                    <p class="small">Đại ca hãy thử điều chỉnh lại bộ lọc tìm kiếm hoặc từ khóa.</p>
+                    <h5 class="text-light">Không tìm thấy mẫu siêu xe phù hợp</h5>
+                    <p class="small" style="color: #b0b3c0;">Đại ca hãy thử điều chỉnh lại bộ lọc tìm kiếm hoặc từ khóa.</p>
                 </div>
             </c:if>
 
@@ -109,16 +109,16 @@
                     <div class="col-md-6 col-xl-4">
                         <div class="card card-luxury h-100">
                             <div class="position-relative overflow-hidden" style="height: 200px;">
-                                <img src="${c.thumbnailUrl}" class="w-100 h-100 object-fit-cover" alt="${c.modelName}">
+                                <img src="${pageContext.request.contextPath}/${c.thumbnailUrl}" class="w-100 h-100 object-fit-cover" alt="${c.modelName}">
                                 <span class="position-absolute top-0 end-0 m-2 badge bg-gold text-dark fw-bold">
                                     ${c.brandName}
                                 </span>
                             </div>
                             <div class="card-body p-3 d-flex flex-column">
-                                <h6 class="fw-bold mb-1" style="font-family: 'Cinzel', serif;">${c.modelName}</h6>
-                                <small class="text-muted mb-2">${c.categoryName} • ${c.year}</small>
+                                <h6 class="fw-bold text-light mb-1" style="font-family: 'Cinzel', serif;">${c.modelName}</h6>
+                                <small class="mb-2" style="color: #b0b3c0;">${c.categoryName} • ${c.year}</small>
 
-                                <div class="row g-1 text-center small text-muted mb-3 py-1 rounded bg-surface" style="background-color: #222436; font-size: 0.75rem;">
+                                <div class="row g-1 text-center small mb-3 py-1 rounded bg-surface" style="background-color: #222436; font-size: 0.75rem; color: #b0b3c0;">
                                     <div class="col-4 border-end border-secondary">${c.horsepower} HP</div>
                                     <div class="col-4 border-end border-secondary">${c.acceleration0100}s</div>
                                     <div class="col-4">${c.topSpeed} km/h</div>

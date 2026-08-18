@@ -31,19 +31,19 @@
                             <input type="hidden" name="action" value="add">
 
                             <div class="mb-3">
-                                <label class="form-label text-muted small">Tên Hãng *</label>
+                                <label class="form-label small" style="color: #b0b3c0;">Tên Hãng *</label>
                                 <input type="text" name="brandName" class="form-control bg-dark border-secondary text-light" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted small">Quốc Gia *</label>
+                                <label class="form-label small" style="color: #b0b3c0;">Quốc Gia *</label>
                                 <input type="text" name="country" class="form-control bg-dark border-secondary text-light" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted small">URL Logo</label>
+                                <label class="form-label small" style="color: #b0b3c0;">URL Logo</label>
                                 <input type="url" name="logoUrl" class="form-control bg-dark border-secondary text-light">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted small">Mô Tả</label>
+                                <label class="form-label small" style="color: #b0b3c0;">Mô Tả</label>
                                 <textarea name="description" class="form-control bg-dark border-secondary text-light" rows="2"></textarea>
                             </div>
 
@@ -60,7 +60,7 @@
                         <div class="table-responsive">
                             <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                                 <thead>
-                                    <tr class="text-muted small border-bottom border-secondary">
+                                    <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                         <th>ID</th>
                                         <th>Logo</th>
                                         <th>Tên Thương Hiệu</th>
@@ -71,9 +71,9 @@
                                 <tbody>
                                     <c:forEach items="${brands}" var="b">
                                         <tr class="border-bottom border-secondary">
-                                            <td>#${b.brandId}</td>
+                                            <td class="text-light">#${b.brandId}</td>
                                             <td>
-                                                <img src="${b.logoUrl}" alt="${b.brandName}" style="height: 30px; object-fit: contain;">
+                                                <img src="${pageContext.request.contextPath}/${b.logoUrl}" alt="${b.brandName}" style="height: 30px; object-fit: contain;">
                                             </td>
                                             <td class="fw-bold text-light">${b.brandName}</td>
                                             <td><span class="badge bg-dark border border-secondary">${b.country}</span></td>

@@ -16,7 +16,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h3 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">QUẢN LÝ DANH MỤC SIÊU XE</h3>
-                    <p class="text-muted small mb-0">Thêm mới, cập nhật giá và số lượng siêu xe trong showroom</p>
+                    <p class="small mb-0" style="color: #b0b3c0;">Thêm mới, cập nhật giá và số lượng siêu xe trong showroom</p>
                 </div>
                 <a href="${pageContext.request.contextPath}/admin/cars?action=add" class="btn btn-gold btn-sm">
                     <i class="bi bi-plus-lg me-1"></i> Thêm Siêu Xe Mới
@@ -32,7 +32,7 @@
                 <div class="table-responsive">
                     <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                         <thead>
-                            <tr class="text-muted small border-bottom border-secondary">
+                            <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                 <th>ID</th>
                                 <th>Siêu Xe</th>
                                 <th>Hãng & Phân Khúc</th>
@@ -46,22 +46,22 @@
                         <tbody>
                             <c:forEach items="${cars}" var="c">
                                 <tr class="border-bottom border-secondary">
-                                    <td>#${c.carId}</td>
+                                    <td class="text-light">#${c.carId}</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="${c.thumbnailUrl}" alt="${c.modelName}" style="width: 70px; height: 45px; object-fit: cover;" class="rounded me-2">
+                                            <img src="${pageContext.request.contextPath}/${c.thumbnailUrl}" alt="${c.modelName}" style="width: 70px; height: 45px; object-fit: cover;" class="rounded me-2">
                                             <div>
                                                 <div class="fw-bold text-light">${c.modelName}</div>
-                                                <small class="text-muted">${c.year}</small>
+                                                <small style="color: #b0b3c0;">${c.year}</small>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="text-gold fw-semibold">${c.brandName}</div>
-                                        <small class="text-muted">${c.categoryName}</small>
+                                        <small style="color: #b0b3c0;">${c.categoryName}</small>
                                     </td>
-                                    <td class="fw-bold"><fmt:formatNumber value="${c.price}" type="currency" currencySymbol="$"/></td>
-                                    <td>${c.horsepower} HP (${c.topSpeed} km/h)</td>
+                                    <td class="fw-bold text-gold"><fmt:formatNumber value="${c.price}" type="currency" currencySymbol="$"/></td>
+                                    <td class="text-light">${c.horsepower} HP (${c.topSpeed} km/h)</td>
                                     <td>
                                         <span class="badge ${c.stockQuantity > 0 ? 'bg-success' : 'bg-danger'}">${c.stockQuantity}</span>
                                     </td>

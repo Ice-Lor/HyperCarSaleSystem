@@ -186,7 +186,7 @@ CREATE TABLE ActivityLogs (
 GO
 
 -- =======================================================
--- DỮ LIỆU MẪU (SEED DATA ĐẲNG CẤP)
+-- DỮ LIỆU MẪU (SEED DATA ĐẲNG CẤP) - ẢNH LOCAL
 -- =======================================================
 
 -- Roles
@@ -205,16 +205,16 @@ INSERT INTO Users (username, password_hash, full_name, email, phone, address, ro
 ('staff01', '$2a$10$w8L0QyS29pQdZ4lHqjUgeOB1H7vS0Xo6WdUkpC22xI4qR3eNq8v1i', N'Chuyên Viên Tư Vấn VIP 01', 'staff@hypercars.vn', '0901234567', N'Showroom HyperCar Sala, TP. Thủ Đức', 3, 1);
 GO
 
--- Brands
+-- Brands (ẢNH LOCAL)
 INSERT INTO Brands (brand_name, country, logo_url, description) VALUES
-('Bugatti', N'Pháp', 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=300', N'Hãng siêu xe đỉnh cao với các dòng xe nhanh nhất thế giới mang tính nghệ thuật và tốc độ tuyệt hảo.'),
-('Ferrari', N'Ý', 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=300', N'Biểu tượng huyền thoại của làng đua xe Công thức 1 và siêu xe thể thao nước Ý.'),
-('Lamborghini', N'Ý', 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=300', N'Thiết kế góc cạnh, động cơ gầm rú đầy mãnh lực và cá tính vị lai.'),
-('Koenigsegg', N'Thụy Điển', 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=300', N'Đỉnh cao cơ khí chính xác và công nghệ Megacar không giới hạn.'),
-('McLaren', N'Anh Quốc', 'https://images.unsplash.com/photo-1621135802920-133df287f89c?w=300', N'Siêu xe công nghệ carbon thừa hưởng trực tiếp từ đường đua F1.'),
-('Pagani', N'Ý', 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300', N'Kiệt tác thủ công Carbo-Titanium độc bản của Horacio Pagani.'),
-('Porsche', N'Đức', 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300', N'Chuẩn mực kỹ thuật ô tô thể thao Đức, tin cậy và hoàn hảo trên mọi cung đường.'),
-('Rimac', N'Croatia', 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=300', N'Kỷ nguyên siêu xe thuần điện với gia tốc xé toạc mọi giới hạn vật lý.');
+('Bugatti', N'Pháp', 'assets/images/brands/bugatti.jpg', N'Hãng siêu xe đỉnh cao với các dòng xe nhanh nhất thế giới mang tính nghệ thuật và tốc độ tuyệt hảo.'),
+('Ferrari', N'Ý', 'assets/images/brands/ferrari.jpg', N'Biểu tượng huyền thoại của làng đua xe Công thức 1 và siêu xe thể thao nước Ý.'),
+('Lamborghini', N'Ý', 'assets/images/brands/lamborghini.jpg', N'Thiết kế góc cạnh, động cơ gầm rú đầy mãnh lực và cá tính vị lai.'),
+('Koenigsegg', N'Thụy Điển', 'assets/images/brands/koenigsegg.jpg', N'Đỉnh cao cơ khí chính xác và công nghệ Megacar không giới hạn.'),
+('McLaren', N'Anh Quốc', 'assets/images/brands/mclaren.jpg', N'Siêu xe công nghệ carbon thừa hưởng trực tiếp từ đường đua F1.'),
+('Pagani', N'Ý', 'assets/images/brands/pagani.jpg', N'Kiệt tác thủ công Carbo-Titanium độc bản của Horacio Pagani.'),
+('Porsche', N'Đức', 'assets/images/brands/porsche.jpg', N'Chuẩn mực kỹ thuật ô tô thể thao Đức, tin cậy và hoàn hảo trên mọi cung đường.'),
+('Rimac', N'Croatia', 'assets/images/brands/rimac.jpg', N'Kỷ nguyên siêu xe thuần điện với gia tốc xé toạc mọi giới hạn vật lý.');
 GO
 
 -- Categories
@@ -226,25 +226,25 @@ INSERT INTO Categories (category_name, description) VALUES
 ('Open-Top Spider', N'Phiên bản mui trần quyến rũ mang lại cảm giác lái thăng hoa cùng âm thanh động cơ thuần khiết.');
 GO
 
--- Cars
+-- Cars (ẢNH LOCAL)
 INSERT INTO Cars (model_name, brand_id, category_id, price, deposit_rate, year, horsepower, acceleration_0_100, top_speed, stock_quantity, thumbnail_url, color_options, engine_spec, description, status) VALUES
-(N'Bugatti Chiron Pur Sport', 1, 1, 3800000.00, 10.0, 2024, 1500, 2.3, 350, 2, 'https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=800', N'Jaune Molsheim & Carbon, French Racing Blue, Nocturne Black', N'8.0L Quad-Turbo W16 (1500 HP / 1600 Nm)', N'Phiên bản tập trung vào độ linh hoạt và vào cua siêu chuẩn xác với cánh gió sợi carbon cố định 1.9m.', 1),
-(N'Ferrari SF90 Stradale Assetto Fiorano', 2, 1, 650000.00, 10.0, 2024, 1000, 2.5, 340, 3, 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800', N'Rosso Corsa, Giallo Modena, Bianco Avus, Blu Pozzi', N'4.0L Twin-Turbo V8 + 3 Motor Điện Plug-in Hybrid', N'Siêu phẩm hybrid sạc ngoài mạnh nhất của Ferrari với hệ dẫn động 4 bánh toàn thời gian.', 1),
-(N'Lamborghini Revuelto V12 HPEV', 3, 1, 608000.00, 10.0, 2025, 1015, 2.5, 350, 4, 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=800', N'Arancio Apodis, Verde Shock, Grigio Acheso, Blu Astraeus', N'6.5L Hút khí tự nhiên V12 + 3 Motor Điện (1015 HP)', N'Kỷ nguyên mới của siêu bò xứ Sant''Agata Bolognese với khung gầm Monofuselage carbon nguyên khối.', 1),
-(N'Koenigsegg Jesko Absolut', 4, 2, 3400000.00, 15.0, 2024, 1600, 2.5, 500, 1, 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800', N'Tang Orange, Crystal White, Imperial Blue, Raw Carbon', N'5.0L Twin-Turbo V8 Flat-plane (1600 HP E85)', N'Siêu phẩm được mệnh danh là mẫu xe nhanh nhất trong lịch sử loài người với hệ số cản khí động học chỉ 0.278 Cd.', 1),
-(N'McLaren Senna LM Edition', 5, 3, 1500000.00, 10.0, 2023, 800, 2.8, 335, 1, 'https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800', N'McLaren Orange, Pure White, Volcano Red, Onyx Black', N'4.0L Twin-Turbo V8 (M840TR)', N'Được đặt theo tên huyền thoại Ayrton Senna, mang triết lý khí động học thuần chất đường đua F1.', 1),
-(N'Pagani Huayra Roadster BC', 6, 5, 3500000.00, 20.0, 2024, 802, 2.8, 380, 1, 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800', N'Carbon Grigio, Blu Danubio, Rosso Dubai', N'6.0L Mercedes-AMG Twin-Turbo V12 (802 HP / 1050 Nm)', N'Tác phẩm nghệ thuật điêu khắc giới hạn 40 chiếc toàn cầu làm từ hợp chất Carbo-Triax HP62.', 1),
-(N'Rimac Nevera Pure Electric', 8, 2, 2200000.00, 10.0, 2024, 1914, 1.81, 412, 2, 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=800', N'Signature Blue, Lunar White, Stellar Black', N'4 Motor Điện Độc Lập All-Wheel Torque Vectoring (1914 HP)', N'Kỷ lục gia tăng tốc thế giới 0-100 km/h chỉ 1.81 giây, đỉnh cao công nghệ tương lai.', 1),
-(N'Porsche 918 Spyder Weissach', 7, 5, 1800000.00, 10.0, 2023, 887, 2.6, 345, 2, 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800', N'Liquid Metal Silver, Acid Green, Guard Red', N'4.6L V8 Tự Nhiên + 2 Motor Điện (887 HP)', N'Huyền thoại bộ ba Holy Trinity với gói nâng cấp giảm trọng lượng sợi carbon Weissach Package.', 1);
+(N'Bugatti Chiron Pur Sport', 1, 1, 3800000.00, 10.0, 2024, 1500, 2.3, 350, 2, 'assets/images/cars/bugatti-chiron.jpg', N'Jaune Molsheim & Carbon, French Racing Blue, Nocturne Black', N'8.0L Quad-Turbo W16 (1500 HP / 1600 Nm)', N'Phiên bản tập trung vào độ linh hoạt và vào cua siêu chuẩn xác với cánh gió sợi carbon cố định 1.9m.', 1),
+(N'Ferrari SF90 Stradale Assetto Fiorano', 2, 1, 650000.00, 10.0, 2024, 1000, 2.5, 340, 3, 'assets/images/cars/ferrari-sf90.jpg', N'Rosso Corsa, Giallo Modena, Bianco Avus, Blu Pozzi', N'4.0L Twin-Turbo V8 + 3 Motor Điện Plug-in Hybrid', N'Siêu phẩm hybrid sạc ngoài mạnh nhất của Ferrari với hệ dẫn động 4 bánh toàn thời gian.', 1),
+(N'Lamborghini Revuelto V12 HPEV', 3, 1, 608000.00, 10.0, 2025, 1015, 2.5, 350, 4, 'assets/images/cars/lamborghini-revuelto.jpg', N'Arancio Apodis, Verde Shock, Grigio Acheso, Blu Astraeus', N'6.5L Hút khí tự nhiên V12 + 3 Motor Điện (1015 HP)', N'Kỷ nguyên mới của siêu bò xứ Sant''Agata Bolognese với khung gầm Monofuselage carbon nguyên khối.', 1),
+(N'Koenigsegg Jesko Absolut', 4, 2, 3400000.00, 15.0, 2024, 1600, 2.5, 500, 1, 'assets/images/cars/koenigsegg-jesko.jpg', N'Tang Orange, Crystal White, Imperial Blue, Raw Carbon', N'5.0L Twin-Turbo V8 Flat-plane (1600 HP E85)', N'Siêu phẩm được mệnh danh là mẫu xe nhanh nhất trong lịch sử loài người với hệ số cản khí động học chỉ 0.278 Cd.', 1),
+(N'McLaren Senna LM Edition', 5, 3, 1500000.00, 10.0, 2023, 800, 2.8, 335, 1, 'assets/images/cars/mclaren-senna.jpg', N'McLaren Orange, Pure White, Volcano Red, Onyx Black', N'4.0L Twin-Turbo V8 (M840TR)', N'Được đặt theo tên huyền thoại Ayrton Senna, mang triết lý khí động học thuần chất đường đua F1.', 1),
+(N'Pagani Huayra Roadster BC', 6, 5, 3500000.00, 20.0, 2024, 802, 2.8, 380, 1, 'assets/images/cars/pagani-huayra.jpg', N'Carbon Grigio, Blu Danubio, Rosso Dubai', N'6.0L Mercedes-AMG Twin-Turbo V12 (802 HP / 1050 Nm)', N'Tác phẩm nghệ thuật điêu khắc giới hạn 40 chiếc toàn cầu làm từ hợp chất Carbo-Triax HP62.', 1),
+(N'Rimac Nevera Pure Electric', 8, 2, 2200000.00, 10.0, 2024, 1914, 1.81, 412, 2, 'assets/images/cars/rimac-nevera.jpg', N'Signature Blue, Lunar White, Stellar Black', N'4 Motor Điện Độc Lập All-Wheel Torque Vectoring (1914 HP)', N'Kỷ lục gia tăng tốc thế giới 0-100 km/h chỉ 1.81 giây, đỉnh cao công nghệ tương lai.', 1),
+(N'Porsche 918 Spyder Weissach', 7, 5, 1800000.00, 10.0, 2023, 887, 2.6, 345, 2, 'assets/images/cars/porsche-918.jpg', N'Liquid Metal Silver, Acid Green, Guard Red', N'4.6L V8 Tự Nhiên + 2 Motor Điện (887 HP)', N'Huyền thoại bộ ba Holy Trinity với gói nâng cấp giảm trọng lượng sợi carbon Weissach Package.', 1);
 GO
 
--- Car Images
+-- Car Images (ẢNH LOCAL)
 INSERT INTO CarImages (car_id, image_url, caption) VALUES
-(1, 'https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=800', N'Ngoại thất góc nghiêng cánh gió W16'),
-(1, 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800', N'Khoang lái bọc da Alcantara chế tác thủ công'),
-(2, 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800', N'Ngoại thất đỏ Rosso Corsa huyền thoại'),
-(3, 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=800', N'Đầu xe chữ Y vị lai Lamborghini Revuelto'),
-(4, 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800', N'Đuôi xe Koenigsegg Jesko Absolut khí động học');
+(1, 'assets/images/cars/bugatti-chiron.jpg', N'Ngoại thất góc nghiêng cánh gió W16'),
+(1, 'assets/images/cars/bugatti-chiron-interior.jpg', N'Khoang lái bọc da Alcantara chế tác thủ công'),
+(2, 'assets/images/cars/ferrari-sf90.jpg', N'Ngoại thất đỏ Rosso Corsa huyền thoại'),
+(3, 'assets/images/cars/lamborghini-revuelto.jpg', N'Đầu xe chữ Y vị lai Lamborghini Revuelto'),
+(4, 'assets/images/cars/koenigsegg-jesko.jpg', N'Đuôi xe Koenigsegg Jesko Absolut khí động học');
 GO
 
 -- Coupons

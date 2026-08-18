@@ -18,7 +18,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h3 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">TỔNG QUAN DOANH THU & KINH DOANH</h3>
-                    <p class="text-muted small mb-0">Hệ thống phân phối và quản lý khách hàng siêu xe VIP</p>
+                    <p class="small mb-0" style="color: #b0b3c0;">Hệ thống phân phối và quản lý khách hàng siêu xe VIP</p>
                 </div>
                 <a href="${pageContext.request.contextPath}/admin/export-orders" class="btn btn-outline-gold btn-sm">
                     <i class="bi bi-download me-1"></i> Xuất Báo Cáo Excel (CSV)
@@ -31,7 +31,7 @@
                     <div class="card card-luxury p-3 border-gold">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <small class="text-muted text-uppercase">Tiền Cọc Đã Thu</small>
+                                <small class="text-uppercase" style="color: #b0b3c0;">Tiền Cọc Đã Thu</small>
                                 <h4 class="fw-bold text-gold mt-1 mb-0">
                                     <fmt:formatNumber value="${totalRevenue}" type="currency" currencySymbol="$"/>
                                 </h4>
@@ -45,7 +45,7 @@
                     <div class="card card-luxury p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <small class="text-muted text-uppercase">Siêu Xe Sẵn Sàng</small>
+                                <small class="text-uppercase" style="color: #b0b3c0;">Siêu Xe Sẵn Sàng</small>
                                 <h4 class="fw-bold text-light mt-1 mb-0">${totalCars} chiếc</h4>
                             </div>
                             <i class="bi bi-car-front-fill text-info fs-2"></i>
@@ -57,7 +57,7 @@
                     <div class="card card-luxury p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <small class="text-muted text-uppercase">Tổng Hợp Đồng Cọc</small>
+                                <small class="text-uppercase" style="color: #b0b3c0;">Tổng Hợp Đồng Cọc</small>
                                 <h4 class="fw-bold text-light mt-1 mb-0">${totalOrders} đơn</h4>
                             </div>
                             <i class="bi bi-receipt-cutoff text-warning fs-2"></i>
@@ -69,7 +69,7 @@
                     <div class="card card-luxury p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <small class="text-muted text-uppercase">Khách Hàng VIP</small>
+                                <small class="text-uppercase" style="color: #b0b3c0;">Khách Hàng VIP</small>
                                 <h4 class="fw-bold text-light mt-1 mb-0">${totalUsers} người</h4>
                             </div>
                             <i class="bi bi-person-badge-fill text-success fs-2"></i>
@@ -96,7 +96,7 @@
                                         <span class="badge bg-gold text-dark me-2">${log.action}</span>
                                         <span class="text-light">${log.details}</span>
                                     </div>
-                                    <span class="text-muted" style="font-size: 0.75rem;"><fmt:formatDate value="${log.createdAt}" pattern="HH:mm dd/MM"/></span>
+                                    <span style="color: #b0b3c0; font-size: 0.75rem;"><fmt:formatDate value="${log.createdAt}" pattern="HH:mm dd/MM"/></span>
                                 </div>
                             </c:forEach>
                         </div>
@@ -110,7 +110,7 @@
                 <div class="table-responsive">
                     <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                         <thead>
-                            <tr class="text-muted small border-bottom border-secondary">
+                            <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                 <th>Mã Hợp Đồng</th>
                                 <th>Khách Hàng</th>
                                 <th>Tổng Giá Trị</th>
@@ -124,8 +124,8 @@
                             <c:forEach items="${recentOrders}" var="o">
                                 <tr class="border-bottom border-secondary">
                                     <td class="fw-bold text-gold">${o.orderCode}</td>
-                                    <td>${o.userName}</td>
-                                    <td><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
+                                    <td class="text-light">${o.userName}</td>
+                                    <td class="text-light"><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
                                     <td class="text-gold fw-bold"><fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$"/></td>
                                     <td><span class="badge bg-dark border border-secondary">${o.paymentMethod}</span></td>
                                     <td>
@@ -133,7 +133,7 @@
                                             ${o.status}
                                         </span>
                                     </td>
-                                    <td class="small text-muted"><fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy HH:mm"/></td>
+                                    <td class="small" style="color: #b0b3c0;"><fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy HH:mm"/></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -10,15 +10,15 @@
 
 <div class="container py-5">
     <div class="mb-4">
-        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">HỢP ĐỒNG ĐẶT CỌC SIÊU XE</h2>
-        <p class="text-muted small">Quản lý và tra cứu tiến độ bàn giao các siêu phẩm quý khách đang sở hữu</p>
+        <h2 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">HỢP ĐỒNG ĐẶT CỌC SIÊU XE</h2>
+        <p class="small" style="color: #b0b3c0;">Quản lý và tra cứu tiến độ bàn giao các siêu phẩm quý khách đang sở hữu</p>
     </div>
 
     <div class="card card-luxury p-3">
         <div class="table-responsive">
             <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                 <thead>
-                    <tr class="text-muted small border-bottom border-secondary">
+                    <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                         <th>Mã Hợp Đồng</th>
                         <th>Ngày Ký Kết</th>
                         <th>Tổng Giá Trị</th>
@@ -31,7 +31,7 @@
                 <tbody>
                     <c:if test="${empty orders}">
                         <tr>
-                            <td colspan="7" class="text-center text-muted py-5">
+                            <td colspan="7" class="text-center py-5" style="color: #b0b3c0;">
                                 <i class="bi bi-inbox fs-2 d-block mb-2 text-gold"></i>
                                 Quý khách chưa có hợp đồng đặt cọc nào.
                             </td>
@@ -40,15 +40,15 @@
                     <c:forEach items="${orders}" var="o">
                         <tr class="border-bottom border-secondary">
                             <td class="fw-bold text-gold">${o.orderCode}</td>
-                            <td><fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy HH:mm"/></td>
-                            <td class="fw-bold"><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
+                            <td class="text-light"><fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy HH:mm"/></td>
+                            <td class="fw-bold text-light"><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
                             <td class="text-gold fw-bold"><fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$"/></td>
                             <td>
                                 <c:choose>
                                     <c:when test="${not empty o.couponCode}">
                                         <span class="badge bg-surface border border-gold text-gold">${o.couponCode}</span>
                                     </c:when>
-                                    <c:otherwise><span class="text-muted small">Không</span></c:otherwise>
+                                    <c:otherwise><span class="small" style="color: #b0b3c0;">Không</span></c:otherwise>
                                 </c:choose>
                             </td>
                             <td>

@@ -10,8 +10,8 @@
 
 <div class="container py-5">
     <div class="mb-4">
-        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">GIỎ HÀNG SIÊU XE ĐẶT CỌC</h2>
-        <p class="text-muted small">Danh sách các siêu phẩm quý khách đã chọn để tiến hành giữ chỗ và ký kết hợp đồng</p>
+        <h2 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">GIỎ HÀNG SIÊU XE ĐẶT CỌC</h2>
+        <p class="small" style="color: #b0b3c0;">Danh sách các siêu phẩm quý khách đã chọn để tiến hành giữ chỗ và ký kết hợp đồng</p>
     </div>
 
     <c:if test="${not empty sessionScope.errorMessage}">
@@ -21,9 +21,9 @@
 
     <c:choose>
         <c:when test="${empty sessionScope.cart or empty sessionScope.cart.items}">
-            <div class="card card-luxury p-5 text-center text-muted my-4">
+            <div class="card card-luxury p-5 text-center my-4" style="color: #b0b3c0;">
                 <i class="bi bi-bag-x text-gold fs-1 mb-3"></i>
-                <h5>Giỏ hàng siêu xe hiện đang trống</h5>
+                <h5 class="text-light">Giỏ hàng siêu xe hiện đang trống</h5>
                 <p class="small">Đại ca hãy khám phá bộ sưu tập và chọn những mẫu xe ưng ý nhất.</p>
                 <div class="mt-3">
                     <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold px-4">
@@ -41,7 +41,7 @@
                         <div class="table-responsive">
                             <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                                 <thead>
-                                    <tr class="text-muted small border-bottom border-secondary">
+                                    <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                         <th>Siêu Xe</th>
                                         <th>Tùy Chọn</th>
                                         <th>Giá Bán</th>
@@ -55,7 +55,7 @@
                                         <tr class="border-bottom border-secondary">
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="${item.car.thumbnailUrl}" alt="${item.car.modelName}" 
+                                                    <img src="${pageContext.request.contextPath}/${item.car.thumbnailUrl}" alt="${item.car.modelName}" 
                                                          style="width: 80px; height: 50px; object-fit: cover;" class="rounded me-3">
                                                     <div>
                                                         <a href="${pageContext.request.contextPath}/car-detail?id=${item.car.carId}" 
@@ -69,10 +69,10 @@
                                             <td>
                                                 <small class="text-light d-block"><i class="bi bi-palette text-gold me-1"></i> ${item.selectedColor}</small>
                                                 <c:if test="${not empty item.customOptions}">
-                                                    <small class="text-muted d-block" style="font-size: 0.75rem;">Bespoke: ${item.customOptions}</small>
+                                                    <small class="d-block" style="font-size: 0.75rem; color: #b0b3c0;">Bespoke: ${item.customOptions}</small>
                                                 </c:if>
                                             </td>
-                                            <td class="text-nowrap">
+                                            <td class="text-nowrap text-light">
                                                 <fmt:formatNumber value="${item.car.price}" type="currency" currencySymbol="$"/>
                                             </td>
                                             <td>
@@ -123,13 +123,13 @@
                             TỔNG KẾT ĐƠN ĐẶT CỌC
                         </h5>
 
-                        <div class="d-flex justify-content-between mb-2 text-muted small">
+                        <div class="d-flex justify-content-between mb-2 small" style="color: #b0b3c0;">
                             <span>Tổng giá trị hợp đồng:</span>
                             <span class="text-light fw-bold">
                                 <fmt:formatNumber value="${sessionScope.cart.totalAmount}" type="currency" currencySymbol="$"/>
                             </span>
                         </div>
-                        <div class="d-flex justify-content-between mb-3 text-muted small">
+                        <div class="d-flex justify-content-between mb-3 small" style="color: #b0b3c0;">
                             <span>Tổng số lượng xe:</span>
                             <span class="text-light">${sessionScope.cart.totalQuantity} chiếc</span>
                         </div>
@@ -137,7 +137,7 @@
                         <hr class="border-secondary">
 
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <span class="fw-bold">Tiền Đặt Cọc Cần Thanh Toán:</span>
+                            <span class="fw-bold text-light">Tiền Đặt Cọc Cần Thanh Toán:</span>
                             <span class="fs-4 fw-bold text-gold">
                                 <fmt:formatNumber value="${sessionScope.cart.totalDeposit}" type="currency" currencySymbol="$"/>
                             </span>
@@ -147,7 +147,7 @@
                             <i class="bi bi-shield-check me-1"></i> Tiến Hành Đặt Cọc
                         </a>
 
-                        <div class="mt-3 text-muted small text-center">
+                        <div class="mt-3 small text-center" style="color: #b0b3c0;">
                             <i class="bi bi-lock-fill text-gold me-1"></i> Giao dịch bảo mật cấp cao bằng JDBC Transaction
                         </div>
                     </div>

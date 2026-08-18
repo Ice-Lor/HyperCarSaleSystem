@@ -13,15 +13,15 @@
         <!-- Gallery Images -->
         <div class="col-lg-7">
             <div class="card card-luxury p-2 mb-3">
-                <img id="mainCarImage" src="${car.thumbnailUrl}" class="w-100 rounded object-fit-cover" style="max-height: 480px;" alt="${car.modelName}">
+                <img id="mainCarImage" src="${pageContext.request.contextPath}/${car.thumbnailUrl}" class="w-100 rounded object-fit-cover" style="max-height: 480px;" alt="${car.modelName}">
             </div>
             
             <c:if test="${not empty gallery}">
                 <div class="d-flex gap-2 overflow-auto pb-2">
-                    <img src="${car.thumbnailUrl}" class="rounded border border-gold cursor-pointer" style="width: 100px; height: 65px; object-fit: cover;" 
+                    <img src="${pageContext.request.contextPath}/${car.thumbnailUrl}" class="rounded border border-gold cursor-pointer" style="width: 100px; height: 65px; object-fit: cover;" 
                          onclick="document.getElementById('mainCarImage').src=this.src;">
                     <c:forEach items="${gallery}" var="img">
-                        <img src="${img.imageUrl}" class="rounded border border-secondary cursor-pointer opacity-75 hover-opacity-100" 
+                        <img src="${pageContext.request.contextPath}/${img.imageUrl}" class="rounded border border-secondary cursor-pointer opacity-75 hover-opacity-100" 
                              style="width: 100px; height: 65px; object-fit: cover;" 
                              onclick="document.getElementById('mainCarImage').src=this.src;">
                     </c:forEach>
@@ -35,34 +35,34 @@
                 </h5>
                 <div class="row g-3 small">
                     <div class="col-sm-6 d-flex justify-content-between border-bottom border-secondary pb-2">
-                        <span class="text-muted">Động cơ:</span>
+                        <span style="color: #b0b3c0;">Động cơ:</span>
                         <span class="fw-bold text-light">${car.engineSpec}</span>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-between border-bottom border-secondary pb-2">
-                        <span class="text-muted">Công suất cực đại:</span>
+                        <span style="color: #b0b3c0;">Công suất cực đại:</span>
                         <span class="fw-bold text-gold">${car.horsepower} Mã lực (HP)</span>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-between border-bottom border-secondary pb-2">
-                        <span class="text-muted">Tăng tốc (0 - 100 km/h):</span>
+                        <span style="color: #b0b3c0;">Tăng tốc (0 - 100 km/h):</span>
                         <span class="fw-bold text-gold">${car.acceleration0100} Giây</span>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-between border-bottom border-secondary pb-2">
-                        <span class="text-muted">Tốc độ tối đa:</span>
+                        <span style="color: #b0b3c0;">Tốc độ tối đa:</span>
                         <span class="fw-bold text-gold">${car.topSpeed} km/h</span>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-between border-bottom border-secondary pb-2">
-                        <span class="text-muted">Năm sản xuất:</span>
+                        <span style="color: #b0b3c0;">Năm sản xuất:</span>
                         <span class="fw-bold text-light">${car.year}</span>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-between border-bottom border-secondary pb-2">
-                        <span class="text-muted">Tồn kho Showroom:</span>
+                        <span style="color: #b0b3c0;">Tồn kho Showroom:</span>
                         <span class="badge ${car.stockQuantity > 0 ? 'bg-success' : 'bg-danger'}">${car.stockQuantity > 0 ? car.stockQuantity : 'Hết xe'} xe</span>
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <h6 class="fw-bold text-light mb-2">Mô tả chi tiết:</h6>
-                    <p class="text-muted small">${car.description}</p>
+                    <p class="small" style="color: #b0b3c0;">${car.description}</p>
                 </div>
             </div>
         </div>
@@ -71,15 +71,15 @@
         <div class="col-lg-5">
             <div class="card card-luxury p-4 sticky-top" style="top: 90px;">
                 <span class="badge bg-gold text-dark align-self-start mb-2">${car.brandName} • ${car.brandCountry}</span>
-                <h2 class="fw-bold mb-2" style="font-family: 'Cinzel', serif;">${car.modelName}</h2>
-                <div class="text-muted small mb-3">Phân khúc: ${car.categoryName}</div>
+                <h2 class="fw-bold text-light mb-2" style="font-family: 'Cinzel', serif;">${car.modelName}</h2>
+                <div class="small mb-3" style="color: #b0b3c0;">Phân khúc: ${car.categoryName}</div>
 
                 <div class="p-3 rounded bg-surface mb-4" style="background-color: #12131b;">
-                    <div class="text-muted small">Giá niêm yết chính hãng:</div>
+                    <div class="small" style="color: #b0b3c0;">Giá niêm yết chính hãng:</div>
                     <div class="display-6 fw-bold text-gold">
                         <fmt:formatNumber value="${car.price}" type="currency" currencySymbol="$"/>
                     </div>
-                    <div class="small text-muted mt-1">
+                    <div class="small mt-1" style="color: #b0b3c0;">
                         Mức đặt cọc giữ xe tối thiểu (${car.depositRate}%): 
                         <span class="text-light fw-bold">
                             <fmt:formatNumber value="${car.price * car.depositRate / 100}" type="currency" currencySymbol="$"/>
@@ -93,7 +93,7 @@
 
                     <!-- Custom Color -->
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Tùy chọn màu sơn Bespoke:</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Tùy chọn màu sơn Bespoke:</label>
                         <select name="color" class="form-select bg-dark border-secondary text-light">
                             <c:forEach items="${car.colorOptions.split(',')}" var="c">
                                 <option value="${c.trim()}">${c.trim()}</option>
@@ -103,7 +103,7 @@
 
                     <!-- Custom Options -->
                     <div class="mb-4">
-                        <label class="form-label text-muted small">Gói phụ kiện độc bản (Tùy chọn):</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Gói phụ kiện độc bản (Tùy chọn):</label>
                         <textarea name="customOptions" class="form-control bg-dark border-secondary text-light" rows="2" 
                                   placeholder="Ví dụ: Nội thất bọc da Hermes, Vành mạ vàng 24K, Khắc tên cá nhân..."></textarea>
                     </div>
@@ -118,7 +118,7 @@
                     </div>
                 </form>
 
-                <div class="mt-4 pt-3 border-top border-secondary text-muted small">
+                <div class="mt-4 pt-3 border-top border-secondary small" style="color: #b0b3c0;">
                     <div><i class="bi bi-shield-check text-gold me-2"></i> Cam kết bảo hành chính hãng toàn cầu</div>
                     <div><i class="bi bi-airplane-engines text-gold me-2"></i> Vận chuyển chuyên cơ giao xe tận nhà</div>
                 </div>
@@ -140,7 +140,7 @@
                         <input type="hidden" name="carId" value="${car.carId}">
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small">Mức độ hài lòng (1 - 5 Sao):</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Mức độ hài lòng (1 - 5 Sao):</label>
                             <select name="rating" class="form-select bg-dark border-secondary text-gold w-auto">
                                 <option value="5">⭐⭐⭐⭐⭐ (5/5 - Hoàn hảo)</option>
                                 <option value="4">⭐⭐⭐⭐ (4/5 - Rất tốt)</option>
@@ -163,7 +163,7 @@
 
                 <div class="d-flex flex-column gap-3">
                     <c:if test="${empty reviews}">
-                        <div class="text-muted small text-center py-3">Chưa có đánh giá nào cho mẫu xe này.</div>
+                        <div class="small text-center py-3" style="color: #b0b3c0;">Chưa có đánh giá nào cho mẫu xe này.</div>
                     </c:if>
                     <c:forEach items="${reviews}" var="r">
                         <div class="p-3 rounded bg-surface" style="background-color: #1a1c2b;">
@@ -175,8 +175,8 @@
                                     <c:forEach begin="1" end="${r.rating}">★</c:forEach>
                                 </span>
                             </div>
-                            <p class="text-muted small mb-1">${r.comment}</p>
-                            <small class="text-muted" style="font-size: 0.75rem;"><fmt:formatDate value="${r.createdAt}" pattern="dd/MM/yyyy HH:mm"/></small>
+                            <p class="small mb-1" style="color: #b0b3c0;">${r.comment}</p>
+                            <small style="font-size: 0.75rem; color: #b0b3c0;"><fmt:formatDate value="${r.createdAt}" pattern="dd/MM/yyyy HH:mm"/></small>
                         </div>
                     </c:forEach>
                 </div>

@@ -10,8 +10,8 @@
 
 <div class="container py-5">
     <div class="mb-4">
-        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">TRẢI NGHIỆM LÁI THỬ ĐƯỜNG ĐUA F1 VIP</h2>
-        <p class="text-muted small">Cơ hội độc quyền cầm lái những cỗ máy tốc độ khủng nhất hành tinh dưới sự hướng dẫn của chuyên gia</p>
+        <h2 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">TRẢI NGHIỆM LÁI THỬ ĐƯỜNG ĐUA F1 VIP</h2>
+        <p class="small" style="color: #b0b3c0;">Cơ hội độc quyền cầm lái những cỗ máy tốc độ khủng nhất hành tinh dưới sự hướng dẫn của chuyên gia</p>
     </div>
 
     <c:if test="${not empty sessionScope.successMessage}">
@@ -35,7 +35,7 @@
                     <input type="hidden" name="csrf_token" value="${csrfToken}">
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Chọn siêu xe muốn trải nghiệm *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Chọn siêu xe muốn trải nghiệm *</label>
                         <select name="carId" class="form-select bg-dark border-secondary text-light" required>
                             <c:forEach items="${cars}" var="c">
                                 <option value="${c.carId}" ${selectedCar != null && selectedCar.carId == c.carId ? 'selected' : ''}>
@@ -47,11 +47,11 @@
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Ngày lái thử *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Ngày lái thử *</label>
                             <input type="date" name="bookingDate" class="form-control bg-dark border-secondary text-light" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-muted small">Khung giờ *</label>
+                            <label class="form-label small" style="color: #b0b3c0;">Khung giờ *</label>
                             <select name="timeSlot" class="form-select bg-dark border-secondary text-light" required>
                                 <option value="09:00 - 11:00">09:00 - 11:00 (Sáng)</option>
                                 <option value="14:00 - 16:00">14:00 - 16:00 (Chiều)</option>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Địa điểm đường đua *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Địa điểm đường đua *</label>
                         <select name="locationTrack" class="form-select bg-dark border-secondary text-light" required>
                             <option value="Đường Đua F1 Mỹ Đình, Hà Nội">Đường Đua F1 Quốc Tế Mỹ Đình (Hà Nội)</option>
                             <option value="Trường Đua Đại Nam, Bình Dương">Trường Đua Đại Nam Circuit (Bình Dương / TP.HCM)</option>
@@ -70,13 +70,13 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Số bằng lái xe quốc tế / hợp lệ *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Số bằng lái xe quốc tế / hợp lệ *</label>
                         <input type="text" name="driverLicenseNumber" class="form-control bg-dark border-secondary text-light" 
                                placeholder="B2 / C / Bằng lái quốc tế..." required>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label text-muted small">Ghi chú thêm</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Ghi chú thêm</label>
                         <textarea name="note" class="form-control bg-dark border-secondary text-light" rows="2" 
                                   placeholder="Yêu cầu riêng về chuyên cơ đón, trang phục đua xe..."></textarea>
                     </div>
@@ -97,7 +97,7 @@
 
                 <div class="d-flex flex-column gap-3">
                     <c:if test="${empty myBookings}">
-                        <div class="text-center text-muted py-5">
+                        <div class="text-center py-5" style="color: #b0b3c0;">
                             <i class="bi bi-calendar2-x fs-2 d-block mb-2 text-gold"></i>
                             Đại ca chưa có lịch hẹn lái thử nào.
                         </div>
@@ -113,11 +113,11 @@
                             <div class="small text-light mb-1">
                                 <i class="bi bi-calendar3 me-1 text-gold"></i> <fmt:formatDate value="${b.bookingDate}" pattern="dd/MM/yyyy"/> (${b.timeSlot})
                             </div>
-                            <div class="small text-muted mb-1">
+                            <div class="small mb-1" style="color: #b0b3c0;">
                                 <i class="bi bi-geo-alt me-1 text-gold"></i> ${b.locationTrack}
                             </div>
                             <c:if test="${not empty b.note}">
-                                <div class="small text-muted" style="font-size: 0.75rem;">Ghi chú: ${b.note}</div>
+                                <div class="small" style="font-size: 0.75rem; color: #b0b3c0;">Ghi chú: ${b.note}</div>
                             </c:if>
                         </div>
                     </c:forEach>

@@ -14,7 +14,7 @@
 body {
     background-color: var(--bg-dark);
     color: var(--text-light);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -27,6 +27,10 @@ body {
 .bg-gold {
     background-color: var(--gold-primary) !important;
     color: #000 !important;
+}
+
+.bg-surface {
+    background-color: var(--bg-surface) !important;
 }
 
 .btn-gold {
@@ -57,6 +61,7 @@ body {
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
+/* ===== Card Luxury - FIX CONTRAST ===== */
 .card-luxury {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -71,6 +76,39 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
 }
 
+/* Đảm bảo mọi text trong card-body đều sáng trên nền dark */
+.card-luxury .card-body {
+    color: var(--text-light);
+}
+
+.card-luxury .card-body h5,
+.card-luxury .card-body h4,
+.card-luxury .card-body h6 {
+    color: var(--text-light) !important;
+}
+
+.card-luxury .card-body .text-muted {
+    color: #b0b3c0 !important;
+}
+
+/* Specs badges trong card phải đọc rõ */
+.card-luxury .specs-row {
+    background-color: var(--bg-surface);
+    border-radius: 8px;
+    padding: 8px 0;
+}
+
+.card-luxury .specs-row .spec-value {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.card-luxury .specs-row .spec-label {
+    color: #b0b3c0;
+    font-size: 0.75rem;
+}
+
+/* ===== Navbar ===== */
 .navbar-luxury {
     background-color: rgba(15, 16, 22, 0.95);
     backdrop-filter: blur(10px);
@@ -87,9 +125,10 @@ body {
     color: var(--gold-primary) !important;
 }
 
+/* ===== Hero Banner - LOCAL IMAGE ===== */
 .hero-banner {
     position: relative;
-    background: linear-gradient(rgba(15, 16, 22, 0.75), rgba(15, 16, 22, 0.95)), url('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    background: linear-gradient(rgba(15, 16, 22, 0.75), rgba(15, 16, 22, 0.95)), url('../images/hero/hero-banner.jpg') center/cover no-repeat;
     padding: 120px 0 80px 0;
     border-bottom: 1px solid var(--border-color);
 }
@@ -102,6 +141,7 @@ body {
     border-radius: 20px;
 }
 
+/* ===== Search Dropdown ===== */
 .search-results-dropdown {
     position: absolute;
     top: 100%;
@@ -138,4 +178,66 @@ body {
     object-fit: cover;
     border-radius: 4px;
     margin-right: 12px;
+}
+
+/* ===== Sidebar Admin ===== */
+.sidebar-luxury {
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    min-height: calc(100vh - 56px);
+}
+
+.sidebar-luxury .nav-link {
+    color: #b0b3c0 !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 2px 8px;
+    transition: all 0.2s;
+}
+
+.sidebar-luxury .nav-link:hover,
+.sidebar-luxury .nav-link.active {
+    color: var(--gold-primary) !important;
+    background-color: var(--bg-surface);
+}
+
+/* ===== Form Controls Dark Theme ===== */
+.form-control-dark {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+}
+
+.form-control-dark:focus {
+    background-color: var(--bg-surface);
+    border-color: var(--gold-primary);
+    color: var(--text-light);
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+/* ===== Table Dark Theme ===== */
+.table-dark-luxury {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text-light);
+}
+
+.table-dark-luxury th {
+    color: #b0b3c0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== Misc Utility ===== */
+.hover-gold:hover {
+    color: var(--gold-primary) !important;
+}
+
+.tracking-wider {
+    letter-spacing: 1.5px;
+}
+
+.bg-card {
+    background-color: var(--bg-card) !important;
 }

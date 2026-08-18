@@ -30,7 +30,7 @@
                 <div class="table-responsive">
                     <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                         <thead>
-                            <tr class="text-muted small border-bottom border-secondary">
+                            <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                 <th>ID</th>
                                 <th>Tên Đăng Nhập</th>
                                 <th>Họ Và Tên</th>
@@ -44,11 +44,11 @@
                         <tbody>
                             <c:forEach items="${users}" var="u">
                                 <tr class="border-bottom border-secondary">
-                                    <td>#${u.userId}</td>
+                                    <td class="text-light">#${u.userId}</td>
                                     <td class="fw-bold text-gold">${u.username}</td>
-                                    <td>${u.fullName}</td>
-                                    <td>${u.email}</td>
-                                    <td>${u.phone}</td>
+                                    <td class="text-light">${u.fullName}</td>
+                                    <td class="text-light">${u.email}</td>
+                                    <td class="text-light">${u.phone}</td>
                                     <td>
                                         <span class="badge ${u.roleName == 'ADMIN' ? 'bg-gold text-dark fw-bold' : 'bg-surface border border-secondary text-light'}">
                                             ${u.roleName}

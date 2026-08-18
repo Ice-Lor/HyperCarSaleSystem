@@ -25,8 +25,16 @@ public class DBContext {
                     + ";databaseName=" + DB_NAME
                     + ";encrypt=true;trustServerCertificate=true;";
             conn = DriverManager.getConnection(url, USER_ID, PASSWORD);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, "Lỗi kết nối CSDL SQL Server!", ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE,
+                    "JDBC Driver not found! Check mssql-jdbc JAR in WEB-INF/lib.", ex);
+            throw new RuntimeException("JDBC Driver not found!", ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE,
+                    "Cannot connect to SQL Server [" + SERVER_NAME + ":" + PORT_NUMBER + "/" + DB_NAME + "]. "
+                    + "Check: 1) SQL Server is running, 2) Database '" + DB_NAME + "' exists, "
+                    + "3) Username/password is correct.", ex);
+            throw new RuntimeException("Database connection failed: " + ex.getMessage(), ex);
         }
         return conn;
     }

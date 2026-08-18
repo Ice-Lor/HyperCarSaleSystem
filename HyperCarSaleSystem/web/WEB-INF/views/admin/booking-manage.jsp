@@ -26,7 +26,7 @@
                 <div class="table-responsive">
                     <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                         <thead>
-                            <tr class="text-muted small border-bottom border-secondary">
+                            <tr class="small border-bottom border-secondary" style="color: #b0b3c0;">
                                 <th>ID</th>
                                 <th>Khách Hàng VIP</th>
                                 <th>Siêu Xe</th>
@@ -40,15 +40,15 @@
                         <tbody>
                             <c:forEach items="${bookings}" var="b">
                                 <tr class="border-bottom border-secondary">
-                                    <td>#${b.bookingId}</td>
+                                    <td class="text-light">#${b.bookingId}</td>
                                     <td>
                                         <div class="fw-bold text-light">${b.userName}</div>
-                                        <small class="text-muted">${b.userPhone}</small>
+                                        <small style="color: #b0b3c0;">${b.userPhone}</small>
                                     </td>
                                     <td class="text-gold fw-bold">${b.carModelName}</td>
                                     <td>
-                                        <div><fmt:formatDate value="${b.bookingDate}" pattern="dd/MM/yyyy"/></div>
-                                        <small class="text-muted">${b.timeSlot}</small>
+                                        <div class="text-light"><fmt:formatDate value="${b.bookingDate}" pattern="dd/MM/yyyy"/></div>
+                                        <small style="color: #b0b3c0;">${b.timeSlot}</small>
                                     </td>
                                     <td><small class="text-light">${b.locationTrack}</small></td>
                                     <td><span class="badge bg-dark border border-secondary">${b.driverLicenseNumber}</span></td>

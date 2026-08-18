@@ -10,8 +10,8 @@
 
 <div class="container py-5">
     <div class="mb-4">
-        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">HỒ SƠ THÀNH VIÊN VIP</h2>
-        <p class="text-muted small">Quản lý thông tin bảo mật và hồ sơ chủ sở hữu siêu xe</p>
+        <h2 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">HỒ SƠ THÀNH VIÊN VIP</h2>
+        <p class="small" style="color: #b0b3c0;">Quản lý thông tin bảo mật và hồ sơ chủ sở hữu siêu xe</p>
     </div>
 
     <c:if test="${not empty successMessage}">
@@ -34,27 +34,27 @@
                     <input type="hidden" name="action" value="updateInfo">
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Tên tài khoản</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Tên tài khoản</label>
                         <input type="text" class="form-control bg-dark border-secondary text-light" value="${user.username}" readonly>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Họ và tên *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Họ và tên *</label>
                         <input type="text" name="fullName" class="form-control bg-dark border-secondary text-light" value="${user.fullName}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Email liên hệ VIP *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Email liên hệ VIP *</label>
                         <input type="email" name="email" class="form-control bg-dark border-secondary text-light" value="${user.email}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Số điện thoại *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Số điện thoại *</label>
                         <input type="tel" name="phone" class="form-control bg-dark border-secondary text-light" value="${user.phone}" required>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label text-muted small">Địa chỉ bàn giao mặc định</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Địa chỉ bàn giao mặc định</label>
                         <input type="text" name="address" class="form-control bg-dark border-secondary text-light" value="${user.address}">
                     </div>
 
@@ -77,17 +77,17 @@
                     <input type="hidden" name="action" value="changePassword">
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Mật khẩu hiện tại *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Mật khẩu hiện tại *</label>
                         <input type="password" name="oldPassword" class="form-control bg-dark border-secondary text-light" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-muted small">Mật khẩu mới *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Mật khẩu mới *</label>
                         <input type="password" name="newPassword" class="form-control bg-dark border-secondary text-light" required>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label text-muted small">Xác nhận mật khẩu mới *</label>
+                        <label class="form-label small" style="color: #b0b3c0;">Xác nhận mật khẩu mới *</label>
                         <input type="password" name="confirmPassword" class="form-control bg-dark border-secondary text-light" required>
                     </div>
 
