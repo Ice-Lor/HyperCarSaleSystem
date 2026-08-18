@@ -1,62 +1,55 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<footer class="bg-black text-white pt-5 pb-4 border-top border-secondary border-opacity-25 mt-5">
+<footer class="mt-auto py-5 border-top border-secondary bg-dark" style="border-color: #2a2d42 !important;">
     <div class="container">
         <div class="row g-4">
-            <!-- Brand & Intro -->
-            <div class="col-lg-4 col-md-6">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="bi bi-speedometer2 gold-text fs-2 me-2"></i>
-                    <span class="font-brand fw-bold fs-4 gold-gradient-text">HYPER<span class="text-white">CAR</span></span>
-                </div>
-                <p class="text-secondary small">
-                    Hệ thống phân phối và ủy quyền chính thức các dòng siêu xe (Hypercar & Megacar) hàng đầu thế giới: Bugatti, Ferrari, Lamborghini, Koenigsegg, Pagani, Rimac...
+            <div class="col-lg-4">
+                <h5 class="fw-bold text-gold" style="font-family: 'Cinzel', serif;">HYPERCAR SALE SYSTEM</h5>
+                <p class="text-muted small">
+                    Hệ sinh thái phân phối và bảo trợ các siêu phẩm Megacar, Hypercar đỉnh cao toàn cầu. Trải nghiệm thượng lưu, bảo mật tuyệt đối và dịch vụ chuẩn quốc tế.
                 </p>
-                <div class="d-flex gap-3 text-secondary fs-5 mt-3">
-                    <a href="#" class="text-secondary hover-gold"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-secondary hover-gold"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-secondary hover-gold"><i class="bi bi-youtube"></i></a>
-                    <a href="#" class="text-secondary hover-gold"><i class="bi bi-tiktok"></i></a>
+                <div class="d-flex gap-3 text-gold fs-5">
+                    <i class="bi bi-facebook"></i>
+                    <i class="bi bi-instagram"></i>
+                    <i class="bi bi-youtube"></i>
+                    <i class="bi bi-tiktok"></i>
                 </div>
             </div>
-
-            <!-- Showrooms -->
-            <div class="col-lg-4 col-md-6">
-                <h6 class="text-uppercase gold-text fw-bold mb-3 font-brand">Showroom VIP Quốc Tế</h6>
-                <ul class="list-unstyled text-secondary small lh-lg">
-                    <li><i class="bi bi-geo-alt-fill gold-text me-2"></i> Showroom Sài Gòn: Khu Đô Thị Sala, TP. Thủ Đức</li>
-                    <li><i class="bi bi-geo-alt-fill gold-text me-2"></i> Showroom Hà Nội: Khách Sạn Metropole, Hoàn Kiếm</li>
-                    <li><i class="bi bi-telephone-fill gold-text me-2"></i> Hotline VIP 24/7: 1900 8888 (Phục vụ khách hàng thượng lưu)</li>
-                    <li><i class="bi bi-envelope-fill gold-text me-2"></i> Email: vip-concierge@hypercars.vn</li>
+            <div class="col-lg-2 col-6">
+                <h6 class="text-light fw-bold mb-3">THƯƠNG HIỆU</h6>
+                <ul class="list-unstyled text-muted small">
+                    <li class="mb-2"><a href="${pageContext.request.contextPath}/cars?brandId=1" class="text-muted text-decoration-none hover-gold">Bugatti</a></li>
+                    <li class="mb-2"><a href="${pageContext.request.contextPath}/cars?brandId=2" class="text-muted text-decoration-none hover-gold">Koenigsegg</a></li>
+                    <li class="mb-2"><a href="${pageContext.request.contextPath}/cars?brandId=3" class="text-muted text-decoration-none hover-gold">Pagani</a></li>
+                    <li class="mb-2"><a href="${pageContext.request.contextPath}/cars?brandId=4" class="text-muted text-decoration-none hover-gold">Ferrari</a></li>
                 </ul>
             </div>
-
-            <!-- Quick Links -->
-            <div class="col-lg-4 col-md-12">
-                <h6 class="text-uppercase gold-text fw-bold mb-3 font-brand">Đặc Quyền Khách Hàng VIP</h6>
-                <ul class="list-unstyled text-secondary small lh-lg">
-                    <li><i class="bi bi-shield-check gold-text me-2"></i> Bảo hành chính hãng toàn cầu không giới hạn số km</li>
-                    <li><i class="bi bi-truck gold-text me-2"></i> Giao xe tận biệt thự bằng xe chuyên dụng kín</li>
-                    <li><i class="bi bi-flag-fill gold-text me-2"></i> Trải nghiệm đường đua F1 quốc tế độc quyền</li>
-                    <li><i class="bi bi-gem gold-text me-2"></i> Tùy biến cá nhân hóa (Bespoke) màu sơn & carbon</li>
+            <div class="col-lg-2 col-6">
+                <h6 class="text-light fw-bold mb-3">DỊCH VỤ VIP</h6>
+                <ul class="list-unstyled text-muted small">
+                    <li class="mb-2"><a href="${pageContext.request.contextPath}/test-drive" class="text-muted text-decoration-none hover-gold">Trải Nghiệm Lái Thử</a></li>
+                    <li class="mb-2"><a href="${pageContext.request.contextPath}/cart" class="text-muted text-decoration-none hover-gold">Đặt Cọc Siêu Xe</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-gold">Tùy Biến Bespoke</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none hover-gold">Bảo Hiểm Megacar</a></li>
                 </ul>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="text-light fw-bold mb-3">SHOWROOM TRUNG TÂM</h6>
+                <p class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-gold me-2"></i> Đường Đua F1 Mỹ Đình, Hà Nội & Quận 1, TP. Hồ Chí Minh</p>
+                <p class="text-muted small mb-2"><i class="bi bi-telephone-fill text-gold me-2"></i> VIP Concierge Hotline: 1900 888 999</p>
+                <p class="text-muted small"><i class="bi bi-envelope-fill text-gold me-2"></i> vip@hypercar.luxury</p>
             </div>
         </div>
-
-        <hr class="border-secondary border-opacity-25 my-4">
-        
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-secondary">
-            <div>&copy; 2026 HYPERCAR SALE SYSTEM - PRJ301 ASSIGNMENT PROJECT. All Rights Reserved.</div>
-            <div class="mt-2 mt-md-0">
-                <span class="badge bg-dark border border-secondary text-warning">100% Thuần Java JSP/Servlet & JDBC</span>
-            </div>
+        <hr class="border-secondary my-4">
+        <div class="text-center text-muted small">
+            &copy; 2026 HyperCarSaleSystem (PRJ301 Assignment). Kiến trúc MVC-V2 Java EE & SQL Server chuẩn 3NF.
         </div>
     </div>
 </footer>
 
-<!-- Bootstrap 5 Bundle JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Main App JS -->
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>

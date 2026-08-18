@@ -22,12 +22,14 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy danh sách siêu xe nổi bật
+
         List<Car> featuredCars = carDAO.getFeaturedCars(6);
+        List<Car> latestCars = carDAO.getLatestCars(4);
         List<Brand> brands = brandDAO.getAllBrands();
         List<Category> categories = categoryDAO.getAllCategories();
 
         request.setAttribute("featuredCars", featuredCars);
+        request.setAttribute("latestCars", latestCars);
         request.setAttribute("brands", brands);
         request.setAttribute("categories", categories);
 

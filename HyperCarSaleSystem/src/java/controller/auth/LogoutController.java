@@ -14,14 +14,8 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate(); // Hủy session hoàn toàn
+            session.invalidate();
         }
         response.sendRedirect(request.getContextPath() + "/home");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
     }
 }

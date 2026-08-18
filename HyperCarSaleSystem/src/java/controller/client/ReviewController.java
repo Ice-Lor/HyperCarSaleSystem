@@ -19,19 +19,14 @@ public class ReviewController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(false);
-        User currentUser = (session != null) ? (User) session.getAttribute("currentUser") : null;
-        if (currentUser == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         if (!CSRFUtil.isValidToken(request)) {
-            session.setAttribute("errorMessage", "CSRF Token không hợp lệ!");
             response.sendRedirect(request.getContextPath() + "/cars");
             return;
         }
+
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("currentUser");
 
         try {
             int carId = Integer.parseInt(request.getParameter("carId"));
@@ -41,11 +36,10 @@ public class ReviewController extends HttpServlet {
             CarReview review = new CarReview();
             review.setUserId(currentUser.getUserId());
             review.setCarId(carId);
-            review.setRating(Math.max(1, Math.min(5, rating)));
+            review.setRating(rating);
             review.setComment(comment);
 
             reviewDAO.saveOrUpdateReview(review);
-            session.setAttribute("toastMessage", "Cảm ơn đại ca đã gửi đánh giá cho mẫu siêu xe này!");
             response.sendRedirect(request.getContextPath() + "/car-detail?id=" + carId);
         } catch (Exception e) {
             response.sendRedirect(request.getContextPath() + "/cars");

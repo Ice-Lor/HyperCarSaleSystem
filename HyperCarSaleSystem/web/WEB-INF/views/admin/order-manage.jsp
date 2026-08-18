@@ -1,89 +1,79 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Quản Lý Hợp Đồng Đặt Cọc - HYPERCAR Admin" />
+    <jsp:param name="title" value="Quản Lý Đơn Cọc Xe - Admin HyperCar"/>
 </jsp:include>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
 
-<div class="container-fluid px-4 py-4">
+<div class="container-fluid">
     <div class="row">
-        <!-- Sidebar Navigation -->
-        <c:set var="activeMenu" value="orders" scope="request" />
-        <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
+        <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+            <jsp:param name="active" value="orders"/>
+        </jsp:include>
 
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-10 col-md-9 p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h3 class="font-brand fw-bold text-white mb-1">QUẢN LÝ HỢP ĐỒNG ĐẶT CỌC</h3>
-                    <p class="text-secondary small mb-0">Theo dõi tiến trình thanh toán cọc và bàn giao xe cho khách VIP</p>
+                    <h3 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">QUẢN LÝ HỢP ĐỒNG ĐẶT CỌC</h3>
+                    <p class="text-muted small mb-0">Duyệt, xác nhận thanh toán cọc và quản lý tiến độ bàn giao</p>
                 </div>
                 <a href="${pageContext.request.contextPath}/admin/export-orders" class="btn btn-outline-gold btn-sm">
-                    <i class="bi bi-file-earmark-spreadsheet me-1"></i> Xuất File CSV
+                    <i class="bi bi-file-earmark-spreadsheet me-1"></i> Xuất Báo Cáo CSV
                 </a>
             </div>
 
-            <div class="hyper-card p-4">
+            <c:if test="${not empty sessionScope.successMessage}">
+                <div class="alert alert-success py-2 small mb-4">${sessionScope.successMessage}</div>
+                <c:remove var="successMessage" scope="session"/>
+            </c:if>
+
+            <div class="card card-luxury p-3">
                 <div class="table-responsive">
-                    <table class="table table-dark table-hover table-dark-custom align-middle mb-0">
+                    <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                         <thead>
-                            <tr>
+                            <tr class="text-muted small border-bottom border-secondary">
                                 <th>Mã Hợp Đồng</th>
-                                <th>Khách Hàng</th>
+                                <th>Khách Hàng VIP</th>
                                 <th>Tổng Giá Trị</th>
                                 <th>Tiền Đặt Cọc</th>
+                                <th>Voucher</th>
                                 <th>Phương Thức</th>
                                 <th>Trạng Thái</th>
-                                <th>Cập Nhật</th>
-                                <th>Chi Tiết</th>
+                                <th>Cập Nhật Trạng Thái</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="o" items="${orders}">
-                                <tr>
-                                    <td class="fw-bold text-warning font-brand">${o.orderCode}</td>
+                            <c:forEach items="${orders}" var="o">
+                                <tr class="border-bottom border-secondary">
+                                    <td class="fw-bold text-gold">${o.orderCode}</td>
                                     <td>
-                                        <div class="text-white fw-bold">${o.customerName}</div>
-                                        <div class="small text-secondary">${o.phone}</div>
+                                        <div class="fw-bold text-light">${o.userName}</div>
+                                        <small class="text-muted">${o.userEmail}</small>
                                     </td>
-                                    <td class="text-white font-brand">
-                                        <fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                    </td>
-                                    <td class="text-warning fw-bold font-brand">
-                                        <fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                    </td>
-                                    <td><span class="badge bg-dark border border-secondary text-secondary">${o.paymentMethod}</span></td>
+                                    <td><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
+                                    <td class="text-gold fw-bold"><fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$"/></td>
+                                    <td><span class="badge bg-dark border border-secondary">${o.couponCode != null ? o.couponCode : 'Không'}</span></td>
+                                    <td><span class="badge bg-dark border border-secondary">${o.paymentMethod}</span></td>
                                     <td>
-                                        <c:choose>
-                                            <c:when test="${o.status == 'CONFIRMED'}"><span class="badge bg-success">ĐÃ XÁC NHẬN</span></c:when>
-                                            <c:when test="${o.status == 'PROCESSING'}"><span class="badge bg-info text-dark">ĐANG XỬ LÝ</span></c:when>
-                                            <c:when test="${o.status == 'COMPLETED'}"><span class="badge bg-primary">ĐÃ BÀN GIAO</span></c:when>
-                                            <c:when test="${o.status == 'CANCELLED'}"><span class="badge bg-danger">ĐÃ HỦY</span></c:when>
-                                            <c:otherwise><span class="badge bg-warning text-dark">CHỜ DUYỆT</span></c:otherwise>
-                                        </c:choose>
+                                        <span class="badge ${o.status == 'COMPLETED' ? 'bg-success' : (o.status == 'CONFIRMED' ? 'bg-info text-dark' : (o.status == 'CANCELLED' ? 'bg-danger' : 'bg-warning text-dark'))}">
+                                            ${o.status}
+                                        </span>
                                     </td>
                                     <td>
-                                        <form action="${pageContext.request.contextPath}/admin/orders" method="POST" class="d-flex align-items-center gap-1">
+                                        <form action="${pageContext.request.contextPath}/admin/orders" method="POST" class="d-flex gap-1">
                                             <input type="hidden" name="csrf_token" value="${csrfToken}">
                                             <input type="hidden" name="orderId" value="${o.orderId}">
-                                            <select name="status" class="form-select form-select-dark form-select-sm" style="width: 140px;">
+                                            <select name="status" class="form-select form-select-sm bg-dark border-secondary text-light" style="width: 140px;">
                                                 <option value="PENDING" ${o.status == 'PENDING' ? 'selected' : ''}>Chờ duyệt</option>
-                                                <option value="CONFIRMED" ${o.status == 'CONFIRMED' ? 'selected' : ''}>Xác nhận cọc</option>
-                                                <option value="PROCESSING" ${o.status == 'PROCESSING' ? 'selected' : ''}>Đang chuẩn bị xe</option>
-                                                <option value="COMPLETED" ${o.status == 'COMPLETED' ? 'selected' : ''}>Đã giao xe</option>
+                                                <option value="CONFIRMED" ${o.status == 'CONFIRMED' ? 'selected' : ''}>Đã xác nhận</option>
+                                                <option value="COMPLETED" ${o.status == 'COMPLETED' ? 'selected' : ''}>Đã bàn giao</option>
                                                 <option value="CANCELLED" ${o.status == 'CANCELLED' ? 'selected' : ''}>Hủy đơn</option>
                                             </select>
-                                            <button type="submit" class="btn btn-sm btn-gold" title="Cập nhật">
-                                                <i class="bi bi-check-lg"></i>
+                                            <button type="submit" class="btn btn-gold btn-sm px-2">
+                                                <i class="bi bi-check2"></i>
                                             </button>
                                         </form>
-                                    </td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/orders?id=${o.orderId}" class="btn btn-sm btn-outline-light" title="Xem chi tiết">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -95,4 +85,6 @@
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

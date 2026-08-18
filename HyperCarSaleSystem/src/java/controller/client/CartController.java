@@ -23,8 +23,7 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String action = request.getParameter("action");
+
         HttpSession session = request.getSession(true);
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
@@ -32,49 +31,33 @@ public class CartController extends HttpServlet {
             session.setAttribute("cart", cart);
         }
 
-        if ("add".equalsIgnoreCase(action)) {
+        String action = request.getParameter("action");
+        if ("add".equals(action)) {
+            int carId = Integer.parseInt(request.getParameter("carId"));
+            int quantity = 1;
             try {
-                int carId = Integer.parseInt(request.getParameter("carId"));
-                int quantity = 1;
-                if (request.getParameter("quantity") != null) {
-                    quantity = Integer.parseInt(request.getParameter("quantity"));
-                }
-                String color = request.getParameter("color");
-                String options = request.getParameter("customOptions");
+                quantity = Math.max(1, Integer.parseInt(request.getParameter("quantity")));
+            } catch (Exception ignored) {}
+            String color = request.getParameter("color");
+            String customOptions = request.getParameter("customOptions");
 
-                Car car = carDAO.getCarById(carId);
-                if (car != null && car.getStockQuantity() >= quantity) {
-                    cart.addItem(car, quantity, color, options);
-                    session.setAttribute("toastMessage", "Đã thêm " + car.getModelName() + " vào danh sách đặt cọc!");
-                } else {
-                    session.setAttribute("errorMessage", "Số lượng xe trong showroom không đủ!");
-                }
-            } catch (NumberFormatException ignored) {}
-
-        } else if ("update".equalsIgnoreCase(action)) {
-            try {
-                int carId = Integer.parseInt(request.getParameter("carId"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                cart.updateQuantity(carId, quantity);
-            } catch (NumberFormatException ignored) {}
-
-        } else if ("remove".equalsIgnoreCase(action)) {
-            try {
-                int carId = Integer.parseInt(request.getParameter("carId"));
-                cart.removeItem(carId);
-                session.setAttribute("toastMessage", "Đã xóa siêu xe khỏi danh sách đặt cọc.");
-            } catch (NumberFormatException ignored) {}
-
-        } else if ("clear".equalsIgnoreCase(action)) {
+            Car car = carDAO.getCarById(carId);
+            if (car != null) {
+                cart.addItem(car, quantity, color, customOptions);
+                session.setAttribute("toastMessage", "Đã thêm " + car.getModelName() + " vào giỏ xe VIP!");
+            }
+        } else if ("update".equals(action)) {
+            int carId = Integer.parseInt(request.getParameter("carId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            cart.updateQuantity(carId, quantity);
+        } else if ("remove".equals(action)) {
+            int carId = Integer.parseInt(request.getParameter("carId"));
+            cart.removeItem(carId);
+            session.setAttribute("toastMessage", "Đã xóa siêu xe khỏi giỏ hàng.");
+        } else if ("clear".equals(action)) {
             cart.clear();
-            session.setAttribute("toastMessage", "Đã dọn sạch danh sách đặt cọc.");
         }
 
-        String referer = request.getHeader("Referer");
-        if (referer != null && !referer.isEmpty()) {
-            response.sendRedirect(referer);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/cart");
-        }
+        response.sendRedirect(request.getContextPath() + "/cart");
     }
 }

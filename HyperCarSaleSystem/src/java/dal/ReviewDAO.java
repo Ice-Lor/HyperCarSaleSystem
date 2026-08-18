@@ -56,9 +56,6 @@ public class ReviewDAO extends DBContext {
         return false;
     }
 
-    /**
-     * Thêm mới hoặc cập nhật review nếu khách hàng đã đánh giá trước đó (do có ràng buộc UNIQUE(user_id, car_id))
-     */
     public boolean saveOrUpdateReview(CarReview review) {
         if (hasUserReviewedCar(review.getUserId(), review.getCarId())) {
             String updateSql = "UPDATE CarReviews SET rating = ?, comment = ?, created_at = GETDATE() WHERE user_id = ? AND car_id = ?";

@@ -1,93 +1,88 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Quản Lý Thương Hiệu - HYPERCAR Admin" />
+    <jsp:param name="title" value="Quản Lý Hãng Xe - Admin HyperCar"/>
 </jsp:include>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
 
-<div class="container-fluid px-4 py-4">
+<div class="container-fluid">
     <div class="row">
-        <!-- Sidebar Navigation -->
-        <c:set var="activeMenu" value="brands" scope="request" />
-        <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
+        <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+            <jsp:param name="active" value="brands"/>
+        </jsp:include>
 
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-10 col-md-9 p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h3 class="font-brand fw-bold text-white mb-1">QUẢN LÝ THƯƠNG HIỆU SIÊU XE</h3>
-                    <p class="text-secondary small mb-0">Danh sách các hãng sản xuất và phân phối chính thức</p>
-                </div>
+                <h3 class="fw-bold text-light" style="font-family: 'Cinzel', serif;">QUẢN LÝ THƯƠNG HIỆU SIÊU XE</h3>
             </div>
+
+            <c:if test="${not empty sessionScope.successMessage}">
+                <div class="alert alert-success py-2 small mb-4">${sessionScope.successMessage}</div>
+                <c:remove var="successMessage" scope="session"/>
+            </c:if>
 
             <div class="row g-4">
                 <!-- Add Brand Form -->
                 <div class="col-lg-4">
-                    <div class="hyper-card p-4">
-                        <h5 class="fw-bold gold-text font-brand mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-                            THÊM HÃNG SIÊU XE
-                        </h5>
-
+                    <div class="card card-luxury p-4">
+                        <h5 class="fw-bold text-gold mb-3 border-bottom border-secondary pb-2">Thêm Thương Hiệu Mới</h5>
                         <form action="${pageContext.request.contextPath}/admin/brands" method="POST">
                             <input type="hidden" name="csrf_token" value="${csrfToken}">
-                            <input type="hidden" name="action" value="save">
-                            <input type="hidden" name="brandId" value="0">
+                            <input type="hidden" name="action" value="add">
 
                             <div class="mb-3">
-                                <label class="form-label text-secondary small fw-bold">TÊN THƯƠNG HIỆU (*)</label>
-                                <input type="text" name="brandName" class="form-control form-control-dark" placeholder="VD: Aston Martin" required>
+                                <label class="form-label text-muted small">Tên Hãng *</label>
+                                <input type="text" name="brandName" class="form-control bg-dark border-secondary text-light" required>
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label text-secondary small fw-bold">QUỐC GIA (*)</label>
-                                <input type="text" name="country" class="form-control form-control-dark" placeholder="VD: Anh Quốc, Ý, Đức" required>
+                                <label class="form-label text-muted small">Quốc Gia *</label>
+                                <input type="text" name="country" class="form-control bg-dark border-secondary text-light" required>
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label text-secondary small fw-bold">LINK LOGO HÃNG (URL)</label>
-                                <input type="url" name="logoUrl" class="form-control form-control-dark" placeholder="https://..." required>
+                                <label class="form-label text-muted small">URL Logo</label>
+                                <input type="url" name="logoUrl" class="form-control bg-dark border-secondary text-light">
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label text-secondary small fw-bold">MÔ TẢ</label>
-                                <textarea name="description" rows="3" class="form-control form-control-dark" placeholder="Lịch sử thương hiệu..."></textarea>
+                                <label class="form-label text-muted small">Mô Tả</label>
+                                <textarea name="description" class="form-control bg-dark border-secondary text-light" rows="2"></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-gold btn-sm w-100">
-                                <i class="bi bi-plus-circle me-1"></i> Lưu Thương Hiệu
+                            <button type="submit" class="btn btn-gold w-100 py-2">
+                                <i class="bi bi-plus-circle me-1"></i> Thêm Hãng Xe
                             </button>
                         </form>
                     </div>
                 </div>
 
-                <!-- Brands List -->
+                <!-- Brand Table -->
                 <div class="col-lg-8">
-                    <div class="hyper-card p-4">
+                    <div class="card card-luxury p-3">
                         <div class="table-responsive">
-                            <table class="table table-dark table-hover table-dark-custom align-middle mb-0">
+                            <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-muted small border-bottom border-secondary">
+                                        <th>ID</th>
                                         <th>Logo</th>
-                                        <th>Tên Hãng</th>
+                                        <th>Tên Thương Hiệu</th>
                                         <th>Quốc Gia</th>
-                                        <th>Hành Động</th>
+                                        <th class="text-end">Hành Động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="b" items="${brands}">
-                                        <tr>
+                                    <c:forEach items="${brands}" var="b">
+                                        <tr class="border-bottom border-secondary">
+                                            <td>#${b.brandId}</td>
                                             <td>
-                                                <img src="${b.logoUrl}" alt="${b.brandName}" class="rounded bg-dark p-1" style="max-height: 40px; max-width: 70px; object-fit: contain;">
+                                                <img src="${b.logoUrl}" alt="${b.brandName}" style="height: 30px; object-fit: contain;">
                                             </td>
-                                            <td class="fw-bold text-white">${b.brandName}</td>
-                                            <td class="text-secondary">${b.country}</td>
-                                            <td>
-                                                <form action="${pageContext.request.contextPath}/admin/brands" method="POST" onsubmit="return confirm('Xác nhận xóa thương hiệu này?');" style="display:inline;">
+                                            <td class="fw-bold text-light">${b.brandName}</td>
+                                            <td><span class="badge bg-dark border border-secondary">${b.country}</span></td>
+                                            <td class="text-end">
+                                                <form action="${pageContext.request.contextPath}/admin/brands" method="POST" onsubmit="return confirm('Đại ca có chắc muốn xóa hãng này?');">
                                                     <input type="hidden" name="csrf_token" value="${csrfToken}">
                                                     <input type="hidden" name="action" value="delete">
                                                     <input type="hidden" name="id" value="${b.brandId}">
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>
@@ -104,4 +99,6 @@
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

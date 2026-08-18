@@ -27,50 +27,49 @@ public class AdminBrandController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(false);
+
         if (!CSRFUtil.isValidToken(request)) {
-            if (session != null) session.setAttribute("errorMessage", "CSRF Token không hợp lệ!");
             response.sendRedirect(request.getContextPath() + "/admin/brands");
             return;
         }
 
+        HttpSession session = request.getSession(false);
         String action = request.getParameter("action");
 
-        if ("save".equalsIgnoreCase(action)) {
-            try {
-                String idStr = request.getParameter("brandId");
-                String brandName = ValidationUtil.sanitize(request.getParameter("brandName"));
-                String country = ValidationUtil.sanitize(request.getParameter("country"));
-                String logoUrl = request.getParameter("logoUrl");
-                String description = ValidationUtil.sanitize(request.getParameter("description"));
+        if ("add".equals(action)) {
+            String brandName = ValidationUtil.sanitize(request.getParameter("brandName"));
+            String country = ValidationUtil.sanitize(request.getParameter("country"));
+            String logoUrl = ValidationUtil.sanitize(request.getParameter("logoUrl"));
+            String desc = ValidationUtil.sanitize(request.getParameter("description"));
 
-                Brand b = new Brand();
-                b.setBrandName(brandName);
-                b.setCountry(country);
-                b.setLogoUrl(logoUrl);
-                b.setDescription(description);
+            Brand b = new Brand();
+            b.setBrandName(brandName);
+            b.setCountry(country);
+            b.setLogoUrl(logoUrl);
+            b.setDescription(desc);
+            brandDAO.insertBrand(b);
+            session.setAttribute("successMessage", "Thêm hãng xe thành công!");
 
-                if (idStr != null && !idStr.trim().isEmpty() && !"0".equals(idStr.trim())) {
-                    b.setBrandId(Integer.parseInt(idStr.trim()));
-                    brandDAO.updateBrand(b);
-                    if (session != null) session.setAttribute("toastMessage", "Cập nhật hãng xe thành công!");
-                } else {
-                    brandDAO.insertBrand(b);
-                    if (session != null) session.setAttribute("toastMessage", "Thêm mới hãng xe thành công!");
-                }
-            } catch (Exception e) {
-                if (session != null) session.setAttribute("errorMessage", "Lỗi dữ liệu: " + e.getMessage());
-            }
+        } else if ("update".equals(action)) {
+            int brandId = Integer.parseInt(request.getParameter("brandId"));
+            String brandName = ValidationUtil.sanitize(request.getParameter("brandName"));
+            String country = ValidationUtil.sanitize(request.getParameter("country"));
+            String logoUrl = ValidationUtil.sanitize(request.getParameter("logoUrl"));
+            String desc = ValidationUtil.sanitize(request.getParameter("description"));
 
-        } else if ("delete".equalsIgnoreCase(action)) {
-            try {
-                int brandId = Integer.parseInt(request.getParameter("id"));
-                brandDAO.deleteBrand(brandId);
-                if (session != null) session.setAttribute("toastMessage", "Xóa hãng xe thành công!");
-            } catch (Exception e) {
-                if (session != null) session.setAttribute("errorMessage", "Không thể xóa hãng xe đang có sản phẩm!");
-            }
+            Brand b = new Brand();
+            b.setBrandId(brandId);
+            b.setBrandName(brandName);
+            b.setCountry(country);
+            b.setLogoUrl(logoUrl);
+            b.setDescription(desc);
+            brandDAO.updateBrand(b);
+            session.setAttribute("successMessage", "Cập nhật hãng xe thành công!");
+
+        } else if ("delete".equals(action)) {
+            int brandId = Integer.parseInt(request.getParameter("id"));
+            brandDAO.deleteBrand(brandId);
+            session.setAttribute("successMessage", "Xóa hãng xe thành công!");
         }
 
         response.sendRedirect(request.getContextPath() + "/admin/brands");

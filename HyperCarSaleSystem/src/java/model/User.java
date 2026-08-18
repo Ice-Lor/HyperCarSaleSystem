@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class User implements Serializable {
     private int userId;
@@ -12,11 +12,9 @@ public class User implements Serializable {
     private String phone;
     private String address;
     private int roleId;
-    private int status; // 1: Active, 0: Locked
-    private Timestamp createdAt;
-    
-    // Thuộc tính join
     private String roleName;
+    private int status;
+    private Date createdAt;
 
     public User() {}
 
@@ -44,16 +42,12 @@ public class User implements Serializable {
     public int getRoleId() { return roleId; }
     public void setRoleId(int roleId) { this.roleId = roleId; }
 
-    public int getStatus() { return status; }
-    public void setStatus(int status) { this.status = status; }
-
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
-
     public String getRoleName() { return roleName; }
     public void setRoleName(String roleName) { this.roleName = roleName; }
 
-    public boolean isAdmin() {
-        return "ADMIN".equalsIgnoreCase(this.roleName) || this.roleId == 1;
-    }
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
+
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 }

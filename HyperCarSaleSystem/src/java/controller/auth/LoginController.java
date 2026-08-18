@@ -1,5 +1,6 @@
 package controller.auth;
 
+import dal.ActivityLogDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
 import util.CSRFUtil;
+import util.PasswordUtil;
+import util.ValidationUtil;
 
 public class LoginController extends HttpServlet {
 
     private final UserDAO userDAO = new UserDAO();
+    private final ActivityLogDAO logDAO = new ActivityLogDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,45 +32,44 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(true);
 
         if (!CSRFUtil.isValidToken(request)) {
-            request.setAttribute("error", "CSRF Token không hợp lệ!");
+            request.setAttribute("errorMessage", "CSRF Token không hợp lệ. Vui lòng thử lại!");
             request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
             return;
         }
 
-        String username = request.getParameter("username");
+        String username = ValidationUtil.sanitize(request.getParameter("username"));
         String password = request.getParameter("password");
 
-        if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
-            request.setAttribute("error", "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!");
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+            request.setAttribute("errorMessage", "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!");
+            request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+            return;
+        }
+
+        User user = userDAO.getUserByUsername(username);
+        if (user == null || !PasswordUtil.checkPassword(password, user.getPasswordHash())) {
+            request.setAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không chính xác!");
             request.setAttribute("username", username);
             request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
             return;
         }
 
-        User user = userDAO.login(username.trim(), password);
-
-        if (user != null) {
-            session.setAttribute("currentUser", user);
-            session.setAttribute("toastMessage", "Chào mừng " + user.getFullName() + " quay trở lại!");
-
-            String returnUrl = (String) session.getAttribute("returnUrl");
-            session.removeAttribute("returnUrl");
-
-            if (returnUrl != null && !returnUrl.isEmpty()) {
-                response.sendRedirect(returnUrl);
-            } else if (user.isAdmin()) {
-                response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/home");
-            }
-        } else {
-            request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không chính xác (hoặc tài khoản đã bị khóa)!");
-            request.setAttribute("username", username);
+        if (user.getStatus() != 1) {
+            request.setAttribute("errorMessage", "Tài khoản của đại ca đã bị tạm khóa. Vui lòng liên hệ Hotline!");
             request.getRequestDispatcher("/WEB-INF/views/auth/login.jsp").forward(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("currentUser", user);
+        logDAO.log(user.getUserId(), "LOGIN", "Người dùng đăng nhập thành công vào hệ thống.");
+
+        if ("ADMIN".equalsIgnoreCase(user.getRoleName())) {
+            response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/home");
         }
     }
 }

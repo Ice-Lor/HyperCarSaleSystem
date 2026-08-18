@@ -1,172 +1,134 @@
-/* ========================================================
-   HYPERCAR SALE SYSTEM - LUXURY DARK & GOLD STYLESHEET
-   ======================================================== */
-
 :root {
-    --bg-dark: #0a0a0c;
-    --bg-card: #131318;
-    --bg-card-hover: #1a1a22;
+    --bg-dark: #0f1016;
+    --bg-card: #181924;
+    --bg-surface: #222436;
     --gold-primary: #d4af37;
-    --gold-hover: #f3e5ab;
-    --gold-glow: rgba(212, 175, 55, 0.35);
-    --carbon-dark: #16161a;
-    --text-main: #f8f9fa;
-    --text-muted: #a0a0aa;
-    --border-color: rgba(212, 175, 55, 0.2);
-    --border-card: rgba(255, 255, 255, 0.08);
+    --gold-hover: #b89628;
+    --text-light: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #2a2d42;
+    --danger-red: #ef4444;
+    --success-green: #10b981;
 }
 
 body {
     background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    overflow-x: hidden;
+    color: var(--text-light);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* HyperCar Brand Typography */
-.font-brand {
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 2px;
-}
-
-.gold-text {
+.text-gold {
     color: var(--gold-primary) !important;
 }
 
-.gold-gradient-text {
-    background: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #e0aa3e 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.bg-gold {
+    background-color: var(--gold-primary) !important;
+    color: #000 !important;
 }
 
-/* Custom Buttons */
 .btn-gold {
-    background: linear-gradient(135deg, #d4af37, #aa820a);
+    background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
     color: #000 !important;
-    font-weight: 700;
+    font-weight: 600;
     border: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px var(--gold-glow);
 }
 
 .btn-gold:hover {
-    background: linear-gradient(135deg, #f3e5ab, #d4af37);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    background: linear-gradient(135deg, #e5c158 0%, #c4991c 100%);
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 .btn-outline-gold {
-    background: transparent;
-    color: var(--gold-primary) !important;
     border: 1px solid var(--gold-primary);
+    color: var(--gold-primary) !important;
+    background: transparent;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.3s ease;
 }
 
 .btn-outline-gold:hover {
-    background: var(--gold-primary);
+    background-color: var(--gold-primary);
     color: #000 !important;
-    box-shadow: 0 4px 15px var(--gold-glow);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-/* Cards & Containers */
-.hyper-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
+.card-luxury {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     overflow: hidden;
 }
 
-.hyper-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--gold-primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px var(--gold-glow);
+.card-luxury:hover {
     transform: translateY(-5px);
+    border-color: var(--gold-primary);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
 }
 
-.card-img-wrapper {
+.navbar-luxury {
+    background-color: rgba(15, 16, 22, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--gold-primary) !important;
+}
+
+.hero-banner {
     position: relative;
-    overflow: hidden;
-    height: 220px;
+    background: linear-gradient(rgba(15, 16, 22, 0.75), rgba(15, 16, 22, 0.95)), url('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    padding: 120px 0 80px 0;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.card-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.badge-vip {
+    background: linear-gradient(135deg, #d4af37, #85581A);
+    color: #000;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
 }
 
-.hyper-card:hover .card-img-wrapper img {
-    transform: scale(1.08);
-}
-
-/* Hero Section */
-.hero-section {
-    position: relative;
-    min-height: 80vh;
-    background: linear-gradient(rgba(10, 10, 12, 0.6), rgba(10, 10, 12, 0.95)), 
-                url('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=1600') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-}
-
-/* Spec Badges */
-.spec-badge {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 8px 12px;
-    text-align: center;
-}
-
-.spec-badge .spec-title {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.spec-badge .spec-value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--gold-primary);
-    font-family: 'Orbitron', sans-serif;
-}
-
-/* Live Search Results Dropdown */
-#searchResults {
+.search-results-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background: #181820;
+    background: var(--bg-card);
     border: 1px solid var(--gold-primary);
     border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
     z-index: 1050;
-    max-height: 380px;
+    max-height: 350px;
     overflow-y: auto;
     display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
 .search-item {
     display: flex;
     align-items: center;
     padding: 10px 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    color: #fff;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-light);
     text-decoration: none;
     transition: background 0.2s;
 }
 
 .search-item:hover {
-    background: rgba(212, 175, 55, 0.15);
+    background: var(--bg-surface);
     color: var(--gold-primary);
 }
 
@@ -176,45 +138,4 @@ body {
     object-fit: cover;
     border-radius: 4px;
     margin-right: 12px;
-}
-
-/* Custom Form Elements */
-.form-control-dark, .form-select-dark {
-    background-color: #1a1a22 !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    color: #fff !important;
-    border-radius: 8px;
-}
-
-.form-control-dark:focus, .form-select-dark:focus {
-    border-color: var(--gold-primary) !important;
-    box-shadow: 0 0 10px var(--gold-glow) !important;
-    outline: none;
-}
-
-/* Table Dark */
-.table-dark-custom {
-    background: var(--bg-card);
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table-dark-custom th {
-    background: #1a1a24;
-    color: var(--gold-primary);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    border-bottom: 2px solid var(--border-color);
-    padding: 14px;
-}
-
-.table-dark-custom td {
-    padding: 14px;
-    vertical-align: middle;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    color: #ddd;
 }

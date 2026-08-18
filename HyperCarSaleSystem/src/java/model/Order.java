@@ -1,29 +1,27 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class Order implements Serializable {
     private int orderId;
     private String orderCode;
     private int userId;
-    private double totalAmount;
-    private double depositAmount;
+    private String userName;
+    private String userEmail;
+    private BigDecimal totalAmount;
+    private BigDecimal depositAmount;
     private String couponCode;
-    private double discountAmount;
-    private String status; // PENDING, CONFIRMED, PROCESSING, COMPLETED, CANCELLED
-    private String paymentMethod; // BANK_TRANSFER, CRYPTO_USDT, SHOWROOM_DIRECT
+    private BigDecimal discountAmount;
+    private String status;
+    private String paymentMethod;
     private String deliveryAddress;
     private String phone;
     private String note;
-    private Timestamp orderDate;
-
-    // Join attributes
-    private String customerName;
-    private String customerEmail;
-    private List<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
+    private Date orderDate;
+    private List<OrderDetail> details;
 
     public Order() {}
 
@@ -36,17 +34,23 @@ public class Order implements Serializable {
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
 
-    public double getTotalAmount() { return totalAmount; }
-    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
-    public double getDepositAmount() { return depositAmount; }
-    public void setDepositAmount(double depositAmount) { this.depositAmount = depositAmount; }
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
+
+    public BigDecimal getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
+
+    public BigDecimal getDepositAmount() { return depositAmount; }
+    public void setDepositAmount(BigDecimal depositAmount) { this.depositAmount = depositAmount; }
 
     public String getCouponCode() { return couponCode; }
     public void setCouponCode(String couponCode) { this.couponCode = couponCode; }
 
-    public double getDiscountAmount() { return discountAmount; }
-    public void setDiscountAmount(double discountAmount) { this.discountAmount = discountAmount; }
+    public BigDecimal getDiscountAmount() { return discountAmount; }
+    public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
@@ -63,15 +67,9 @@ public class Order implements Serializable {
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
 
-    public Timestamp getOrderDate() { return orderDate; }
-    public void setOrderDate(Timestamp orderDate) { this.orderDate = orderDate; }
+    public Date getOrderDate() { return orderDate; }
+    public void setOrderDate(Date orderDate) { this.orderDate = orderDate; }
 
-    public String getCustomerName() { return customerName; }
-    public void setCustomerName(String customerName) { this.customerName = customerName; }
-
-    public String getCustomerEmail() { return customerEmail; }
-    public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
-
-    public List<OrderDetail> getOrderDetails() { return orderDetails; }
-    public void setOrderDetails(List<OrderDetail> orderDetails) { this.orderDetails = orderDetails; }
+    public List<OrderDetail> getDetails() { return details; }
+    public void setDetails(List<OrderDetail> details) { this.details = details; }
 }

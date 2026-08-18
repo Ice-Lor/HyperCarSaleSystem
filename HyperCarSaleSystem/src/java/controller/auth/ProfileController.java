@@ -20,12 +20,7 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        User currentUser = (session != null) ? (User) session.getAttribute("currentUser") : null;
-        if (currentUser == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
+        User currentUser = (User) session.getAttribute("currentUser");
         User freshUser = userDAO.getUserById(currentUser.getUserId());
         request.setAttribute("user", freshUser);
         request.getRequestDispatcher("/WEB-INF/views/client/profile.jsp").forward(request, response);
@@ -34,23 +29,17 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(false);
-        User currentUser = (session != null) ? (User) session.getAttribute("currentUser") : null;
-        if (currentUser == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
 
         if (!CSRFUtil.isValidToken(request)) {
-            session.setAttribute("errorMessage", "CSRF Token không hợp lệ!");
             response.sendRedirect(request.getContextPath() + "/profile");
             return;
         }
 
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("currentUser");
         String action = request.getParameter("action");
 
-        if ("updateProfile".equalsIgnoreCase(action)) {
+        if ("updateInfo".equals(action)) {
             String fullName = ValidationUtil.sanitize(request.getParameter("fullName"));
             String email = ValidationUtil.sanitize(request.getParameter("email"));
             String phone = ValidationUtil.sanitize(request.getParameter("phone"));
@@ -61,36 +50,30 @@ public class ProfileController extends HttpServlet {
             currentUser.setPhone(phone);
             currentUser.setAddress(address);
 
-            boolean success = userDAO.updateUser(currentUser);
-            if (success) {
-                session.setAttribute("currentUser", currentUser);
-                session.setAttribute("toastMessage", "Cập nhật hồ sơ thành công!");
-            } else {
-                session.setAttribute("errorMessage", "Không thể cập nhật hồ sơ!");
-            }
+            userDAO.updateProfile(currentUser);
+            session.setAttribute("currentUser", currentUser);
+            request.setAttribute("successMessage", "Cập nhật hồ sơ thành công!");
 
-        } else if ("changePassword".equalsIgnoreCase(action)) {
-            String oldPassword = request.getParameter("oldPassword");
-            String newPassword = request.getParameter("newPassword");
-            String confirmNewPassword = request.getParameter("confirmNewPassword");
+        } else if ("changePassword".equals(action)) {
+            String oldPass = request.getParameter("oldPassword");
+            String newPass = request.getParameter("newPassword");
+            String confirmPass = request.getParameter("confirmPassword");
 
-            User fresh = userDAO.getUserById(currentUser.getUserId());
-            if (!PasswordUtil.checkPassword(oldPassword, fresh.getPasswordHash())) {
-                session.setAttribute("errorMessage", "Mật khẩu hiện tại không đúng!");
-            } else if (newPassword == null || newPassword.length() < 6) {
-                session.setAttribute("errorMessage", "Mật khẩu mới phải có tối thiểu 6 ký tự!");
-            } else if (!newPassword.equals(confirmNewPassword)) {
-                session.setAttribute("errorMessage", "Xác nhận mật khẩu mới không khớp!");
+            User dbUser = userDAO.getUserById(currentUser.getUserId());
+            if (!PasswordUtil.checkPassword(oldPass, dbUser.getPasswordHash())) {
+                request.setAttribute("errorMessage", "Mật khẩu hiện tại không chính xác!");
+            } else if (!newPass.equals(confirmPass)) {
+                request.setAttribute("errorMessage", "Mật khẩu mới không khớp!");
+            } else if (newPass.length() < 6) {
+                request.setAttribute("errorMessage", "Mật khẩu mới phải từ 6 ký tự trở lên!");
             } else {
-                boolean success = userDAO.updatePassword(currentUser.getUserId(), PasswordUtil.hashPassword(newPassword));
-                if (success) {
-                    session.setAttribute("toastMessage", "Đổi mật khẩu thành công!");
-                } else {
-                    session.setAttribute("errorMessage", "Đổi mật khẩu thất bại!");
-                }
+                userDAO.changePassword(currentUser.getUserId(), PasswordUtil.hashPassword(newPass));
+                request.setAttribute("successMessage", "Đổi mật khẩu thành công!");
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/profile");
+        User freshUser = userDAO.getUserById(currentUser.getUserId());
+        request.setAttribute("user", freshUser);
+        request.getRequestDispatcher("/WEB-INF/views/client/profile.jsp").forward(request, response);
     }
 }

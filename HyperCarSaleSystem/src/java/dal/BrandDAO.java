@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,7 +19,13 @@ public class BrandDAO extends DBContext {
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                list.add(extractBrand(rs));
+                Brand b = new Brand();
+                b.setBrandId(rs.getInt("brand_id"));
+                b.setBrandName(rs.getString("brand_name"));
+                b.setCountry(rs.getString("country"));
+                b.setLogoUrl(rs.getString("logo_url"));
+                b.setDescription(rs.getString("description"));
+                list.add(b);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -35,7 +40,13 @@ public class BrandDAO extends DBContext {
             ps.setInt(1, brandId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return extractBrand(rs);
+                    Brand b = new Brand();
+                    b.setBrandId(rs.getInt("brand_id"));
+                    b.setBrandName(rs.getString("brand_name"));
+                    b.setCountry(rs.getString("country"));
+                    b.setLogoUrl(rs.getString("logo_url"));
+                    b.setDescription(rs.getString("description"));
+                    return b;
                 }
             }
         } catch (SQLException ex) {
@@ -47,20 +58,12 @@ public class BrandDAO extends DBContext {
     public boolean insertBrand(Brand brand) {
         String sql = "INSERT INTO Brands (brand_name, country, logo_url, description) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, brand.getBrandName());
             ps.setString(2, brand.getCountry());
             ps.setString(3, brand.getLogoUrl());
             ps.setString(4, brand.getDescription());
-            int rows = ps.executeUpdate();
-            if (rows > 0) {
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        brand.setBrandId(rs.getInt(1));
-                    }
-                }
-                return true;
-            }
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,15 +96,5 @@ public class BrandDAO extends DBContext {
             Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
-
-    private Brand extractBrand(ResultSet rs) throws SQLException {
-        Brand b = new Brand();
-        b.setBrandId(rs.getInt("brand_id"));
-        b.setBrandName(rs.getString("brand_name"));
-        b.setCountry(rs.getString("country"));
-        b.setLogoUrl(rs.getString("logo_url"));
-        b.setDescription(rs.getString("description"));
-        return b;
     }
 }

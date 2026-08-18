@@ -10,13 +10,6 @@ public class CarImage implements Serializable {
 
     public CarImage() {}
 
-    public CarImage(int imageId, int carId, String imageUrl, String caption) {
-        this.imageId = imageId;
-        this.carId = carId;
-        this.imageUrl = imageUrl;
-        this.caption = caption;
-    }
-
     public int getImageId() { return imageId; }
     public void setImageId(int imageId) { this.imageId = imageId; }
 

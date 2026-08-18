@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class CartItem implements Serializable {
     private Car car;
@@ -29,13 +30,14 @@ public class CartItem implements Serializable {
     public String getCustomOptions() { return customOptions; }
     public void setCustomOptions(String customOptions) { this.customOptions = customOptions; }
 
-    public double getTotalPrice() {
-        if (car == null) return 0;
-        return car.getPrice() * quantity;
+    public BigDecimal getItemTotal() {
+        if (car == null || car.getPrice() == null) return BigDecimal.ZERO;
+        return car.getPrice().multiply(new BigDecimal(quantity));
     }
 
-    public double getTotalDeposit() {
-        if (car == null) return 0;
-        return car.getDepositAmount() * quantity;
+    public BigDecimal getItemDeposit() {
+        if (car == null || car.getPrice() == null) return BigDecimal.ZERO;
+        BigDecimal rate = car.getDepositRate() != null ? car.getDepositRate() : new BigDecimal("10.0");
+        return getItemTotal().multiply(rate).divide(new BigDecimal("100.0"));
     }
 }

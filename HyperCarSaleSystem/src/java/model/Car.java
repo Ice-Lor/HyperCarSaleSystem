@@ -1,15 +1,19 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.util.Date;
 
 public class Car implements Serializable {
     private int carId;
     private String modelName;
     private int brandId;
+    private String brandName;
+    private String brandCountry;
     private int categoryId;
-    private double price;
-    private double depositRate;
+    private String categoryName;
+    private BigDecimal price;
+    private BigDecimal depositRate;
     private int year;
     private int horsepower;
     private double acceleration0100;
@@ -20,12 +24,7 @@ public class Car implements Serializable {
     private String engineSpec;
     private String description;
     private int status;
-    private Timestamp createdAt;
-
-    // Join attributes
-    private String brandName;
-    private String brandLogo;
-    private String categoryName;
+    private Date createdAt;
 
     public Car() {}
 
@@ -38,14 +37,23 @@ public class Car implements Serializable {
     public int getBrandId() { return brandId; }
     public void setBrandId(int brandId) { this.brandId = brandId; }
 
+    public String getBrandName() { return brandName; }
+    public void setBrandName(String brandName) { this.brandName = brandName; }
+
+    public String getBrandCountry() { return brandCountry; }
+    public void setBrandCountry(String brandCountry) { this.brandCountry = brandCountry; }
+
     public int getCategoryId() { return categoryId; }
     public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public String getCategoryName() { return categoryName; }
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
 
-    public double getDepositRate() { return depositRate; }
-    public void setDepositRate(double depositRate) { this.depositRate = depositRate; }
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
+
+    public BigDecimal getDepositRate() { return depositRate; }
+    public void setDepositRate(BigDecimal depositRate) { this.depositRate = depositRate; }
 
     public int getYear() { return year; }
     public void setYear(int year) { this.year = year; }
@@ -77,19 +85,6 @@ public class Car implements Serializable {
     public int getStatus() { return status; }
     public void setStatus(int status) { this.status = status; }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
-
-    public String getBrandName() { return brandName; }
-    public void setBrandName(String brandName) { this.brandName = brandName; }
-
-    public String getBrandLogo() { return brandLogo; }
-    public void setBrandLogo(String brandLogo) { this.brandLogo = brandLogo; }
-
-    public String getCategoryName() { return categoryName; }
-    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
-
-    public double getDepositAmount() {
-        return (this.price * this.depositRate) / 100.0;
-    }
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 }

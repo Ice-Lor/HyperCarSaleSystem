@@ -18,7 +18,7 @@ public class ApiLiveSearchController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String query = request.getParameter("q");
         response.setContentType("application/json; charset=UTF-8");
 

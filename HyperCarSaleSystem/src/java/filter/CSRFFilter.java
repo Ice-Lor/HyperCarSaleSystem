@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.CSRFUtil;
 
@@ -20,11 +19,11 @@ public class CSRFFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(true);
 
-        // Đảm bảo luôn có CSRF Token trong session
+        // Đảm bảo phiên làm việc luôn có token hợp lệ
         String token = CSRFUtil.getToken(session);
         req.setAttribute("csrfToken", token);
 

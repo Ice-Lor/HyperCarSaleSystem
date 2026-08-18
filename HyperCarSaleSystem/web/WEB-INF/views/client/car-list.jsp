@@ -1,51 +1,44 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Bộ Sưu Tập Siêu Xe - HYPERCAR" />
+    <jsp:param name="title" value="Bộ Sưu Tập Siêu Xe - HyperCar Sale System"/>
 </jsp:include>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
+
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
 
 <div class="container py-5">
     <!-- Breadcrumb & Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="font-brand fw-bold text-white mb-1">BỘ SƯU TẬP SIÊU XE</h2>
-            <p class="text-secondary small mb-0">Tìm thấy <span class="text-warning fw-bold">${totalCars}</span> siêu xe thỏa mãn tiêu chí</p>
-        </div>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home" class="text-secondary text-decoration-none">Trang chủ</a></li>
-                <li class="breadcrumb-item active text-warning" aria-current="page">Bộ sưu tập</li>
-            </ol>
-        </nav>
+    <div class="mb-4">
+        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">BỘ SƯU TẬP SIÊU XE TOÀN CẦU</h2>
+        <p class="text-muted small">Tìm thấy <span class="text-gold fw-bold">${totalCars}</span> mẫu siêu phẩm sẵn sàng bàn giao</p>
     </div>
 
     <div class="row g-4">
-        <!-- Filter Sidebar -->
+        <!-- Sidebar Filter -->
         <div class="col-lg-3">
-            <div class="hyper-card p-4 sticky-top" style="top: 90px;">
-                <h5 class="fw-bold gold-text font-brand mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+            <div class="card card-luxury p-3">
+                <h5 class="fw-bold mb-3 text-gold border-bottom border-secondary pb-2">
                     <i class="bi bi-funnel-fill me-2"></i> BỘ LỌC TÌM KIẾM
                 </h5>
 
                 <form action="${pageContext.request.contextPath}/cars" method="GET">
                     <!-- Keyword -->
                     <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">TỪ KHÓA / MODEL</label>
-                        <input type="text" name="keyword" class="form-control form-control-dark form-control-sm" 
-                               placeholder="VD: Chiron, SF90..." value="${keyword}">
+                        <label class="form-label text-muted small">Từ khóa</label>
+                        <input type="text" name="keyword" class="form-control bg-dark border-secondary text-light form-control-sm" 
+                               placeholder="Model xe..." value="${keyword}">
                     </div>
 
                     <!-- Brand -->
                     <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">THƯƠNG HIỆU</label>
-                        <select name="brandId" class="form-select form-select-dark form-select-sm">
-                            <option value="">-- Tất cả hãng --</option>
-                            <c:forEach var="b" items="${brands}">
+                        <label class="form-label text-muted small">Hãng sản xuất</label>
+                        <select name="brandId" class="form-select bg-dark border-secondary text-light form-select-sm">
+                            <option value="">-- Tất Cả Hãng --</option>
+                            <c:forEach items="${brands}" var="b">
                                 <option value="${b.brandId}" ${selectedBrandId == b.brandId ? 'selected' : ''}>
-                                    ${b.brandName} (${b.country})
+                                    ${b.brandName}
                                 </option>
                             </c:forEach>
                         </select>
@@ -53,10 +46,10 @@
 
                     <!-- Category -->
                     <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">PHÂN LOẠI DÒNG XE</label>
-                        <select name="categoryId" class="form-select form-select-dark form-select-sm">
-                            <option value="">-- Tất cả phân loại --</option>
-                            <c:forEach var="cat" items="${categories}">
+                        <label class="form-label text-muted small">Phân loại xe</label>
+                        <select name="categoryId" class="form-select bg-dark border-secondary text-light form-select-sm">
+                            <option value="">-- Tất Cả Phân Loại --</option>
+                            <c:forEach items="${categories}" var="cat">
                                 <option value="${cat.categoryId}" ${selectedCategoryId == cat.categoryId ? 'selected' : ''}>
                                     ${cat.categoryName}
                                 </option>
@@ -64,133 +57,104 @@
                         </select>
                     </div>
 
-                    <!-- Min HP -->
+                    <!-- Price Range -->
                     <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">CÔNG SUẤT TỐI THIỂU</label>
-                        <select name="minHp" class="form-select form-select-dark form-select-sm">
-                            <option value="">-- Mọi mức công suất --</option>
-                            <option value="800" ${minHp == 800 ? 'selected' : ''}>Từ 800 HP trở lên</option>
-                            <option value="1000" ${minHp == 1000 ? 'selected' : ''}>Từ 1,000 HP trở lên</option>
-                            <option value="1500" ${minHp == 1500 ? 'selected' : ''}>Từ 1,500 HP trở lên (Megacar)</option>
-                        </select>
+                        <label class="form-label text-muted small">Khoảng giá ($)</label>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="number" name="minPrice" class="form-control bg-dark border-secondary text-light form-control-sm" 
+                                       placeholder="Từ $" value="${minPrice}">
+                            </div>
+                            <div class="col-6">
+                                <input type="number" name="maxPrice" class="form-control bg-dark border-secondary text-light form-control-sm" 
+                                       placeholder="Đến $" value="${maxPrice}">
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Sort By -->
+                    <!-- Sort -->
                     <div class="mb-4">
-                        <label class="form-label text-secondary small fw-bold">SẮP XẾP THEO</label>
-                        <select name="sortBy" class="form-select form-select-dark form-select-sm">
+                        <label class="form-label text-muted small">Sắp xếp theo</label>
+                        <select name="sortBy" class="form-select bg-dark border-secondary text-light form-select-sm">
                             <option value="newest" ${sortBy == 'newest' ? 'selected' : ''}>Mới nhất</option>
                             <option value="price_asc" ${sortBy == 'price_asc' ? 'selected' : ''}>Giá: Thấp đến Cao</option>
                             <option value="price_desc" ${sortBy == 'price_desc' ? 'selected' : ''}>Giá: Cao đến Thấp</option>
-                            <option value="hp_desc" ${sortBy == 'hp_desc' ? 'selected' : ''}>Mã lực khủng nhất</option>
-                            <option value="speed_desc" ${sortBy == 'speed_desc' ? 'selected' : ''}>Tốc độ tối đa</option>
+                            <option value="hp_desc" ${sortBy == 'hp_desc' ? 'selected' : ''}>Công suất mạnh nhất</option>
+                            <option value="speed_desc" ${sortBy == 'speed_desc' ? 'selected' : ''}>Tốc độ tối đa cao nhất</option>
                         </select>
                     </div>
 
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-gold btn-sm">
-                            <i class="bi bi-search me-1"></i> Áp Dụng Bộ Lọc
-                        </button>
-                        <a href="${pageContext.request.contextPath}/cars" class="btn btn-outline-secondary btn-sm">
-                            <i class="bi bi-arrow-counterclockwise me-1"></i> Xóa Bộ Lọc
-                        </a>
-                    </div>
+                    <button type="submit" class="btn btn-gold w-100 btn-sm py-2 mb-2">
+                        <i class="bi bi-search me-1"></i> Áp Dụng Bộ Lọc
+                    </button>
+                    <a href="${pageContext.request.contextPath}/cars" class="btn btn-outline-secondary w-100 btn-sm text-light">
+                        <i class="bi bi-arrow-counterclockwise me-1"></i> Xóa Bộ Lọc
+                    </a>
                 </form>
             </div>
         </div>
 
-        <!-- Car Grid -->
+        <!-- Car Cards Grid -->
         <div class="col-lg-9">
-            <c:choose>
-                <c:when test="${empty carList}">
-                    <div class="hyper-card p-5 text-center my-5">
-                        <i class="bi bi-car-front fs-1 text-secondary mb-3 d-block"></i>
-                        <h4 class="text-white">Không tìm thấy siêu xe phù hợp</h4>
-                        <p class="text-secondary small">Vui lòng thử điều chỉnh lại bộ lọc giá hoặc thương hiệu.</p>
-                        <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold btn-sm mt-2">Xem Tất Cả Xe</a>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="row g-4">
-                        <c:forEach var="car" items="${carList}">
-                            <div class="col-md-6 col-lg-6">
-                                <div class="hyper-card h-100 d-flex flex-column">
-                                    <div class="card-img-wrapper">
-                                        <img src="${car.thumbnailUrl}" alt="${car.modelName}">
-                                        <span class="position-absolute top-0 end-0 m-3 badge bg-dark bg-opacity-75 text-warning border border-secondary">
-                                            ${car.brandName}
-                                        </span>
-                                    </div>
-                                    <div class="p-4 d-flex flex-column flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <h5 class="fw-bold text-white mb-0 text-truncate" title="${car.modelName}">${car.modelName}</h5>
-                                            <span class="badge bg-secondary text-uppercase">${car.categoryName}</span>
-                                        </div>
+            <c:if test="${empty cars}">
+                <div class="card card-luxury p-5 text-center text-muted">
+                    <i class="bi bi-search text-gold fs-1 mb-3"></i>
+                    <h5>Không tìm thấy mẫu siêu xe phù hợp</h5>
+                    <p class="small">Đại ca hãy thử điều chỉnh lại bộ lọc tìm kiếm hoặc từ khóa.</p>
+                </div>
+            </c:if>
 
-                                        <p class="text-secondary small text-truncate-2 mb-3">
-                                            ${car.engineSpec}
-                                        </p>
+            <div class="row g-4">
+                <c:forEach items="${cars}" var="c">
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card card-luxury h-100">
+                            <div class="position-relative overflow-hidden" style="height: 200px;">
+                                <img src="${c.thumbnailUrl}" class="w-100 h-100 object-fit-cover" alt="${c.modelName}">
+                                <span class="position-absolute top-0 end-0 m-2 badge bg-gold text-dark fw-bold">
+                                    ${c.brandName}
+                                </span>
+                            </div>
+                            <div class="card-body p-3 d-flex flex-column">
+                                <h6 class="fw-bold mb-1" style="font-family: 'Cinzel', serif;">${c.modelName}</h6>
+                                <small class="text-muted mb-2">${c.categoryName} • ${c.year}</small>
 
-                                        <!-- Specs -->
-                                        <div class="row g-2 mb-3">
-                                            <div class="col-4">
-                                                <div class="spec-badge">
-                                                    <div class="spec-title">Mã Lực</div>
-                                                    <div class="spec-value">${car.horsepower}</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="spec-badge">
-                                                    <div class="spec-title">0-100</div>
-                                                    <div class="spec-value">${car.acceleration0100}s</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="spec-badge">
-                                                    <div class="spec-title">Tốc Độ</div>
-                                                    <div class="spec-value">${car.topSpeed}</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="row g-1 text-center small text-muted mb-3 py-1 rounded bg-surface" style="background-color: #222436; font-size: 0.75rem;">
+                                    <div class="col-4 border-end border-secondary">${c.horsepower} HP</div>
+                                    <div class="col-4 border-end border-secondary">${c.acceleration0100}s</div>
+                                    <div class="col-4">${c.topSpeed} km/h</div>
+                                </div>
 
-                                        <div class="mt-auto pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <span class="text-secondary small d-block">Giá niêm yết:</span>
-                                                <span class="fs-5 fw-bold text-warning font-brand">
-                                                    <fmt:formatNumber value="${car.price}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                                </span>
-                                            </div>
-                                            <div class="d-flex gap-2">
-                                                <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}" class="btn btn-outline-gold btn-sm">
-                                                    Chi Tiết
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-gold">
+                                        <fmt:formatNumber value="${c.price}" type="currency" currencySymbol="$"/>
+                                    </span>
+                                    <a href="${pageContext.request.contextPath}/car-detail?id=${c.carId}" class="btn btn-outline-gold btn-sm px-2">
+                                        Chi Tiết <i class="bi bi-chevron-right"></i>
+                                    </a>
                                 </div>
                             </div>
-                        </c:forEach>
+                        </div>
                     </div>
+                </c:forEach>
+            </div>
 
-                    <!-- Pagination -->
-                    <c:if test="${totalPages > 1}">
-                        <nav class="mt-5" aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
-                                <c:forEach begin="1" end="${totalPages}" var="p">
-                                    <li class="page-item ${p == currentPage ? 'active' : ''}">
-                                        <a class="page-link ${p == currentPage ? 'bg-warning text-dark border-warning' : 'bg-dark text-white border-secondary'}" 
-                                           href="${pageContext.request.contextPath}/cars?page=${p}&keyword=${keyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minHp=${minHp}&sortBy=${sortBy}">
-                                            ${p}
-                                        </a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </nav>
-                    </c:if>
-                </c:otherwise>
-            </c:choose>
+            <!-- Pagination -->
+            <c:if test="${totalPages > 1}">
+                <nav class="mt-5 d-flex justify-content-center">
+                    <ul class="pagination pagination-sm">
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                <a class="page-link ${currentPage == i ? 'bg-gold border-gold text-dark fw-bold' : 'bg-dark border-secondary text-light'}" 
+                                   href="${pageContext.request.contextPath}/cars?page=${i}&keyword=${keyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}">
+                                    ${i}
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </nav>
+            </c:if>
         </div>
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

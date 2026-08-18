@@ -1,101 +1,76 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cart implements Serializable {
-    private final Map<Integer, CartItem> items = new LinkedHashMap<Integer, CartItem>();
-    private Coupon appliedCoupon;
+    private List<CartItem> items;
 
-    public Cart() {}
+    public Cart() {
+        this.items = new ArrayList<CartItem>();
+    }
 
-    public void addItem(Car car, int quantity, String color, String options) {
-        if (car == null) return;
-        int carId = car.getCarId();
-        if (items.containsKey(carId)) {
-            CartItem existing = items.get(carId);
-            existing.setQuantity(existing.getQuantity() + quantity);
-            if (color != null && !color.isEmpty()) existing.setSelectedColor(color);
-            if (options != null && !options.isEmpty()) existing.setCustomOptions(options);
-        } else {
-            items.put(carId, new CartItem(car, quantity, color, options));
+    public List<CartItem> getItems() {
+        return items;
+    }
+
+    public void addItem(Car car, int quantity, String color, String customOptions) {
+        for (CartItem item : items) {
+            if (item.getCar().getCarId() == car.getCarId()) {
+                item.setQuantity(item.getQuantity() + quantity);
+                if (color != null && !color.isEmpty()) {
+                    item.setSelectedColor(color);
+                }
+                return;
+            }
         }
+        items.add(new CartItem(car, quantity, color, customOptions));
     }
 
     public void updateQuantity(int carId, int quantity) {
         if (quantity <= 0) {
-            items.remove(carId);
-        } else if (items.containsKey(carId)) {
-            items.get(carId).setQuantity(quantity);
+            removeItem(carId);
+            return;
+        }
+        for (CartItem item : items) {
+            if (item.getCar().getCarId() == carId) {
+                item.setQuantity(quantity);
+                return;
+            }
         }
     }
 
     public void removeItem(int carId) {
-        items.remove(carId);
+        items.removeIf(item -> item.getCar().getCarId() == carId);
     }
 
     public void clear() {
         items.clear();
-        appliedCoupon = null;
     }
 
-    public Collection<CartItem> getItems() {
-        return items.values();
-    }
-
-    public int getTotalItemCount() {
-        int count = 0;
-        for (CartItem item : items.values()) {
-            count += item.getQuantity();
-        }
-        return count;
-    }
-
-    public double getSubTotal() {
-        double total = 0;
-        for (CartItem item : items.values()) {
-            total += item.getTotalPrice();
+    public int getTotalQuantity() {
+        int total = 0;
+        for (CartItem item : items) {
+            total += item.getQuantity();
         }
         return total;
     }
 
-    public double getTotalDeposit() {
-        double deposit = 0;
-        for (CartItem item : items.values()) {
-            deposit += item.getTotalDeposit();
+    public BigDecimal getTotalAmount() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (CartItem item : items) {
+            total = total.add(item.getItemTotal());
         }
-        return deposit;
+        return total;
     }
 
-    public Coupon getAppliedCoupon() {
-        return appliedCoupon;
-    }
-
-    public void setAppliedCoupon(Coupon appliedCoupon) {
-        this.appliedCoupon = appliedCoupon;
-    }
-
-    public double getDiscountAmount() {
-        if (appliedCoupon == null) return 0;
-        return appliedCoupon.calculateDiscount(getSubTotal());
-    }
-
-    public double getFinalTotal() {
-        double subTotal = getSubTotal();
-        double discount = getDiscountAmount();
-        double finalTotal = subTotal - discount;
-        return finalTotal > 0 ? finalTotal : 0;
-    }
-
-    public double getFinalDeposit() {
-        double deposit = getTotalDeposit();
-        // Giảm trừ tỉ lệ trên tiền cọc
-        if (appliedCoupon != null && getSubTotal() > 0) {
-            double discountRatio = getDiscountAmount() / getSubTotal();
-            deposit = deposit * (1 - discountRatio);
+    public BigDecimal getTotalDeposit() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (CartItem item : items) {
+            total = total.add(item.getItemDeposit());
         }
-        return deposit > 0 ? deposit : 0;
+        return total;
     }
 }

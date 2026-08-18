@@ -1,76 +1,74 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Gia Nhập Câu Lạc Bộ VIP - HYPERCAR" />
+    <jsp:param name="title" value="Gia Nhập Thành Viên VIP - HyperCar Sale System"/>
 </jsp:include>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
+
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
 
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="hyper-card p-4 p-md-5">
+        <div class="col-md-7">
+            <div class="card card-luxury p-4 p-md-5">
                 <div class="text-center mb-4">
-                    <i class="bi bi-shield-shaded gold-text fs-1"></i>
-                    <h3 class="font-brand fw-bold text-white mt-2">GIA NHẬP CÂU LẠC BỘ VIP</h3>
-                    <p class="text-secondary small">Trở thành thành viên để nhận quyền ưu tiên đặt cọc và tham gia các sự kiện kín</p>
+                    <i class="bi bi-gem text-gold fs-1"></i>
+                    <h3 class="fw-bold mt-2" style="font-family: 'Cinzel', serif;">GIA NHẬP CỘNG ĐỒNG VIP</h3>
+                    <p class="text-muted small">Đăng ký để nhận quyền đặt cọc độc quyền và trải nghiệm lái thử Megacar</p>
                 </div>
 
-                <c:if test="${not empty error}">
-                    <div class="alert alert-danger py-2 small" role="alert">
-                        <i class="bi bi-exclamation-octagon me-2"></i> ${error}
-                    </div>
+                <c:if test="${not empty errorMessage}">
+                    <div class="alert alert-danger py-2 small">${errorMessage}</div>
                 </c:if>
 
                 <form action="${pageContext.request.contextPath}/register" method="POST">
                     <input type="hidden" name="csrf_token" value="${csrfToken}">
 
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">TÊN ĐĂNG NHẬP (*)</label>
-                        <input type="text" name="username" class="form-control form-control-dark" value="${username}" placeholder="VD: tony_stark" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">HỌ VÀ TÊN (*)</label>
-                        <input type="text" name="fullName" class="form-control form-control-dark" value="${fullName}" placeholder="VD: Tony Stark" required>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">Tên đăng nhập *</label>
+                            <input type="text" name="username" class="form-control bg-dark border-secondary text-light" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small">Họ và Tên quý khách *</label>
+                            <input type="text" name="fullName" class="form-control bg-dark border-secondary text-light" required>
+                        </div>
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">EMAIL (*)</label>
-                            <input type="email" name="email" class="form-control form-control-dark" value="${email}" placeholder="tony@stark.com" required>
+                            <label class="form-label text-muted small">Mật khẩu *</label>
+                            <input type="password" name="password" class="form-control bg-dark border-secondary text-light" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">SỐ ĐIỆN THOẠI (*)</label>
-                            <input type="text" name="phone" class="form-control form-control-dark" value="${phone}" placeholder="0988888888" required>
+                            <label class="form-label text-muted small">Xác nhận mật khẩu *</label>
+                            <input type="password" name="confirmPassword" class="form-control bg-dark border-secondary text-light" required>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small fw-bold">ĐỊA CHỈ</label>
-                        <input type="text" name="address" class="form-control form-control-dark" value="${address}" placeholder="Tòa nhà Landmark 81 / Biệt thự">
-                    </div>
-
-                    <div class="row g-3 mb-4">
+                    <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">MẬT KHẨU (*)</label>
-                            <input type="password" name="password" class="form-control form-control-dark" placeholder="Tối thiểu 6 ký tự" minlength="6" required>
+                            <label class="form-label text-muted small">Email liên hệ VIP *</label>
+                            <input type="email" name="email" class="form-control bg-dark border-secondary text-light" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-secondary small fw-bold">XÁC NHẬN MẬT KHẨU (*)</label>
-                            <input type="password" name="confirmPassword" class="form-control form-control-dark" placeholder="Nhập lại mật khẩu" minlength="6" required>
+                            <label class="form-label text-muted small">Số điện thoại *</label>
+                            <input type="tel" name="phone" class="form-control bg-dark border-secondary text-light" required>
                         </div>
                     </div>
 
-                    <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-gold btn-lg">
-                            <i class="bi bi-person-plus-fill me-2"></i> TẠO TÀI KHOẢN VIP
-                        </button>
+                    <div class="mb-4">
+                        <label class="form-label text-muted small">Địa chỉ nhận hợp đồng & xe</label>
+                        <input type="text" name="address" class="form-control bg-dark border-secondary text-light" placeholder="Biệt thự / Căn hộ / Địa chỉ VIP">
                     </div>
 
-                    <div class="text-center text-secondary small">
+                    <button type="submit" class="btn btn-gold w-100 py-2 mb-3">
+                        <i class="bi bi-check-circle-fill me-1"></i> Hoàn Tất Đăng Ký
+                    </button>
+
+                    <div class="text-center text-muted small">
                         Đã có tài khoản? 
-                        <a href="${pageContext.request.contextPath}/login" class="text-warning fw-bold text-decoration-none">Đăng nhập tại đây</a>
+                        <a href="${pageContext.request.contextPath}/login" class="text-gold text-decoration-none fw-bold">Đăng nhập ngay</a>
                     </div>
                 </form>
             </div>
@@ -78,4 +76,4 @@
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

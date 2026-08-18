@@ -21,7 +21,7 @@ public class ApiCartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("application/json; charset=UTF-8");
         HttpSession session = request.getSession(true);
         Cart cart = (Cart) session.getAttribute("cart");
@@ -30,48 +30,38 @@ public class ApiCartController extends HttpServlet {
             session.setAttribute("cart", cart);
         }
 
-        String action = request.getParameter("action");
         Map<String, Object> res = new HashMap<String, Object>();
+        String action = request.getParameter("action");
 
         try {
-            if ("add".equalsIgnoreCase(action)) {
+            if ("add".equals(action)) {
                 int carId = Integer.parseInt(request.getParameter("carId"));
                 int quantity = 1;
-                if (request.getParameter("quantity") != null) {
-                    quantity = Integer.parseInt(request.getParameter("quantity"));
-                }
+                try {
+                    quantity = Math.max(1, Integer.parseInt(request.getParameter("quantity")));
+                } catch (Exception ignored) {}
                 String color = request.getParameter("color");
-                String options = request.getParameter("customOptions");
+                String customOptions = request.getParameter("customOptions");
 
                 Car car = carDAO.getCarById(carId);
-                if (car != null && car.getStockQuantity() >= quantity) {
-                    cart.addItem(car, quantity, color, options);
+                if (car != null) {
+                    cart.addItem(car, quantity, color, customOptions);
                     res.put("success", true);
-                    res.put("message", "Đã thêm " + car.getModelName() + " vào danh sách cọc!");
+                    res.put("totalQuantity", cart.getTotalQuantity());
+                    res.put("totalDeposit", cart.getTotalDeposit());
+                    res.put("message", "Đã thêm " + car.getModelName() + " vào giỏ xe VIP!");
                 } else {
                     res.put("success", false);
-                    res.put("message", "Số lượng xe tồn kho không đủ!");
+                    res.put("message", "Không tìm thấy siêu xe!");
                 }
-
-            } else if ("update".equalsIgnoreCase(action)) {
-                int carId = Integer.parseInt(request.getParameter("carId"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                cart.updateQuantity(carId, quantity);
-                res.put("success", true);
-
-            } else if ("remove".equalsIgnoreCase(action)) {
-                int carId = Integer.parseInt(request.getParameter("carId"));
-                cart.removeItem(carId);
+            } else if ("count".equals(action)) {
+                res.put("totalQuantity", cart.getTotalQuantity());
+                res.put("totalDeposit", cart.getTotalDeposit());
                 res.put("success", true);
             }
-
-            res.put("totalCount", cart.getTotalItemCount());
-            res.put("subTotal", cart.getSubTotal());
-            res.put("finalDeposit", cart.getFinalDeposit());
-
         } catch (Exception e) {
             res.put("success", false);
-            res.put("message", "Lỗi: " + e.getMessage());
+            res.put("message", e.getMessage());
         }
 
         mapper.writeValue(response.getWriter(), res);

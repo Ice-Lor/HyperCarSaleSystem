@@ -20,23 +20,15 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
 
         User currentUser = (session != null) ? (User) session.getAttribute("currentUser") : null;
-
         if (currentUser == null) {
-            // Lưu lại returnUrl để sau khi login thì redirect lại đúng trang
-            String requestURI = req.getRequestURI();
-            String queryString = req.getQueryString();
-            String target = (queryString == null) ? requestURI : requestURI + "?" + queryString;
-            
-            if (session == null) {
-                session = req.getSession(true);
-            }
-            session.setAttribute("returnUrl", target);
-            session.setAttribute("errorMessage", "Vui lòng đăng nhập để tiếp tục!");
+            session = req.getSession(true);
+            session.setAttribute("errorMessage", "Đại ca vui lòng đăng nhập trước khi sử dụng tính năng này!");
             res.sendRedirect(req.getContextPath() + "/login");
             return;
         }

@@ -1,12 +1,15 @@
 package dal;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Car;
@@ -15,18 +18,18 @@ public class CarDAO extends DBContext {
 
     public List<Car> getFeaturedCars(int limit) {
         List<Car> list = new ArrayList<Car>();
-        String sql = "SELECT TOP (?) c.*, b.brand_name, b.logo_url as brand_logo, cat.category_name "
+        String sql = "SELECT TOP (?) c.*, b.brand_name, b.country as brand_country, cat.category_name "
                    + "FROM Cars c "
                    + "JOIN Brands b ON c.brand_id = b.brand_id "
                    + "JOIN Categories cat ON c.category_id = cat.category_id "
                    + "WHERE c.status = 1 "
-                   + "ORDER BY c.price DESC";
+                   + "ORDER BY c.price DESC, c.horsepower DESC";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, limit);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(extractCar(rs));
+                    list.add(mapCar(rs));
                 }
             }
         } catch (SQLException ex) {
@@ -35,155 +38,20 @@ public class CarDAO extends DBContext {
         return list;
     }
 
-    public List<Car> filterCars(String keyword, Integer brandId, Integer categoryId, 
-                                Double minPrice, Double maxPrice, Integer minHp, 
-                                String sortBy, int page, int pageSize) {
+    public List<Car> getLatestCars(int limit) {
         List<Car> list = new ArrayList<Car>();
-        StringBuilder sql = new StringBuilder(
-            "SELECT c.*, b.brand_name, b.logo_url as brand_logo, cat.category_name "
-          + "FROM Cars c "
-          + "JOIN Brands b ON c.brand_id = b.brand_id "
-          + "JOIN Categories cat ON c.category_id = cat.category_id "
-          + "WHERE c.status = 1 "
-        );
-        List<Object> params = new ArrayList<Object>();
-
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            sql.append(" AND (c.model_name LIKE ? OR b.brand_name LIKE ? OR c.description LIKE ?) ");
-            String kw = "%" + keyword.trim() + "%";
-            params.add(kw);
-            params.add(kw);
-            params.add(kw);
-        }
-        if (brandId != null && brandId > 0) {
-            sql.append(" AND c.brand_id = ? ");
-            params.add(brandId);
-        }
-        if (categoryId != null && categoryId > 0) {
-            sql.append(" AND c.category_id = ? ");
-            params.add(categoryId);
-        }
-        if (minPrice != null && minPrice >= 0) {
-            sql.append(" AND c.price >= ? ");
-            params.add(minPrice);
-        }
-        if (maxPrice != null && maxPrice > 0) {
-            sql.append(" AND c.price <= ? ");
-            params.add(maxPrice);
-        }
-        if (minHp != null && minHp > 0) {
-            sql.append(" AND c.horsepower >= ? ");
-            params.add(minHp);
-        }
-
-        // Sorting
-        if ("price_asc".equalsIgnoreCase(sortBy)) {
-            sql.append(" ORDER BY c.price ASC ");
-        } else if ("price_desc".equalsIgnoreCase(sortBy)) {
-            sql.append(" ORDER BY c.price DESC ");
-        } else if ("hp_desc".equalsIgnoreCase(sortBy)) {
-            sql.append(" ORDER BY c.horsepower DESC ");
-        } else if ("speed_desc".equalsIgnoreCase(sortBy)) {
-            sql.append(" ORDER BY c.top_speed DESC ");
-        } else if ("newest".equalsIgnoreCase(sortBy)) {
-            sql.append(" ORDER BY c.year DESC, c.car_id DESC ");
-        } else {
-            sql.append(" ORDER BY c.car_id DESC ");
-        }
-
-        // Pagination (MSSQL OFFSET...FETCH)
-        sql.append(" OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ");
-        int offset = (page - 1) * pageSize;
-        if (offset < 0) offset = 0;
-        params.add(offset);
-        params.add(pageSize);
-
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
-            for (int i = 0; i < params.size(); i++) {
-                ps.setObject(i + 1, params.get(i));
-            }
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    list.add(extractCar(rs));
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-
-    public int countFilteredCars(String keyword, Integer brandId, Integer categoryId, 
-                                 Double minPrice, Double maxPrice, Integer minHp) {
-        StringBuilder sql = new StringBuilder(
-            "SELECT COUNT(*) FROM Cars c "
-          + "JOIN Brands b ON c.brand_id = b.brand_id "
-          + "WHERE c.status = 1 "
-        );
-        List<Object> params = new ArrayList<Object>();
-
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            sql.append(" AND (c.model_name LIKE ? OR b.brand_name LIKE ? OR c.description LIKE ?) ");
-            String kw = "%" + keyword.trim() + "%";
-            params.add(kw);
-            params.add(kw);
-            params.add(kw);
-        }
-        if (brandId != null && brandId > 0) {
-            sql.append(" AND c.brand_id = ? ");
-            params.add(brandId);
-        }
-        if (categoryId != null && categoryId > 0) {
-            sql.append(" AND c.category_id = ? ");
-            params.add(categoryId);
-        }
-        if (minPrice != null && minPrice >= 0) {
-            sql.append(" AND c.price >= ? ");
-            params.add(minPrice);
-        }
-        if (maxPrice != null && maxPrice > 0) {
-            sql.append(" AND c.price <= ? ");
-            params.add(maxPrice);
-        }
-        if (minHp != null && minHp > 0) {
-            sql.append(" AND c.horsepower >= ? ");
-            params.add(minHp);
-        }
-
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
-            for (int i = 0; i < params.size(); i++) {
-                ps.setObject(i + 1, params.get(i));
-            }
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
-
-    public List<Car> searchCarsByKeyword(String keyword, int limit) {
-        List<Car> list = new ArrayList<Car>();
-        String sql = "SELECT TOP (?) c.*, b.brand_name, b.logo_url as brand_logo, cat.category_name "
+        String sql = "SELECT TOP (?) c.*, b.brand_name, b.country as brand_country, cat.category_name "
                    + "FROM Cars c "
                    + "JOIN Brands b ON c.brand_id = b.brand_id "
                    + "JOIN Categories cat ON c.category_id = cat.category_id "
-                   + "WHERE c.status = 1 AND (c.model_name LIKE ? OR b.brand_name LIKE ?) "
-                   + "ORDER BY c.model_name ASC";
+                   + "WHERE c.status = 1 "
+                   + "ORDER BY c.car_id DESC";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, limit);
-            String kw = "%" + keyword.trim() + "%";
-            ps.setString(2, kw);
-            ps.setString(3, kw);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(extractCar(rs));
+                    list.add(mapCar(rs));
                 }
             }
         } catch (SQLException ex) {
@@ -193,7 +61,7 @@ public class CarDAO extends DBContext {
     }
 
     public Car getCarById(int carId) {
-        String sql = "SELECT c.*, b.brand_name, b.logo_url as brand_logo, cat.category_name "
+        String sql = "SELECT c.*, b.brand_name, b.country as brand_country, cat.category_name "
                    + "FROM Cars c "
                    + "JOIN Brands b ON c.brand_id = b.brand_id "
                    + "JOIN Categories cat ON c.category_id = cat.category_id "
@@ -203,7 +71,7 @@ public class CarDAO extends DBContext {
             ps.setInt(1, carId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return extractCar(rs);
+                    return mapCar(rs);
                 }
             }
         } catch (SQLException ex) {
@@ -212,9 +80,149 @@ public class CarDAO extends DBContext {
         return null;
     }
 
-    public List<Car> getAllCarsForAdmin() {
+    public List<Car> searchCarsByKeyword(String keyword, int limit) {
         List<Car> list = new ArrayList<Car>();
-        String sql = "SELECT c.*, b.brand_name, b.logo_url as brand_logo, cat.category_name "
+        String sql = "SELECT TOP (?) c.*, b.brand_name, b.country as brand_country, cat.category_name "
+                   + "FROM Cars c "
+                   + "JOIN Brands b ON c.brand_id = b.brand_id "
+                   + "JOIN Categories cat ON c.category_id = cat.category_id "
+                   + "WHERE c.status = 1 AND (c.model_name LIKE ? OR b.brand_name LIKE ?) "
+                   + "ORDER BY c.car_id DESC";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ps.setString(2, "%" + keyword + "%");
+            ps.setString(3, "%" + keyword + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapCar(rs));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Car> searchCarsDynamic(String keyword, Integer brandId, Integer categoryId,
+                                      Double minPrice, Double maxPrice, String sortBy,
+                                      int page, int pageSize) {
+        List<Car> list = new ArrayList<Car>();
+        StringBuilder sql = new StringBuilder(
+            "SELECT c.*, b.brand_name, b.country as brand_country, cat.category_name "
+          + "FROM Cars c "
+          + "JOIN Brands b ON c.brand_id = b.brand_id "
+          + "JOIN Categories cat ON c.category_id = cat.category_id "
+          + "WHERE c.status = 1 "
+        );
+
+        List<Object> params = new ArrayList<Object>();
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("AND (c.model_name LIKE ? OR b.brand_name LIKE ?) ");
+            params.add("%" + keyword.trim() + "%");
+            params.add("%" + keyword.trim() + "%");
+        }
+        if (brandId != null && brandId > 0) {
+            sql.append("AND c.brand_id = ? ");
+            params.add(brandId);
+        }
+        if (categoryId != null && categoryId > 0) {
+            sql.append("AND c.category_id = ? ");
+            params.add(categoryId);
+        }
+        if (minPrice != null && minPrice >= 0) {
+            sql.append("AND c.price >= ? ");
+            params.add(minPrice);
+        }
+        if (maxPrice != null && maxPrice > 0) {
+            sql.append("AND c.price <= ? ");
+            params.add(maxPrice);
+        }
+
+        if ("price_asc".equals(sortBy)) {
+            sql.append("ORDER BY c.price ASC ");
+        } else if ("price_desc".equals(sortBy)) {
+            sql.append("ORDER BY c.price DESC ");
+        } else if ("hp_desc".equals(sortBy)) {
+            sql.append("ORDER BY c.horsepower DESC ");
+        } else if ("speed_desc".equals(sortBy)) {
+            sql.append("ORDER BY c.top_speed DESC ");
+        } else {
+            sql.append("ORDER BY c.car_id DESC ");
+        }
+
+        sql.append("OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        params.add((page - 1) * pageSize);
+        params.add(pageSize);
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapCar(rs));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int countCarsDynamic(String keyword, Integer brandId, Integer categoryId,
+                               Double minPrice, Double maxPrice) {
+        StringBuilder sql = new StringBuilder(
+            "SELECT COUNT(*) "
+          + "FROM Cars c "
+          + "JOIN Brands b ON c.brand_id = b.brand_id "
+          + "JOIN Categories cat ON c.category_id = cat.category_id "
+          + "WHERE c.status = 1 "
+        );
+
+        List<Object> params = new ArrayList<Object>();
+
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("AND (c.model_name LIKE ? OR b.brand_name LIKE ?) ");
+            params.add("%" + keyword.trim() + "%");
+            params.add("%" + keyword.trim() + "%");
+        }
+        if (brandId != null && brandId > 0) {
+            sql.append("AND c.brand_id = ? ");
+            params.add(brandId);
+        }
+        if (categoryId != null && categoryId > 0) {
+            sql.append("AND c.category_id = ? ");
+            params.add(categoryId);
+        }
+        if (minPrice != null && minPrice >= 0) {
+            sql.append("AND c.price >= ? ");
+            params.add(minPrice);
+        }
+        if (maxPrice != null && maxPrice > 0) {
+            sql.append("AND c.price <= ? ");
+            params.add(maxPrice);
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public List<Car> getAllCarsAdmin() {
+        List<Car> list = new ArrayList<Car>();
+        String sql = "SELECT c.*, b.brand_name, b.country as brand_country, cat.category_name "
                    + "FROM Cars c "
                    + "JOIN Brands b ON c.brand_id = b.brand_id "
                    + "JOIN Categories cat ON c.category_id = cat.category_id "
@@ -223,7 +231,7 @@ public class CarDAO extends DBContext {
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                list.add(extractCar(rs));
+                list.add(mapCar(rs));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,26 +239,39 @@ public class CarDAO extends DBContext {
         return list;
     }
 
-    public boolean insertCar(Car car) {
-        String sql = "INSERT INTO Cars (model_name, brand_id, category_id, price, deposit_rate, year, horsepower, "
-                   + "acceleration_0_100, top_speed, stock_quantity, thumbnail_url, color_options, engine_spec, description, status) "
+    public int insertCar(Car car) {
+        String sql = "INSERT INTO Cars (model_name, brand_id, category_id, price, deposit_rate, year, "
+                   + "horsepower, acceleration_0_100, top_speed, stock_quantity, thumbnail_url, "
+                   + "color_options, engine_spec, description, status) "
                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            setCarStatementParams(ps, car);
-            int rows = ps.executeUpdate();
-            if (rows > 0) {
+            ps.setString(1, car.getModelName());
+            ps.setInt(2, car.getBrandId());
+            ps.setInt(3, car.getCategoryId());
+            ps.setBigDecimal(4, car.getPrice());
+            ps.setBigDecimal(5, car.getDepositRate() != null ? car.getDepositRate() : new BigDecimal("10.0"));
+            ps.setInt(6, car.getYear());
+            ps.setInt(7, car.getHorsepower());
+            ps.setDouble(8, car.getAcceleration0100());
+            ps.setInt(9, car.getTopSpeed());
+            ps.setInt(10, car.getStockQuantity());
+            ps.setString(11, car.getThumbnailUrl());
+            ps.setString(12, car.getColorOptions());
+            ps.setString(13, car.getEngineSpec());
+            ps.setString(14, car.getDescription());
+            ps.setInt(15, car.getStatus());
+
+            int affected = ps.executeUpdate();
+            if (affected > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        car.setCarId(rs.getInt(1));
-                    }
+                    if (rs.next()) return rs.getInt(1);
                 }
-                return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return -1;
     }
 
     public boolean updateCar(Car car) {
@@ -260,7 +281,21 @@ public class CarDAO extends DBContext {
                    + "WHERE car_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            setCarStatementParams(ps, car);
+            ps.setString(1, car.getModelName());
+            ps.setInt(2, car.getBrandId());
+            ps.setInt(3, car.getCategoryId());
+            ps.setBigDecimal(4, car.getPrice());
+            ps.setBigDecimal(5, car.getDepositRate());
+            ps.setInt(6, car.getYear());
+            ps.setInt(7, car.getHorsepower());
+            ps.setDouble(8, car.getAcceleration0100());
+            ps.setInt(9, car.getTopSpeed());
+            ps.setInt(10, car.getStockQuantity());
+            ps.setString(11, car.getThumbnailUrl());
+            ps.setString(12, car.getColorOptions());
+            ps.setString(13, car.getEngineSpec());
+            ps.setString(14, car.getDescription());
+            ps.setInt(15, car.getStatus());
             ps.setInt(16, car.getCarId());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -270,7 +305,7 @@ public class CarDAO extends DBContext {
     }
 
     public boolean deleteCar(int carId) {
-        String sql = "UPDATE Cars SET status = 0 WHERE car_id = ?";
+        String sql = "DELETE FROM Cars WHERE car_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, carId);
@@ -281,42 +316,47 @@ public class CarDAO extends DBContext {
         return false;
     }
 
-    public boolean reduceStock(Connection conn, int carId, int quantity) throws SQLException {
-        String sql = "UPDATE Cars SET stock_quantity = stock_quantity - ? WHERE car_id = ? AND stock_quantity >= ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, quantity);
-            ps.setInt(2, carId);
-            ps.setInt(3, quantity);
-            return ps.executeUpdate() > 0;
+    public int countTotalCars() {
+        String sql = "SELECT COUNT(*) FROM Cars WHERE status = 1";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
     }
 
-    private void setCarStatementParams(PreparedStatement ps, Car car) throws SQLException {
-        ps.setString(1, car.getModelName());
-        ps.setInt(2, car.getBrandId());
-        ps.setInt(3, car.getCategoryId());
-        ps.setDouble(4, car.getPrice());
-        ps.setDouble(5, car.getDepositRate() > 0 ? car.getDepositRate() : 10.0);
-        ps.setInt(6, car.getYear());
-        ps.setInt(7, car.getHorsepower());
-        ps.setDouble(8, car.getAcceleration0100());
-        ps.setInt(9, car.getTopSpeed());
-        ps.setInt(10, car.getStockQuantity());
-        ps.setString(11, car.getThumbnailUrl());
-        ps.setString(12, car.getColorOptions());
-        ps.setString(13, car.getEngineSpec());
-        ps.setString(14, car.getDescription());
-        ps.setInt(15, car.getStatus());
+    public Map<String, Integer> countCarsByBrand() {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        String sql = "SELECT b.brand_name, COUNT(c.car_id) as total "
+                   + "FROM Brands b "
+                   + "LEFT JOIN Cars c ON b.brand_id = c.brand_id "
+                   + "GROUP BY b.brand_name";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                map.put(rs.getString("brand_name"), rs.getInt("total"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
     }
 
-    private Car extractCar(ResultSet rs) throws SQLException {
+    private Car mapCar(ResultSet rs) throws SQLException {
         Car c = new Car();
         c.setCarId(rs.getInt("car_id"));
         c.setModelName(rs.getString("model_name"));
         c.setBrandId(rs.getInt("brand_id"));
+        c.setBrandName(rs.getString("brand_name"));
+        c.setBrandCountry(rs.getString("brand_country"));
         c.setCategoryId(rs.getInt("category_id"));
-        c.setPrice(rs.getDouble("price"));
-        c.setDepositRate(rs.getDouble("deposit_rate"));
+        c.setCategoryName(rs.getString("category_name"));
+        c.setPrice(rs.getBigDecimal("price"));
+        c.setDepositRate(rs.getBigDecimal("deposit_rate"));
         c.setYear(rs.getInt("year"));
         c.setHorsepower(rs.getInt("horsepower"));
         c.setAcceleration0100(rs.getDouble("acceleration_0_100"));
@@ -328,13 +368,6 @@ public class CarDAO extends DBContext {
         c.setDescription(rs.getString("description"));
         c.setStatus(rs.getInt("status"));
         c.setCreatedAt(rs.getTimestamp("created_at"));
-        
-        try {
-            c.setBrandName(rs.getString("brand_name"));
-            c.setBrandLogo(rs.getString("brand_logo"));
-            c.setCategoryName(rs.getString("category_name"));
-        } catch (SQLException ignored) {}
-        
         return c;
     }
 }

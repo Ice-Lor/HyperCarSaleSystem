@@ -3,12 +3,12 @@ package util;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
- * Tiện ích mã hóa và kiểm tra mật khẩu bằng jBCrypt
+ * Tiện ích băm và kiểm tra mật khẩu sử dụng thư viện jBCrypt chuẩn
  */
 public class PasswordUtil {
-    
+
     /**
-     * Mã hoá mật khẩu dạng plain text thành chuỗi bCrypt hash
+     * Mã hoá mật khẩu dạng plain text thành chuỗi bCrypt hash (10 rounds)
      */
     public static String hashPassword(String plainPassword) {
         if (plainPassword == null || plainPassword.isEmpty()) {
@@ -16,7 +16,7 @@ public class PasswordUtil {
         }
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt(10));
     }
-    
+
     /**
      * Kiểm tra mật khẩu người dùng nhập với chuỗi hash trong CSDL
      */

@@ -1,79 +1,75 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Lịch Sử Hợp Đồng Đặt Cọc - HYPERCAR" />
+    <jsp:param name="title" value="Hợp Đồng Đặt Cọc Của Tôi - HyperCar Sale System"/>
 </jsp:include>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
+
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
 
 <div class="container py-5">
-    <h2 class="font-brand fw-bold text-white mb-4">
-        <i class="bi bi-receipt gold-text me-2"></i> HỢP ĐỒNG ĐẶT CỌC CỦA ĐẠI CA
-    </h2>
+    <div class="mb-4">
+        <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">HỢP ĐỒNG ĐẶT CỌC SIÊU XE</h2>
+        <p class="text-muted small">Quản lý và tra cứu tiến độ bàn giao các siêu phẩm quý khách đang sở hữu</p>
+    </div>
 
-    <c:choose>
-        <c:when test="${empty myOrders}">
-            <div class="hyper-card p-5 text-center my-5">
-                <i class="bi bi-folder-x fs-1 text-secondary mb-3 d-block"></i>
-                <h4 class="text-white">Đại ca chưa có hợp đồng nào</h4>
-                <p class="text-secondary small">Hãy chọn cho mình mẫu siêu xe yêu thích và đặt cọc ngay hôm nay.</p>
-                <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold btn-sm mt-2">Xem Bộ Sưu Tập Xe</a>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div class="hyper-card p-4">
-                <div class="table-responsive">
-                    <table class="table table-dark table-hover table-dark-custom align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>Mã Hợp Đồng</th>
-                                <th>Ngày Đặt</th>
-                                <th>Tổng Giá Trị</th>
-                                <th>Tiền Đặt Cọc</th>
-                                <th>Phương Thức</th>
-                                <th>Trạng Thái</th>
-                                <th>Chi Tiết</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="o" items="${myOrders}">
-                                <tr>
-                                    <td class="fw-bold text-warning font-brand">${o.orderCode}</td>
-                                    <td class="text-secondary small">
-                                        <fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy HH:mm" />
-                                    </td>
-                                    <td class="text-white font-brand">
-                                        <fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                    </td>
-                                    <td class="text-warning fw-bold font-brand">
-                                        <fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-dark border border-secondary text-secondary">${o.paymentMethod}</span>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${o.status == 'CONFIRMED'}"><span class="badge bg-success">ĐÃ XÁC NHẬN</span></c:when>
-                                            <c:when test="${o.status == 'PROCESSING'}"><span class="badge bg-info text-dark">ĐANG XỬ LÝ</span></c:when>
-                                            <c:when test="${o.status == 'COMPLETED'}"><span class="badge bg-primary">ĐÃ BÀN GIAO</span></c:when>
-                                            <c:when test="${o.status == 'CANCELLED'}"><span class="badge bg-danger">ĐÃ HỦY</span></c:when>
-                                            <c:otherwise><span class="badge bg-warning text-dark">CHỜ DUYỆT CỌC</span></c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/orders?id=${o.orderId}" class="btn btn-outline-gold btn-sm">
-                                            <i class="bi bi-eye"></i> Xem
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </c:otherwise>
-    </c:choose>
+    <div class="card card-luxury p-3">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="background-color: transparent;">
+                <thead>
+                    <tr class="text-muted small border-bottom border-secondary">
+                        <th>Mã Hợp Đồng</th>
+                        <th>Ngày Ký Kết</th>
+                        <th>Tổng Giá Trị</th>
+                        <th>Tiền Đặt Cọc</th>
+                        <th>Mã Ưu Đãi</th>
+                        <th>Trạng Thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:if test="${empty orders}">
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-5">
+                                <i class="bi bi-inbox fs-2 d-block mb-2 text-gold"></i>
+                                Quý khách chưa có hợp đồng đặt cọc nào.
+                            </td>
+                        </tr>
+                    </c:if>
+                    <c:forEach items="${orders}" var="o">
+                        <tr class="border-bottom border-secondary">
+                            <td class="fw-bold text-gold">${o.orderCode}</td>
+                            <td><fmt:formatDate value="${o.orderDate}" pattern="dd/MM/yyyy HH:mm"/></td>
+                            <td class="fw-bold"><fmt:formatNumber value="${o.totalAmount}" type="currency" currencySymbol="$"/></td>
+                            <td class="text-gold fw-bold"><fmt:formatNumber value="${o.depositAmount}" type="currency" currencySymbol="$"/></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty o.couponCode}">
+                                        <span class="badge bg-surface border border-gold text-gold">${o.couponCode}</span>
+                                    </c:when>
+                                    <c:otherwise><span class="text-muted small">Không</span></c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${o.status == 'COMPLETED'}"><span class="badge bg-success">Đã Bàn Giao</span></c:when>
+                                    <c:when test="${o.status == 'CONFIRMED'}"><span class="badge bg-info text-dark">Đã Xác Nhận Cọc</span></c:when>
+                                    <c:when test="${o.status == 'CANCELLED'}"><span class="badge bg-danger">Đã Hủy</span></c:when>
+                                    <c:otherwise><span class="badge bg-warning text-dark">Đang Chờ Xử Lý</span></c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td class="text-end">
+                                <a href="${pageContext.request.contextPath}/order-history?id=${o.orderId}" class="btn btn-outline-gold btn-sm px-3">
+                                    Chi Tiết <i class="bi bi-eye-fill ms-1"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

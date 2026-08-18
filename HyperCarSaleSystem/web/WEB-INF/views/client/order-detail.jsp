@@ -1,135 +1,105 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Chi Tiết Hợp Đồng #${order.orderCode} - HYPERCAR" />
+    <jsp:param name="title" value="Chi Tiết Hợp Đồng #${order.orderCode} - HyperCar"/>
 </jsp:include>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
+
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
 
 <div class="container py-5">
-    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="font-brand fw-bold text-white mb-1">HỢP ĐỒNG #${order.orderCode}</h2>
-            <p class="text-secondary small mb-0">Ngày tạo: <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy HH:mm:ss" /></p>
+            <h2 class="fw-bold" style="font-family: 'Cinzel', serif;">CHI TIẾT HỢP ĐỒNG ĐẶT CỌC</h2>
+            <p class="text-muted small mb-0">Mã hợp đồng: <span class="text-gold fw-bold">${order.orderCode}</span></p>
         </div>
-        <a href="${pageContext.request.contextPath}/orders" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+        <a href="${pageContext.request.contextPath}/order-history" class="btn btn-outline-secondary text-light btn-sm">
+            <i class="bi bi-arrow-left me-1"></i> Quay Lại Danh Sách
         </a>
     </div>
 
     <div class="row g-4">
         <!-- Order Items -->
         <div class="col-lg-8">
-            <div class="hyper-card p-4 mb-4">
-                <h5 class="fw-bold gold-text font-brand mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-                    DANH SÁCH SIÊU XE ĐẶT CỌC
+            <div class="card card-luxury p-4 mb-4">
+                <h5 class="fw-bold text-gold mb-3 border-bottom border-secondary pb-2" style="font-family: 'Cinzel', serif;">
+                    DANH SÁCH SIÊU XE TRONG HỢP ĐỒNG
                 </h5>
 
-                <div class="table-responsive">
-                    <table class="table table-dark table-dark-custom align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>Siêu Xe</th>
-                                <th>Màu Sơn</th>
-                                <th>Số Lượng</th>
-                                <th>Đơn Giá</th>
-                                <th>Thành Tiền</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="detail" items="${order.orderDetails}">
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="${detail.thumbnailUrl}" alt="${detail.modelName}" class="rounded me-3" style="width: 70px; height: 45px; object-fit: cover;">
-                                            <div>
-                                                <div class="fw-bold text-white">${detail.modelName}</div>
-                                                <div class="small text-secondary">${detail.brandName}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-secondary">${not empty detail.selectedColor ? detail.selectedColor : 'Mặc định'}</span></td>
-                                    <td class="text-white">${detail.quantity}</td>
-                                    <td class="text-white font-brand">
-                                        <fmt:formatNumber value="${detail.unitPrice}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                    </td>
-                                    <td class="text-warning fw-bold font-brand">
-                                        <fmt:formatNumber value="${detail.subTotal}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Delivery & Contract Info -->
-            <div class="hyper-card p-4">
-                <h5 class="fw-bold gold-text font-brand mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-                    ĐỊA CHỈ & THỦ TỤC BÀN GIAO
-                </h5>
-                <div class="row g-3 small text-secondary">
-                    <div class="col-md-6">
-                        <span class="d-block text-white fw-bold">Người nhận xe:</span>
-                        ${order.customerName} (${order.phone})
-                    </div>
-                    <div class="col-md-6">
-                        <span class="d-block text-white fw-bold">Địa chỉ giao:</span>
-                        ${order.deliveryAddress}
-                    </div>
-                    <div class="col-12">
-                        <span class="d-block text-white fw-bold">Ghi chú kèm theo:</span>
-                        ${not empty order.note ? order.note : 'Không có yêu cầu đặc biệt.'}
-                    </div>
+                <div class="d-flex flex-column gap-3">
+                    <c:forEach items="${order.details}" var="d">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded bg-surface" style="background-color: #1a1c2b;">
+                            <div class="d-flex align-items-center">
+                                <img src="${d.carThumbnailUrl}" alt="${d.carModelName}" style="width: 100px; height: 65px; object-fit: cover;" class="rounded me-3">
+                                <div>
+                                    <h6 class="fw-bold text-light mb-1">${d.carModelName}</h6>
+                                    <div class="small text-muted">Màu sơn: <span class="text-gold">${d.selectedColor}</span> • Số lượng: ${d.quantity} chiếc</div>
+                                    <c:if test="${not empty d.customOptions}">
+                                        <div class="small text-muted" style="font-size: 0.75rem;">Tùy biến Bespoke: ${d.customOptions}</div>
+                                    </c:if>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-gold"><fmt:formatNumber value="${d.unitPrice}" type="currency" currencySymbol="$"/></div>
+                                <small class="text-muted">Đơn giá niêm yết</small>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
 
-        <!-- Summary & Status -->
+        <!-- Order Information Summary -->
         <div class="col-lg-4">
-            <div class="hyper-card p-4 sticky-top" style="top: 90px;">
-                <h5 class="fw-bold gold-text font-brand mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-                    TÌNH TRẠNG HỢP ĐỒNG
+            <div class="card card-luxury p-4">
+                <h5 class="fw-bold text-gold mb-3 border-bottom border-secondary pb-2" style="font-family: 'Cinzel', serif;">
+                    THÔNG TIN GIAO DỊCH
                 </h5>
 
-                <div class="mb-3">
-                    <span class="text-secondary small d-block">Trạng thái hiện tại:</span>
-                    <c:choose>
-                        <c:when test="${order.status == 'CONFIRMED'}"><span class="badge bg-success fs-6">ĐÃ XÁC NHẬN CỌC</span></c:when>
-                        <c:when test="${order.status == 'PROCESSING'}"><span class="badge bg-info text-dark fs-6">ĐANG VẬN CHUYỂN</span></c:when>
-                        <c:when test="${order.status == 'COMPLETED'}"><span class="badge bg-primary fs-6">ĐÃ BÀN GIAO XE</span></c:when>
-                        <c:when test="${order.status == 'CANCELLED'}"><span class="badge bg-danger fs-6">ĐÃ HỦY HỢP ĐỒNG</span></c:when>
-                        <c:otherwise><span class="badge bg-warning text-dark fs-6">CHỜ DUYỆT THANH TOÁN</span></c:otherwise>
-                    </c:choose>
+                <div class="small mb-3">
+                    <div class="text-muted">Chủ sở hữu:</div>
+                    <div class="fw-bold text-light">${order.userName} (${order.userEmail})</div>
                 </div>
 
-                <div class="mb-3">
-                    <span class="text-secondary small d-block">Phương thức thanh toán:</span>
-                    <strong class="text-white">${order.paymentMethod}</strong>
+                <div class="small mb-3">
+                    <div class="text-muted">Số điện thoại liên hệ:</div>
+                    <div class="fw-bold text-light">${order.phone}</div>
                 </div>
 
-                <hr class="border-secondary border-opacity-25 my-3">
+                <div class="small mb-3">
+                    <div class="text-muted">Địa chỉ bàn giao siêu xe:</div>
+                    <div class="text-light">${order.deliveryAddress}</div>
+                </div>
 
-                <div class="d-flex justify-content-between text-secondary small mb-2">
-                    <span>Tổng giá trị hợp đồng:</span>
-                    <span class="text-white fw-bold">
-                        <fmt:formatNumber value="${order.totalAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" />
-                    </span>
+                <div class="small mb-3">
+                    <div class="text-muted">Phương thức thanh toán:</div>
+                    <div class="badge bg-surface border border-secondary text-light">${order.paymentMethod}</div>
+                </div>
+
+                <hr class="border-secondary">
+
+                <div class="d-flex justify-content-between text-muted small mb-2">
+                    <span>Tổng giá trị xe:</span>
+                    <span class="text-light fw-bold"><fmt:formatNumber value="${order.totalAmount}" type="currency" currencySymbol="$"/></span>
                 </div>
 
                 <c:if test="${order.discountAmount > 0}">
                     <div class="d-flex justify-content-between text-success small mb-2">
-                        <span>Chiết khấu VIP (${order.couponCode}):</span>
-                        <span>-<fmt:formatNumber value="${order.discountAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" /></span>
+                        <span>Ưu đãi VIP (${order.couponCode}):</span>
+                        <span>- <fmt:formatNumber value="${order.discountAmount}" type="currency" currencySymbol="$"/></span>
                     </div>
                 </c:if>
 
-                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
-                    <span class="text-white fw-bold">TIỀN CỌC:</span>
-                    <span class="text-warning fw-bold fs-4 font-brand">
-                        <fmt:formatNumber value="${order.depositAmount}" type="currency" currencySymbol="$" maxFractionDigits="0" />
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-bold text-light">Tiền Đặt Cọc:</span>
+                    <span class="fs-4 fw-bold text-gold"><fmt:formatNumber value="${order.depositAmount}" type="currency" currencySymbol="$"/></span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                    <span class="text-muted small">Trạng thái:</span>
+                    <span class="badge ${order.status == 'COMPLETED' ? 'bg-success' : (order.status == 'CONFIRMED' ? 'bg-info text-dark' : 'bg-warning text-dark')}">
+                        ${order.status}
                     </span>
                 </div>
             </div>
@@ -137,4 +107,4 @@
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

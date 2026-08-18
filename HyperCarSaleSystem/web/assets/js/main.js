@@ -1,102 +1,93 @@
-/**
- * HYPERCAR SALE SYSTEM - CLIENT-SIDE JAVASCRIPT
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Live Search Autocomplete
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. AJAX Live Search
     const searchInput = document.getElementById('globalSearchInput');
-    const searchResults = document.getElementById('searchResults');
+    const searchDropdown = document.getElementById('searchResultsDropdown');
 
-    if (searchInput && searchResults) {
-        let debounceTimer;
-
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(debounceTimer);
-            const query = e.target.value.trim();
+    if (searchInput && searchDropdown) {
+        let debounceTimeout;
+        searchInput.addEventListener('input', function () {
+            clearTimeout(debounceTimeout);
+            const query = this.value.trim();
 
             if (query.length < 2) {
-                searchResults.style.display = 'none';
-                searchResults.innerHTML = '';
+                searchDropdown.style.display = 'none';
+                searchDropdown.innerHTML = '';
                 return;
             }
 
-            debounceTimer = setTimeout(() => {
-                const contextPath = document.body.dataset.context || '';
-                fetch(`${contextPath}/api/cars/search?q=${encodeURIComponent(query)}`)
-                    .then(res => res.json())
+            debounceTimeout = setTimeout(() => {
+                const contextPath = document.body.getAttribute('data-context-path') || '';
+                fetch(contextPath + '/api/search?q=' + encodeURIComponent(query))
+                    .then(response => response.json())
                     .then(cars => {
                         if (!cars || cars.length === 0) {
-                            searchResults.innerHTML = '<div class="p-3 text-muted text-center">Không tìm thấy siêu xe phù hợp</div>';
-                            searchResults.style.display = 'block';
+                            searchDropdown.innerHTML = '<div class="p-3 text-muted text-center">Không tìm thấy siêu xe phù hợp</div>';
+                            searchDropdown.style.display = 'block';
                             return;
                         }
 
                         let html = '';
                         cars.forEach(car => {
-                            const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(car.price);
+                            const priceFormatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(car.price);
                             html += `
                                 <a href="${contextPath}/car-detail?id=${car.carId}" class="search-item">
                                     <img src="${car.thumbnailUrl}" alt="${car.modelName}">
                                     <div>
                                         <div class="fw-bold">${car.modelName}</div>
-                                        <div class="small text-muted">${car.brandName} • <span class="text-warning">${formattedPrice}</span></div>
+                                        <small class="text-gold">${car.brandName} • ${priceFormatted}</small>
                                     </div>
                                 </a>
                             `;
                         });
-                        searchResults.innerHTML = html;
-                        searchResults.style.display = 'block';
+                        searchDropdown.innerHTML = html;
+                        searchDropdown.style.display = 'block';
                     })
-                    .catch(err => console.error('Search error:', err));
+                    .catch(err => console.error('Live search error:', err));
             }, 300);
         });
 
-        // Close search results when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                searchResults.style.display = 'none';
+        document.addEventListener('click', function (e) {
+            if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+                searchDropdown.style.display = 'none';
             }
         });
     }
 
-    // 2. Coupon Validation in Checkout
-    const btnApplyCoupon = document.getElementById('btnApplyCoupon');
+    // 2. AJAX Coupon Validator
+    const applyCouponBtn = document.getElementById('btnApplyCoupon');
     const couponInput = document.getElementById('couponCodeInput');
-    const couponMessage = document.getElementById('couponMessage');
+    const couponMsg = document.getElementById('couponMessage');
+    const totalDepositEl = document.getElementById('checkoutDepositAmount');
 
-    if (btnApplyCoupon && couponInput) {
-        btnApplyCoupon.addEventListener('click', () => {
+    if (applyCouponBtn && couponInput) {
+        applyCouponBtn.addEventListener('click', function () {
             const code = couponInput.value.trim();
-            if (!code) return;
+            const rawAmount = this.getAttribute('data-total-amount');
+            const contextPath = document.body.getAttribute('data-context-path') || '';
 
-            const contextPath = document.body.dataset.context || '';
-            const formData = new URLSearchParams();
-            formData.append('couponCode', code);
+            if (!code) {
+                couponMsg.innerHTML = '<span class="text-danger">Vui lòng nhập mã ưu đãi VIP!</span>';
+                return;
+            }
 
-            fetch(`${contextPath}/api/coupon/check`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    if (couponMessage) {
-                        couponMessage.className = 'text-success small mt-1';
-                        couponMessage.innerText = data.message + ` (Giảm -$${data.discountAmount.toLocaleString()})`;
+            fetch(`${contextPath}/api/coupon?code=${encodeURIComponent(code)}&amount=${rawAmount}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.valid) {
+                        couponMsg.innerHTML = `<span class="text-success"><i class="bi bi-check-circle-fill"></i> ${data.message}</span>`;
+                        if (totalDepositEl) {
+                            const currentDeposit = parseFloat(totalDepositEl.getAttribute('data-raw-deposit'));
+                            const discount = (currentDeposit * data.discountPercent) / 100;
+                            const maxDisc = parseFloat(data.maxDiscount);
+                            const actualDiscount = Math.min(discount, maxDisc);
+                            const newDeposit = currentDeposit - actualDiscount;
+                            totalDepositEl.innerText = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(newDeposit);
+                        }
+                    } else {
+                        couponMsg.innerHTML = `<span class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> ${data.message}</span>`;
                     }
-                    const totalElem = document.getElementById('summaryFinalTotal');
-                    const depositElem = document.getElementById('summaryFinalDeposit');
-                    if (totalElem) totalElem.innerText = '$' + data.finalTotal.toLocaleString();
-                    if (depositElem) depositElem.innerText = '$' + data.finalDeposit.toLocaleString();
-                } else {
-                    if (couponMessage) {
-                        couponMessage.className = 'text-danger small mt-1';
-                        couponMessage.innerText = data.message;
-                    }
-                }
-            })
-            .catch(err => console.error('Coupon error:', err));
+                })
+                .catch(err => console.error('Coupon check error:', err));
         });
     }
 });

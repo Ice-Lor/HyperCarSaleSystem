@@ -22,15 +22,15 @@ public class CarDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String idStr = request.getParameter("id");
-        if (idStr == null || idStr.trim().isEmpty()) {
+        if (idStr == null || idStr.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/cars");
             return;
         }
 
         try {
-            int carId = Integer.parseInt(idStr.trim());
+            int carId = Integer.parseInt(idStr);
             Car car = carDAO.getCarById(carId);
             if (car == null) {
                 response.sendRedirect(request.getContextPath() + "/cars");
@@ -39,22 +39,11 @@ public class CarDetailController extends HttpServlet {
 
             List<CarImage> gallery = imageDAO.getImagesByCarId(carId);
             List<CarReview> reviews = reviewDAO.getReviewsByCarId(carId);
-            
-            // Tính trung bình rating
-            double avgRating = 5.0;
-            if (!reviews.isEmpty()) {
-                double sum = 0;
-                for (CarReview r : reviews) sum += r.getRating();
-                avgRating = Math.round((sum / reviews.size()) * 10.0) / 10.0;
-            }
-
-            // Xe liên quan
-            List<Car> relatedCars = carDAO.filterCars(null, car.getBrandId(), null, null, null, null, null, 1, 3);
+            List<Car> relatedCars = carDAO.searchCarsDynamic(null, car.getBrandId(), null, null, null, null, 1, 3);
 
             request.setAttribute("car", car);
             request.setAttribute("gallery", gallery);
             request.setAttribute("reviews", reviews);
-            request.setAttribute("avgRating", avgRating);
             request.setAttribute("relatedCars", relatedCars);
 
             request.getRequestDispatcher("/WEB-INF/views/client/car-detail.jsp").forward(request, response);
