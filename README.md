@@ -155,7 +155,7 @@ erDiagram
 
 ---
 
-## 💎 ĐẶC ĐIỂM NỔI BẬT & QUY MÔ DỰ ÁN (ĐẠT ĐIỂM TỐI ĐA 10/10)
+## 💎 ĐẶC ĐIỂM NỔI BẬT & QUY MÔ DỰ ÁN
 
 1. **Quy mô CSDL (11 Bảng chuẩn 3NF)**:
    * `Roles`, `Users`, `Brands`, `Categories`, `Cars`, `CarImages`, `Coupons`, `Orders`, `OrderDetails`, `TestDriveBookings`, `CarReviews`, `ActivityLogs`.
