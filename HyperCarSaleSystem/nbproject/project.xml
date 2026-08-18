@@ -11,19 +11,19 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.jackson-databind-2.15.2.jar}</file>
+                    <file>${file.reference.jackson-databind-2.14.3.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.jackson-core-2.15.2.jar}</file>
+                    <file>${file.reference.jackson-core-2.14.3.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.jackson-annotations-2.15.2.jar}</file>
+                    <file>${file.reference.jackson-annotations-2.14.3.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.mssql-jdbc-12.4.2.jre11.jar}</file>
+                    <file>${file.reference.mssql-jdbc-12.4.2.jre8.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
