@@ -1,0 +1,22 @@
+# NetBeans Project ignores
+**/build/
+**/dist/
+**/nbproject/private/
+
+# Compiled class files
+*.class
+
+# Temporary and log files
+*.log
+*.tmp
+erd_render.html
+erd_*.png
+mermaid.min.js
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Keep lib JARs (Required for NetBeans / Ant portable build)
+!**/web/WEB-INF/lib/*.jar
