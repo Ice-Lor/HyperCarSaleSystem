@@ -256,8 +256,8 @@ GO
 
 -- Orders Demo (Đơn 1 có coupon, Đơn 2 không có coupon)
 INSERT INTO Orders (order_code, user_id, total_amount, deposit_amount, coupon_code, discount_amount, status, payment_method, delivery_address, phone, note, order_date) VALUES
-('ORD-2026-0001', 2, 3800000.00, 380000.00, 'VIP50K', 50000.00, N'CONFIRMED', N'BANK_TRANSFER', N'Biệt thự số 10 Thảo Điền, TP. Thủ Đức', '0912345678', N'Giao xe kèm đầy đủ bộ phụ kiện và đồng hồ Bugatti đi kèm.', DATEADD(day, -5, GETDATE())),
-('ORD-2026-0002', 3, 608000.00, 60800.00, NULL, 0, N'PENDING', N'CRYPTO_USDT', N'Penthouse Landmark 81, TP. HCM', '0999999999', N'Yêu cầu giao xe bằng xe thùng kín chuyên dụng VIP.', DATEADD(day, -1, GETDATE()));
+('ORD-20260817-091530-A8F2', 2, 3800000.00, 380000.00, 'VIP50K', 50000.00, N'CONFIRMED', N'BANK_TRANSFER', N'Biệt thự số 10 Thảo Điền, TP. Thủ Đức', '0912345678', N'Giao xe kèm đầy đủ bộ phụ kiện và đồng hồ Bugatti đi kèm.', DATEADD(day, -5, GETDATE())),
+('ORD-20260821-143000-3D5C', 3, 608000.00, 60800.00, NULL, 0, N'PENDING', N'CRYPTO_USDT', N'Penthouse Landmark 81, TP. HCM', '0999999999', N'Yêu cầu giao xe bằng xe thùng kín chuyên dụng VIP.', DATEADD(day, -1, GETDATE()));
 GO
 
 -- Order Details Demo
@@ -282,6 +282,6 @@ GO
 -- Activity Logs Demo
 INSERT INTO ActivityLogs (user_id, action, details, created_at) VALUES
 (1, N'SYSTEM_INIT', N'Hệ thống HyperCar Sale System khởi tạo cơ sở dữ liệu thành công.', GETDATE()),
-(2, N'PLACE_ORDER', N'Khách hàng John Wick đặt cọc thành công đơn hàng ORD-2026-0001 (Bugatti Chiron).', DATEADD(day, -5, GETDATE())),
+(2, N'PLACE_ORDER', N'Khách hàng John Wick đặt cọc thành công đơn hàng ORD-20260817-091530-A8F2 (Bugatti Chiron).', DATEADD(day, -5, GETDATE())),
 (3, N'BOOK_TESTDRIVE', N'Khách hàng Tony Stark đặt lịch lái thử siêu xe Rimac Nevera.', DATEADD(day, -1, GETDATE()));
 GO
