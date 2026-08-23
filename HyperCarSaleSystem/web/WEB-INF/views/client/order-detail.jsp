@@ -157,7 +157,7 @@
             <button type="button" class="btn btn-gold btn-lg" onclick="window.print()">
                 🖨️ IN HỢP ĐỒNG ĐIỆN TỬ
             </button>
-            <a href="${pageContext.request.contextPath}/order-history" class="btn btn-outline btn-lg ml-3">
+            <a href="${pageContext.request.contextPath}/MainController?action=OrderHistory" class="btn btn-outline btn-lg ml-3">
                 📜 VỀ LỊCH SỬ ĐẶT CỌC
             </a>
         </div>

@@ -50,7 +50,7 @@
                     <div class="alert alert-success">${profileSuccess}</div>
                 </c:if>
 
-                <form action="${pageContext.request.contextPath}/profile" method="POST">
+                <form action="${pageContext.request.contextPath}/MainController" method="POST">
                     <input type="hidden" name="csrf_token" value="${csrfToken}" />
                     <input type="hidden" name="action" value="update_profile" />
 
@@ -100,7 +100,7 @@
                     <div class="alert alert-success">${passwordSuccess}</div>
                 </c:if>
 
-                <form action="${pageContext.request.contextPath}/profile" method="POST">
+                <form action="${pageContext.request.contextPath}/MainController" method="POST">
                     <input type="hidden" name="csrf_token" value="${csrfToken}" />
                     <input type="hidden" name="action" value="change_password" />
 

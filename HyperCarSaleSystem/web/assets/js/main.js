@@ -69,7 +69,7 @@ function initLiveSearch() {
                     if (data.status === 'success' && data.data && data.data.length > 0) {
                         var html = '';
                         data.data.forEach(function (car) {
-                            html += '<a href="' + contextPath + '/car-detail?id=' + car.carId + '" class="search-item">' +
+                            html += '<a href="' + contextPath + '/MainController?action=CarDetail&id=' + car.carId + '" class="search-item">' +
                                     '<img src="' + contextPath + '/' + car.thumbnailUrl + '" alt="' + car.modelName + '" class="search-item-thumb">' +
                                     '<div>' +
                                         '<div class="search-item-title">' + car.modelName + '</div>' +

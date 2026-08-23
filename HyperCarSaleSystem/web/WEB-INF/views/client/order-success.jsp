@@ -52,10 +52,10 @@
 
             <!-- Các nút điều hướng -->
             <div class="success-actions">
-                <a href="${pageContext.request.contextPath}/order-detail?code=${order.orderCode}" class="btn btn-gold btn-lg">
+                <a href="${pageContext.request.contextPath}/MainController?action=OrderDetail&code=${order.orderCode}" class="btn btn-gold btn-lg">
                     📜 XEM HÓA ĐƠN ĐIỆN TỬ
                 </a>
-                <a href="${pageContext.request.contextPath}/home" class="btn btn-outline btn-lg ml-3">
+                <a href="${pageContext.request.contextPath}/MainController?action=Home" class="btn btn-outline btn-lg ml-3">
                     🌐 VỀ TRANG CHỦ SHOWROOM
                 </a>
             </div>

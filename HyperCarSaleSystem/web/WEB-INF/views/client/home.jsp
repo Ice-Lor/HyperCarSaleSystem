@@ -15,8 +15,8 @@
             Trải nghiệm cảm giác làm chủ những cỗ máy tốc độ đắt giá nhất hành tinh từ Bugatti, Ferrari, Lamborghini, Koenigsegg, Pagani, McLaren, Porsche và Rimac.
         </p>
         <div class="hero-cta">
-            <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold btn-lg">KHÁM PHÁ BỘ SƯU TẬP</a>
-            <a href="${pageContext.request.contextPath}/test-drive" class="btn btn-outline btn-lg">ĐẶT LỊCH LÁI THỬ F1</a>
+            <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-gold btn-lg">KHÁM PHÁ BỘ SƯU TẬP</a>
+            <a href="${pageContext.request.contextPath}/MainController?action=TestDrive" class="btn btn-outline btn-lg">ĐẶT LỊCH LÁI THỬ F1</a>
         </div>
     </div>
 </section>
@@ -31,7 +31,7 @@
 
         <div class="brands-grid">
             <c:forEach var="brand" items="${brands}">
-                <a href="${pageContext.request.contextPath}/cars?brandId=${brand.brandId}" class="brand-card">
+                <a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=${brand.brandId}" class="brand-card">
                     <div class="brand-logo-wrap">
                         <img src="${pageContext.request.contextPath}/${brand.logoUrl}" alt="${brand.brandName}" class="brand-logo-img">
                     </div>
@@ -63,7 +63,7 @@
                     <!-- Nội dung thông tin xe -->
                     <div class="car-body">
                         <h3 class="car-title">
-                            <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}">${car.modelName}</a>
+                            <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${car.carId}">${car.modelName}</a>
                         </h3>
                         
                         <!-- Thông số hiệu năng F1 -->
@@ -100,14 +100,20 @@
                             </div>
                         </div>
 
-                        <!-- Nút thao tác -->
+                        <!-- Nút thao tác qua MainController -->
                         <div class="car-actions">
-                            <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}" class="btn btn-outline btn-block">
+                            <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${car.carId}" class="btn btn-outline btn-block">
                                 XEM CHI TIẾT
                             </a>
-                            <button type="button" class="btn btn-gold btn-block btn-add-cart" data-car-id="${car.carId}">
-                                + ĐẶT CỌC XE
-                            </button>
+                            <form action="${pageContext.request.contextPath}/MainController" method="POST" style="margin: 0; width: 100%;">
+                                <input type="hidden" name="csrf_token" value="${csrfToken}" />
+                                <input type="hidden" name="action" value="AddToCart" />
+                                <input type="hidden" name="carId" value="${car.carId}" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-gold btn-block btn-add-cart" data-car-id="${car.carId}">
+                                    + ĐẶT CỌC XE
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -115,7 +121,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="${pageContext.request.contextPath}/cars" class="btn btn-outline btn-lg">
+            <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-outline btn-lg">
                 XEM TOÀN BỘ BỘ SƯU TẬP XE →
             </a>
         </div>
@@ -140,7 +146,7 @@
 
                     <div class="car-body">
                         <h3 class="car-title">
-                            <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}">${car.modelName}</a>
+                            <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${car.carId}">${car.modelName}</a>
                         </h3>
                         
                         <div class="car-specs">
@@ -174,7 +180,7 @@
                         </div>
 
                         <div class="car-actions">
-                            <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}" class="btn btn-outline btn-block">
+                            <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${car.carId}" class="btn btn-outline btn-block">
                                 CHI TIẾT & BẢNG GIÁ
                             </a>
                         </div>

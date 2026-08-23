@@ -63,6 +63,17 @@
     </filter-mapping>
 
     <!-- SERVLET MAPPINGS -->
+    <!-- Front Controller -->
+    <servlet>
+        <servlet-name>MainController</servlet-name>
+        <servlet-class>controller.MainController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainController</servlet-name>
+        <url-pattern>/MainController</url-pattern>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+
     <!-- Auth -->
     <servlet>
         <servlet-name>LoginController</servlet-name>

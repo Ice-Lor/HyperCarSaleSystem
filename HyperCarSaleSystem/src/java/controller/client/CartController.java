@@ -53,6 +53,7 @@ public class CartController extends HttpServlet {
 
         switch (action.toLowerCase()) {
             case "add":
+            case "addtocart":
                 int addCarId = ValidationUtil.parseInt(request.getParameter("carId"), 0);
                 int addQuantity = ValidationUtil.parseInt(request.getParameter("quantity"), 1);
                 String selectedColor = ValidationUtil.sanitize(request.getParameter("selectedColor"));
@@ -67,6 +68,7 @@ public class CartController extends HttpServlet {
                 break;
 
             case "update":
+            case "updatecart":
                 int updateCarId = ValidationUtil.parseInt(request.getParameter("carId"), 0);
                 int updateQuantity = ValidationUtil.parseInt(request.getParameter("quantity"), 1);
                 if (updateCarId > 0) {
@@ -75,6 +77,7 @@ public class CartController extends HttpServlet {
                 break;
 
             case "remove":
+            case "removecart":
                 int removeCarId = ValidationUtil.parseInt(request.getParameter("carId"), 0);
                 if (removeCarId > 0) {
                     cart.removeItem(removeCarId);
@@ -82,6 +85,7 @@ public class CartController extends HttpServlet {
                 break;
 
             case "clear":
+            case "clearcart":
                 cart.clear();
                 break;
 
@@ -92,7 +96,7 @@ public class CartController extends HttpServlet {
         // Cập nhật lại session
         session.setAttribute("cart", cart);
 
-        // Chuyển hướng lại trang giỏ hàng
-        response.sendRedirect(request.getContextPath() + "/cart");
+        // Chuyển hướng lại trang giỏ hàng qua MainController
+        response.sendRedirect(request.getContextPath() + "/MainController?action=Cart");
     }
 }

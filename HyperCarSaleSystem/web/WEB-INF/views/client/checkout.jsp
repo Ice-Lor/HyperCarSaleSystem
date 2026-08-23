@@ -17,9 +17,10 @@
         <div class="alert alert-danger mb-4">${error}</div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/checkout" method="POST" id="checkoutForm">
-        <!-- Mã bảo mật CSRF Token -->
+    <form action="${pageContext.request.contextPath}/MainController" method="POST" id="checkoutForm">
+        <!-- Mã bảo mật CSRF Token & Action Front Controller -->
         <input type="hidden" name="csrf_token" value="${csrfToken}" />
+        <input type="hidden" name="action" value="PlaceOrder" />
 
         <div class="checkout-layout">
             <!-- CỘT TRÁI: THÔNG TIN BÀN GIAO & PHƯƠNG THỨC THANH TOÁN -->

@@ -28,8 +28,9 @@
             <div class="card p-4">
                 <h3 class="card-title">ĐẶT LỊCH TRẢI NGHIỆM ĐƯỜNG ĐUA</h3>
 
-                <form action="${pageContext.request.contextPath}/test-drive" method="POST">
+                <form action="${pageContext.request.contextPath}/MainController" method="POST">
                     <input type="hidden" name="csrf_token" value="${csrfToken}" />
+                    <input type="hidden" name="action" value="TestDrive" />
 
                     <!-- Chọn siêu xe lái thử -->
                     <div class="form-group">

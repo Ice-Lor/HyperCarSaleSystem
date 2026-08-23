@@ -14,12 +14,14 @@
 
 <div class="container section">
     <div class="car-list-layout">
-        <!-- BỘ LỌC TÌM KIẾM SIDEBAR (ADVANCED FILTER) -->
+        <!-- BỘ LỌC TÌM KIẾM SIDEBAR QUA MAINCONTROLLER -->
         <aside class="filter-sidebar">
             <div class="filter-card">
                 <h3 class="filter-title">🔍 BỘ LỌC TÌM KIẾM</h3>
                 
-                <form action="${pageContext.request.contextPath}/cars" method="GET" id="filterForm">
+                <form action="${pageContext.request.contextPath}/MainController" method="GET" id="filterForm">
+                    <input type="hidden" name="action" value="Cars" />
+
                     <!-- Từ khóa -->
                     <div class="form-group">
                         <label class="form-label">Từ Khóa</label>
@@ -80,7 +82,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-gold btn-block">ÁP DỤNG BỘ LỌC</button>
-                    <a href="${pageContext.request.contextPath}/cars" class="btn btn-outline btn-block mt-2">XÓA BỘ LỌC</a>
+                    <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-outline btn-block mt-2">XÓA BỘ LỌC</a>
                 </form>
             </div>
         </aside>
@@ -107,7 +109,7 @@
 
                                 <div class="car-body">
                                     <h3 class="car-title">
-                                        <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}">${car.modelName}</a>
+                                        <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${car.carId}">${car.modelName}</a>
                                     </h3>
 
                                     <div class="car-specs">
@@ -143,30 +145,36 @@
                                     </div>
 
                                     <div class="car-actions">
-                                        <a href="${pageContext.request.contextPath}/car-detail?id=${car.carId}" class="btn btn-outline btn-block">
+                                        <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${car.carId}" class="btn btn-outline btn-block">
                                             XEM CHI TIẾT
                                         </a>
-                                        <button type="button" class="btn btn-gold btn-block btn-add-cart" data-car-id="${car.carId}">
-                                            + ĐẶT CỌC XE
-                                        </button>
+                                        <form action="${pageContext.request.contextPath}/MainController" method="POST" style="margin: 0; width: 100%;">
+                                            <input type="hidden" name="csrf_token" value="${csrfToken}" />
+                                            <input type="hidden" name="action" value="AddToCart" />
+                                            <input type="hidden" name="carId" value="${car.carId}" />
+                                            <input type="hidden" name="quantity" value="1" />
+                                            <button type="submit" class="btn btn-gold btn-block btn-add-cart" data-car-id="${car.carId}">
+                                                + ĐẶT CỌC XE
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
                     </div>
 
-                    <!-- THANH ĐIỀU HƯỚNG PHÂN TRANG (PAGINATION) -->
+                    <!-- THANH ĐIỀU HƯỚNG PHÂN TRANG (PAGINATION QUA MAINCONTROLLER) -->
                     <c:if test="${totalPages > 1}">
                         <div class="pagination">
                             <!-- Nút Trang trước -->
                             <c:if test="${currentPage > 1}">
-                                <a href="${pageContext.request.contextPath}/cars?page=${currentPage - 1}&keyword=${selectedKeyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}&sortBy=${selectedSortBy}" 
+                                <a href="${pageContext.request.contextPath}/MainController?action=Cars&page=${currentPage - 1}&keyword=${selectedKeyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}&sortBy=${selectedSortBy}" 
                                    class="page-link page-prev">« Trước</a>
                             </c:if>
 
                             <!-- Các số trang -->
                             <c:forEach begin="1" end="${totalPages}" var="i">
-                                <a href="${pageContext.request.contextPath}/cars?page=${i}&keyword=${selectedKeyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}&sortBy=${selectedSortBy}" 
+                                <a href="${pageContext.request.contextPath}/MainController?action=Cars&page=${i}&keyword=${selectedKeyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}&sortBy=${selectedSortBy}" 
                                    class="page-link ${currentPage == i ? 'active' : ''}">
                                     ${i}
                                 </a>
@@ -174,7 +182,7 @@
 
                             <!-- Nút Trang sau -->
                             <c:if test="${currentPage < totalPages}">
-                                <a href="${pageContext.request.contextPath}/cars?page=${currentPage + 1}&keyword=${selectedKeyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}&sortBy=${selectedSortBy}" 
+                                <a href="${pageContext.request.contextPath}/MainController?action=Cars&page=${currentPage + 1}&keyword=${selectedKeyword}&brandId=${selectedBrandId}&categoryId=${selectedCategoryId}&minPrice=${selectedMinPrice}&maxPrice=${selectedMaxPrice}&sortBy=${selectedSortBy}" 
                                    class="page-link page-next">Sau »</a>
                             </c:if>
                         </div>
@@ -185,7 +193,7 @@
                         <div class="empty-icon">🏎️</div>
                         <h3>Không tìm thấy siêu xe phù hợp</h3>
                         <p>Quý khách vui lòng thử tìm kiếm với các tiêu chí lọc khác hoặc liên hệ Concierge để đặt hàng riêng.</p>
-                        <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold mt-3">XEM TOÀN BỘ SHOWROOM</a>
+                        <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-gold mt-3">XEM TOÀN BỘ SHOWROOM</a>
                     </div>
                 </c:otherwise>
             </c:choose>

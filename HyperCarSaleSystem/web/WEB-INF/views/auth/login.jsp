@@ -28,9 +28,10 @@
             <div class="alert alert-info">Đã đăng xuất tài khoản an toàn khỏi hệ thống.</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/login" method="POST" class="auth-form">
-            <!-- Mã bảo mật CSRF Token -->
+        <form action="${pageContext.request.contextPath}/MainController" method="POST" class="auth-form">
+            <!-- Mã bảo mật CSRF Token & Action Front Controller -->
             <input type="hidden" name="csrf_token" value="${csrfToken}" />
+            <input type="hidden" name="action" value="Login" />
 
             <div class="form-group">
                 <label for="username" class="form-label">Tên Đăng Nhập</label>
@@ -49,7 +50,7 @@
 
         <div class="auth-footer">
             <p>Chưa có tài khoản? 
-                <a href="${pageContext.request.contextPath}/register" class="text-gold font-bold">Đăng ký tài khoản mới</a>
+                <a href="${pageContext.request.contextPath}/MainController?action=Register" class="text-gold font-bold">Đăng ký tài khoản mới</a>
             </p>
         </div>
 

@@ -32,7 +32,7 @@
                         <c:forEach var="ord" items="${orders}">
                             <tr>
                                 <td class="font-bold text-gold">
-                                    <a href="${pageContext.request.contextPath}/order-detail?id=${ord.orderId}">
+                                    <a href="${pageContext.request.contextPath}/MainController?action=OrderDetail&id=${ord.orderId}">
                                         ${ord.orderCode}
                                     </a>
                                 </td>
@@ -68,7 +68,7 @@
                                     </c:choose>
                                 </td>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/order-detail?id=${ord.orderId}" 
+                                    <a href="${pageContext.request.contextPath}/MainController?action=OrderDetail&id=${ord.orderId}" 
                                        class="btn btn-outline btn-sm">
                                         Xem Hóa Đơn
                                     </a>
@@ -84,7 +84,7 @@
                 <div class="empty-icon">📜</div>
                 <h2>Chưa Có Hợp Đồng Đặt Cọc</h2>
                 <p>Quý khách chưa thực hiện hợp đồng đặt cọc siêu xe nào tại hệ thống Showroom.</p>
-                <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold btn-lg mt-3">
+                <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-gold btn-lg mt-3">
                     KHÁM PHÁ BỘ SƯU TẬP SIÊU XE
                 </a>
             </div>

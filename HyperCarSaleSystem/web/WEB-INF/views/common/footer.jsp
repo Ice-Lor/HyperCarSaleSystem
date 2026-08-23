@@ -21,14 +21,14 @@
         <div class="footer-col">
             <h4 class="footer-heading">Thương Hiệu Siêu Xe</h4>
             <ul class="footer-links">
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=1">Bugatti Automobiles</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=2">Scuderia Ferrari</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=3">Automobili Lamborghini</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=4">Koenigsegg Megacars</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=5">McLaren Racing</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=6">Pagani Automobili</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=7">Porsche Motorsport</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars?brandId=8">Rimac Automobili</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=1">Bugatti Automobiles</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=2">Scuderia Ferrari</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=3">Automobili Lamborghini</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=4">Koenigsegg Megacars</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=5">McLaren Racing</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=6">Pagani Automobili</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=7">Porsche Motorsport</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=8">Rimac Automobili</a></li>
             </ul>
         </div>
 
@@ -36,9 +36,9 @@
         <div class="footer-col">
             <h4 class="footer-heading">Đặc Quyền Khách Hàng</h4>
             <ul class="footer-links">
-                <li><a href="${pageContext.request.contextPath}/test-drive">Đăng Ký Lái Thử Track F1</a></li>
-                <li><a href="${pageContext.request.contextPath}/cars">Bộ Sưu Tập Giới Hạn</a></li>
-                <li><a href="${pageContext.request.contextPath}/cart">Hợp Đồng Đặt Cọc Trực Tuyến</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=TestDrive">Đăng Ký Lái Thử Track F1</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cars">Bộ Sưu Tập Giới Hạn</a></li>
+                <li><a href="${pageContext.request.contextPath}/MainController?action=Cart">Hợp Đồng Đặt Cọc Trực Tuyến</a></li>
                 <li><a href="#">Bảo Hiểm Siêu Xe Hạng A+</a></li>
                 <li><a href="#">Vận Chuyển Chuyên Dụng Bọc Kín</a></li>
             </ul>
@@ -49,7 +49,7 @@
     <div class="footer-bottom">
         <div class="container footer-bottom-content">
             <p>&copy; 2026 HYPERCAR SALE SYSTEM. All Rights Reserved. Bản quyền thuộc về Hệ Thống Showroom Siêu Xe Độc Bản.</p>
-            <p class="font-muted">Phát triển theo chuẩn kiến trúc MVC Java Web Servlet & JSP (PRJ301).</p>
+            <p class="font-muted">Phát triển theo chuẩn kiến trúc MVC Front Controller Pattern (PRJ301).</p>
         </div>
     </div>
 </footer>

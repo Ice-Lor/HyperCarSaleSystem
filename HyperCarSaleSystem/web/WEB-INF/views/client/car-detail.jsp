@@ -5,13 +5,13 @@
 <jsp:include page="../common/header.jsp" />
 <jsp:include page="../common/navbar.jsp" />
 
-<!-- BREADCRUMB ĐIỀU HƯỚNG -->
+<!-- BREADCRUMB ĐIỀU HƯỚNG QUA MAINCONTROLLER -->
 <div class="breadcrumb-container">
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="${pageContext.request.contextPath}/home">Trang Chủ</a></li>
-            <li><a href="${pageContext.request.contextPath}/cars">Bộ Sưu Tập Xe</a></li>
-            <li><a href="${pageContext.request.contextPath}/cars?brandId=${car.brandId}">${car.brandName}</a></li>
+            <li><a href="${pageContext.request.contextPath}/MainController?action=Home">Trang Chủ</a></li>
+            <li><a href="${pageContext.request.contextPath}/MainController?action=Cars">Bộ Sưu Tập Xe</a></li>
+            <li><a href="${pageContext.request.contextPath}/MainController?action=Cars&brandId=${car.brandId}">${car.brandName}</a></li>
             <li class="active">${car.modelName}</li>
         </ul>
     </div>
@@ -128,11 +128,11 @@
                 </p>
             </div>
 
-            <!-- FORM ĐẶT CỌC & TÙY CHỌN MÀU SẮC BESPOKE -->
-            <form action="${pageContext.request.contextPath}/cart" method="POST" class="order-action-form">
+            <!-- FORM ĐẶT CỌC & TÙY CHỌN MÀU SẮC BESPOKE QUA MAINCONTROLLER -->
+            <form action="${pageContext.request.contextPath}/MainController" method="POST" class="order-action-form">
                 <!-- Mã bảo mật CSRF Token -->
                 <input type="hidden" name="csrf_token" value="${csrfToken}" />
-                <input type="hidden" name="action" value="add" />
+                <input type="hidden" name="action" value="AddToCart" />
                 <input type="hidden" name="carId" value="${car.carId}" />
                 <input type="hidden" name="quantity" value="1" />
 
@@ -157,7 +157,7 @@
                     <button type="submit" class="btn btn-gold btn-lg btn-block" ${car.stockQuantity <= 0 ? 'disabled' : ''}>
                         🛒 TIẾN HÀNH ĐẶT CỌC XE (10%)
                     </button>
-                    <a href="${pageContext.request.contextPath}/test-drive?carId=${car.carId}" class="btn btn-outline btn-lg btn-block">
+                    <a href="${pageContext.request.contextPath}/MainController?action=TestDrive&carId=${car.carId}" class="btn btn-outline btn-lg btn-block">
                         🏁 ĐẶT LỊCH LÁI THỬ TRƯỜNG ĐUA F1
                     </a>
                 </div>
@@ -186,7 +186,7 @@
         </c:if>
 
         <div class="reviews-layout">
-            <!-- Cột trái: Form gửi đánh giá -->
+            <!-- Cột trái: Form gửi đánh giá qua MainController -->
             <div class="review-form-col">
                 <div class="card p-4">
                     <h3 class="card-title">Gửi Đánh Giá Trải Nghiệm</h3>
@@ -194,14 +194,15 @@
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
                             <p class="text-muted">Vui lòng đăng nhập tài khoản để gửi đánh giá cảm nhận về siêu xe.</p>
-                            <a href="${pageContext.request.contextPath}/login" class="btn btn-gold btn-block">Đăng Nhập Ngay</a>
+                            <a href="${pageContext.request.contextPath}/MainController?action=Login" class="btn btn-gold btn-block">Đăng Nhập Ngay</a>
                         </c:when>
                         <c:when test="${hasReviewed}">
                             <p class="text-success font-bold">✓ Quý khách đã hoàn tất đánh giá cho mẫu xe này.</p>
                         </c:when>
                         <c:otherwise>
-                            <form action="${pageContext.request.contextPath}/submit-review" method="POST">
+                            <form action="${pageContext.request.contextPath}/MainController" method="POST">
                                 <input type="hidden" name="csrf_token" value="${csrfToken}" />
+                                <input type="hidden" name="action" value="SubmitReview" />
                                 <input type="hidden" name="carId" value="${car.carId}" />
 
                                 <div class="form-group">
@@ -241,7 +242,7 @@
                                             <div>
                                                 <div class="reviewer-name font-bold">${rev.userFullName}</div>
                                                 <div class="review-date text-muted font-sm">
-                                                    <fmt:formatDate value="${rev.reviewDate}" pattern="dd/MM/yyyy HH:mm" />
+                                                    <fmt:formatDate value="${not empty rev.reviewDate ? rev.reviewDate : rev.createdAt}" pattern="dd/MM/yyyy HH:mm" />
                                                 </div>
                                             </div>
                                         </div>
@@ -277,7 +278,7 @@
                         </div>
                         <div class="car-body">
                             <h3 class="car-title">
-                                <a href="${pageContext.request.contextPath}/car-detail?id=${rcar.carId}">${rcar.modelName}</a>
+                                <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${rcar.carId}">${rcar.modelName}</a>
                             </h3>
                             <div class="car-price-row">
                                 <div class="price-val">
@@ -285,7 +286,7 @@
                                 </div>
                             </div>
                             <div class="car-actions">
-                                <a href="${pageContext.request.contextPath}/car-detail?id=${rcar.carId}" class="btn btn-outline btn-block">
+                                <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${rcar.carId}" class="btn btn-outline btn-block">
                                     XEM CHI TIẾT
                                 </a>
                             </div>

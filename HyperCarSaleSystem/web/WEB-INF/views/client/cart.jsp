@@ -39,7 +39,7 @@
                                                  alt="${item.car.modelName}" class="cart-thumb">
                                             <div>
                                                 <div class="font-bold">
-                                                    <a href="${pageContext.request.contextPath}/car-detail?id=${item.car.carId}">
+                                                    <a href="${pageContext.request.contextPath}/MainController?action=CarDetail&id=${item.car.carId}">
                                                         ${item.car.modelName}
                                                     </a>
                                                 </div>
@@ -60,11 +60,11 @@
                                             <fmt:formatNumber value="${item.car.price}" type="currency" currencySymbol="$" maxFractionDigits="0"/>
                                         </td>
 
-                                        <!-- Cập nhật số lượng -->
+                                        <!-- Cập nhật số lượng qua MainController -->
                                         <td>
-                                            <form action="${pageContext.request.contextPath}/cart" method="POST" class="qty-form">
+                                            <form action="${pageContext.request.contextPath}/MainController" method="POST" class="qty-form">
                                                 <input type="hidden" name="csrf_token" value="${csrfToken}" />
-                                                <input type="hidden" name="action" value="update" />
+                                                <input type="hidden" name="action" value="UpdateCart" />
                                                 <input type="hidden" name="carId" value="${item.car.carId}" />
                                                 <input type="number" name="quantity" value="${item.quantity}" min="1" max="10" 
                                                        class="form-control qty-input" onchange="this.form.submit()">
@@ -76,11 +76,11 @@
                                             <fmt:formatNumber value="${item.depositAmount}" type="currency" currencySymbol="$" maxFractionDigits="0"/>
                                         </td>
 
-                                        <!-- Nút xóa xe -->
+                                        <!-- Nút xóa xe qua MainController -->
                                         <td>
-                                            <form action="${pageContext.request.contextPath}/cart" method="POST" onsubmit="return confirm('Quý khách có chắc chắn muốn xóa siêu xe này khỏi giỏ?')">
+                                            <form action="${pageContext.request.contextPath}/MainController" method="POST" onsubmit="return confirm('Quý khách có chắc chắn muốn xóa siêu xe này khỏi giỏ?')">
                                                 <input type="hidden" name="csrf_token" value="${csrfToken}" />
-                                                <input type="hidden" name="action" value="remove" />
+                                                <input type="hidden" name="action" value="RemoveCart" />
                                                 <input type="hidden" name="carId" value="${item.car.carId}" />
                                                 <button type="submit" class="btn btn-icon text-danger" title="Xóa">🗑️</button>
                                             </form>
@@ -92,12 +92,12 @@
 
                         <!-- Các nút thao tác phụ -->
                         <div class="cart-actions-row">
-                            <a href="${pageContext.request.contextPath}/cars" class="btn btn-outline">
+                            <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-outline">
                                 ← TIẾP TỤC CHỌN XE
                             </a>
-                            <form action="${pageContext.request.contextPath}/cart" method="POST" onsubmit="return confirm('Quý khách có chắc chắn muốn xóa toàn bộ giỏ hàng?')">
+                            <form action="${pageContext.request.contextPath}/MainController" method="POST" onsubmit="return confirm('Quý khách có chắc chắn muốn xóa toàn bộ giỏ hàng?')">
                                 <input type="hidden" name="csrf_token" value="${csrfToken}" />
-                                <input type="hidden" name="action" value="clear" />
+                                <input type="hidden" name="action" value="ClearCart" />
                                 <button type="submit" class="btn btn-outline text-danger">XÓA SẠCH GIỎ HÀNG</button>
                             </form>
                         </div>
@@ -133,7 +133,7 @@
                             </div>
                         </div>
 
-                        <a href="${pageContext.request.contextPath}/checkout" class="btn btn-gold btn-lg btn-block mt-4">
+                        <a href="${pageContext.request.contextPath}/MainController?action=Checkout" class="btn btn-gold btn-lg btn-block mt-4">
                             TIẾN HÀNH KÝ CỌC ONLINE →
                         </a>
 
@@ -149,7 +149,7 @@
                 <div class="empty-icon">🛒</div>
                 <h2>Giỏ Hàng Đang Trống</h2>
                 <p>Quý khách chưa lựa chọn mẫu siêu xe nào vào danh sách đặt cọc.</p>
-                <a href="${pageContext.request.contextPath}/cars" class="btn btn-gold btn-lg mt-3">
+                <a href="${pageContext.request.contextPath}/MainController?action=Cars" class="btn btn-gold btn-lg mt-3">
                     KHÁM PHÁ BỘ SƯU TẬP SIÊU XE
                 </a>
             </div>

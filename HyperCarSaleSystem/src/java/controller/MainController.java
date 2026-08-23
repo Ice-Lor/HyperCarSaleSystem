@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Controller Điều Hướng Trung Tâm (Front Controller Pattern - Chuẩn đồ án PRJ301).
- * Mọi request đều có thể đi qua MainController?action=... để phân phối tới các Controller tương ứng.
+ * Controller Điều Hướng Trung Tâm (Front Controller Pattern - Chuẩn đồ án PRJ301 / FPT University).
+ * Mọi request (GET & POST) đều đi qua MainController?action=... để phân phối tới Controller chuyên trách.
  */
 @WebServlet(name = "MainController", urlPatterns = {"/MainController", "/main"})
 public class MainController extends HttpServlet {
@@ -29,113 +29,129 @@ public class MainController extends HttpServlet {
             action = DEFAULT_ACTION;
         }
 
+        String actionLower = action.trim().toLowerCase();
         String url = "/home"; // URL mặc định
 
-        switch (action) {
+        switch (actionLower) {
             // ================= 1. XÁC THỰC TÀI KHOẢN =================
-            case "Login":
-            case "LoginPage":
+            case "login":
+            case "loginpage":
+            case "signin":
                 url = "/login";
                 break;
-            case "Logout":
+            case "logout":
+            case "signout":
                 url = "/logout";
                 break;
-            case "Register":
-            case "RegisterPage":
+            case "register":
+            case "registerpage":
+            case "signup":
                 url = "/register";
                 break;
-            case "Profile":
-            case "UpdateProfile":
-            case "ChangePassword":
+            case "profile":
+            case "updateprofile":
+            case "changepassword":
+            case "update_profile":
+            case "change_password":
                 url = "/profile";
                 break;
 
             // ================= 2. KHÁCH HÀNG & SHOWROOM =================
-            case "Home":
+            case "home":
+            case "homepage":
+            case "index":
                 url = "/home";
                 break;
-            case "Cars":
-            case "Search":
-            case "CarList":
+            case "cars":
+            case "carlist":
+            case "search":
+            case "filter":
                 url = "/cars";
                 break;
-            case "CarDetail":
-            case "ViewCar":
+            case "cardetail":
+            case "viewcar":
+            case "detail":
                 url = "/car-detail";
                 break;
-            case "SubmitReview":
-            case "Review":
+            case "submitreview":
+            case "review":
+            case "addreview":
                 url = "/submit-review";
                 break;
-            case "TestDrive":
-            case "BookTestDrive":
+            case "testdrive":
+            case "booktestdrive":
                 url = "/test-drive";
                 break;
 
             // ================= 3. GIỎ HÀNG & ĐẶT CỌC =================
-            case "Cart":
-            case "AddToCart":
-            case "UpdateCart":
-            case "RemoveCart":
-            case "ClearCart":
+            case "cart":
+            case "viewcart":
+            case "addtocart":
+            case "updatecart":
+            case "removecart":
+            case "clearcart":
                 url = "/cart";
                 break;
-            case "Checkout":
-            case "PlaceOrder":
+            case "checkout":
+            case "placeorder":
+            case "deposit":
                 url = "/checkout";
                 break;
-            case "OrderHistory":
+            case "orderhistory":
+            case "myorders":
                 url = "/order-history";
                 break;
-            case "OrderDetail":
+            case "orderdetail":
+            case "vieworder":
                 url = "/order-detail";
                 break;
-            case "OrderSuccess":
+            case "ordersuccess":
                 url = "/order-success";
                 break;
 
             // ================= 4. QUẢN TRỊ VIÊN (ADMIN) =================
-            case "AdminDashboard":
-            case "Dashboard":
+            case "admindashboard":
+            case "dashboard":
                 url = "/admin/dashboard";
                 break;
-            case "AdminCars":
-            case "CreateCar":
-            case "EditCar":
-            case "DeleteCar":
-            case "ToggleCarStatus":
+            case "admincars":
+            case "createcar":
+            case "editcar":
+            case "deletecar":
+            case "togglecarstatus":
                 url = "/admin/cars";
                 break;
-            case "AdminBrands":
-            case "CreateBrand":
-            case "EditBrand":
-            case "DeleteBrand":
+            case "adminbrands":
+            case "createbrand":
+            case "editbrand":
+            case "deletebrand":
                 url = "/admin/brands";
                 break;
-            case "AdminOrders":
-            case "UpdateOrderStatus":
+            case "adminorders":
+            case "updateorderstatus":
                 url = "/admin/orders";
                 break;
-            case "AdminUsers":
-            case "ToggleUserStatus":
+            case "adminusers":
+            case "toggleuserstatus":
                 url = "/admin/users";
                 break;
-            case "AdminBookings":
-            case "UpdateBookingStatus":
+            case "adminbookings":
+            case "updatebookingstatus":
                 url = "/admin/bookings";
                 break;
-            case "ExportReport":
+            case "exportreport":
+            case "exportorders":
                 url = "/admin/export-report";
                 break;
 
-            // ================= 5. AJAX APIs =================
-            case "ApiSearch":
+            // ================= 5. AJAX REST APIs =================
+            case "apisearch":
                 url = "/api/search";
                 break;
-            case "ApiCheckCoupon":
+            case "apicheckcoupon":
                 url = "/api/coupon/check";
                 break;
-            case "ApiCart":
+            case "apicart":
                 url = "/api/cart";
                 break;
 

@@ -16,9 +16,10 @@
             <div class="alert alert-danger">${error}</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/register" method="POST" class="auth-form">
-            <!-- Mã bảo mật CSRF Token -->
+        <form action="${pageContext.request.contextPath}/MainController" method="POST" class="auth-form">
+            <!-- Mã bảo mật CSRF Token & Action Front Controller -->
             <input type="hidden" name="csrf_token" value="${csrfToken}" />
+            <input type="hidden" name="action" value="Register" />
 
             <div class="form-row">
                 <div class="form-group col-6">
@@ -49,7 +50,7 @@
             <div class="form-group">
                 <label for="address" class="form-label">Địa Chỉ Thường Trú / Giao Xe</label>
                 <input type="text" id="address" name="address" class="form-control" 
-                       placeholder="vd: Penthouse Landmark 81, Vinhomes Central Park, TP.HCM" value="${address}">
+                        placeholder="vd: Penthouse Landmark 81, Vinhomes Central Park, TP.HCM" value="${address}">
             </div>
 
             <div class="form-row">
@@ -70,7 +71,7 @@
 
         <div class="auth-footer">
             <p>Đã có tài khoản? 
-                <a href="${pageContext.request.contextPath}/login" class="text-gold font-bold">Đăng nhập ngay</a>
+                <a href="${pageContext.request.contextPath}/MainController?action=Login" class="text-gold font-bold">Đăng nhập ngay</a>
             </p>
         </div>
     </div>
