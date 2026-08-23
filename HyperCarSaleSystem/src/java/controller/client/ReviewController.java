@@ -16,7 +16,7 @@ import util.ValidationUtil;
 /**
  * Controller xử lý gửi Đánh giá sao và Bình luận trải nghiệm siêu xe của khách hàng VIP.
  */
-@WebServlet(name = "ReviewController", urlPatterns = {"/submit-review"})
+@WebServlet(name = "ReviewController", urlPatterns = {"/submit-review", "/review"})
 public class ReviewController extends HttpServlet {
 
     private final ReviewDAO reviewDAO = new ReviewDAO();

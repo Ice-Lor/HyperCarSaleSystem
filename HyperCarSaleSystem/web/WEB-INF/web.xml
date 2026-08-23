@@ -44,9 +44,11 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/checkout</url-pattern>
         <url-pattern>/order-history</url-pattern>
+        <url-pattern>/order-detail</url-pattern>
         <url-pattern>/order-success</url-pattern>
         <url-pattern>/test-drive</url-pattern>
         <url-pattern>/profile</url-pattern>
+        <url-pattern>/submit-review</url-pattern>
         <url-pattern>/review</url-pattern>
     </filter-mapping>
 
@@ -165,6 +167,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>OrderDetailController</servlet-name>
+        <servlet-class>controller.client.OrderDetailController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderDetailController</servlet-name>
+        <url-pattern>/order-detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>TestDriveController</servlet-name>
         <servlet-class>controller.client.TestDriveController</servlet-class>
     </servlet>
@@ -179,6 +190,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ReviewController</servlet-name>
+        <url-pattern>/submit-review</url-pattern>
         <url-pattern>/review</url-pattern>
     </servlet-mapping>
 
