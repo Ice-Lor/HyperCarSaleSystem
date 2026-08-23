@@ -1,6 +1,7 @@
+@charset "UTF-8";
 /* ==========================================================================
    HYPERCAR SALE SYSTEM - LUXURY DARK & GOLD MASTER STYLESHEET
-   Thiết kế giao diện chuẩn phong cách Thượng Lưu: Tối Giản, Đẳng Cấp, Tương Tác 60 FPS
+   Phông chữ chuẩn Segoe UI / Tahoma - Tương thích 100% Tiếng Việt có dấu không bị phóng to
    ========================================================================== */
 
 :root {
@@ -27,8 +28,10 @@
     --warning: #ffc107;
     --info: #17a2b8;
     
-    --font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-    --font-heading: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    /* Phông chữ chuẩn Windows hiển thị Tiếng Việt sắc nét 100% không bị lệch dấu */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
@@ -49,6 +52,8 @@ body {
     font-size: 15px;
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -92,7 +97,7 @@ img {
 .col-12 { flex: 0 0 100%; max-width: 100%; padding: 0 12px; }
 
 .section {
-    padding: 70px 0;
+    padding: 65px 0;
 }
 
 .bg-darker {
@@ -101,15 +106,15 @@ img {
 
 .section-header {
     text-align: center;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 }
 
 .section-title {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-size: 1.85rem;
+    font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 10px;
+    letter-spacing: 0.5px;
 }
 
 .section-subtitle {
@@ -162,7 +167,6 @@ img {
     border: 1px solid transparent;
     transition: var(--transition);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .btn-gold {
@@ -202,8 +206,8 @@ img {
 }
 
 .btn-lg {
-    padding: 14px 32px;
-    font-size: 1.05rem;
+    padding: 13px 30px;
+    font-size: 1rem;
     font-weight: 700;
 }
 
@@ -226,7 +230,6 @@ img {
     font-weight: 700;
     border-radius: var(--radius-sm);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .badge-brand {
@@ -276,12 +279,11 @@ img {
 }
 
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 20px;
     color: var(--gold-primary);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .form-group {
@@ -350,7 +352,6 @@ select.form-control {
     color: var(--gold-primary);
     font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .table tbody tr:hover {
@@ -362,7 +363,7 @@ select.form-control {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: rgba(10, 11, 13, 0.95);
+    background-color: rgba(10, 11, 13, 0.96);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     height: 75px;
@@ -381,9 +382,9 @@ select.form-control {
 }
 
 .nav-logo {
-    font-size: 1.6rem;
-    font-weight: 900;
-    letter-spacing: 2px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 .logo-gold {
@@ -400,7 +401,6 @@ select.form-control {
     font-size: 0.95rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .nav-link:hover {
@@ -482,7 +482,7 @@ select.form-control {
 }
 
 .search-item-title {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.9rem;
     color: var(--text-main);
 }
@@ -521,7 +521,7 @@ select.form-control {
     background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
     color: #000;
     font-size: 0.72rem;
-    font-weight: 800;
+    font-weight: 700;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -605,24 +605,23 @@ select.form-control {
 .hero-tag {
     display: inline-block;
     color: var(--gold-primary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 15px;
 }
 
 .hero-title {
-    font-size: 3.2rem;
-    font-weight: 900;
-    line-height: 1.15;
-    letter-spacing: 1px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
 
 .hero-desc {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: #d1d5db;
     margin-bottom: 35px;
     max-width: 650px;
@@ -740,7 +739,7 @@ select.form-control {
 
 .car-title {
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom: 15px;
     line-height: 1.3;
 }
@@ -793,13 +792,13 @@ select.form-control {
 
 .price-val {
     font-size: 1.35rem;
-    font-weight: 900;
+    font-weight: 700;
     color: #fff;
 }
 
 .deposit-val {
     font-size: 1.05rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--gold-primary);
 }
 
@@ -852,10 +851,10 @@ select.form-control {
 }
 
 .page-title {
-    font-size: 2.2rem;
-    font-weight: 900;
+    font-size: 2rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     margin-bottom: 8px;
 }
 
@@ -937,14 +936,17 @@ select.form-control {
 
 .breadcrumb {
     display: flex;
-    gap: 8px;
-    font-size: 0.85rem;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.88rem;
     color: var(--text-muted);
 }
 
+/* Ký tự phân cách breadcrumb an toàn tuyệt đối không bị lỗi mã UTF-8 */
 .breadcrumb li + li::before {
-    content: "›";
-    margin-right: 8px;
+    content: "/";
+    margin: 0 8px;
     color: var(--text-muted);
 }
 
@@ -1016,8 +1018,8 @@ select.form-control {
 }
 
 .detail-car-title {
-    font-size: 2.2rem;
-    font-weight: 900;
+    font-size: 2rem;
+    font-weight: 700;
     line-height: 1.2;
     margin-bottom: 12px;
 }
@@ -1041,14 +1043,14 @@ select.form-control {
 }
 
 .main-price {
-    font-size: 1.8rem;
-    font-weight: 900;
+    font-size: 1.7rem;
+    font-weight: 700;
     color: #fff;
 }
 
 .deposit-price {
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 1.4rem;
+    font-weight: 700;
 }
 
 .specs-grid-box {
@@ -1075,7 +1077,7 @@ select.form-control {
 .spec-num {
     display: block;
     font-size: 1.1rem;
-    font-weight: 800;
+    font-weight: 700;
     color: #fff;
 }
 
@@ -1200,7 +1202,7 @@ select.form-control {
 
 .summary-title {
     font-size: 1.2rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--gold-primary);
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -1225,7 +1227,7 @@ select.form-control {
 }
 
 .total-deposit-val {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
 }
 
 /* Payment Methods Grid */
@@ -1299,9 +1301,8 @@ select.form-control {
 }
 
 .auth-title {
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: 1px;
+    font-size: 1.75rem;
+    font-weight: 700;
 }
 
 .auth-subtitle {
@@ -1330,7 +1331,7 @@ select.form-control {
     margin-bottom: 4px;
 }
 
-/* Profile VIP Card */
+/* Profile Member Card */
 .profile-layout {
     display: grid;
     grid-template-columns: 340px 1fr;
@@ -1353,8 +1354,8 @@ select.form-control {
     position: absolute;
     right: -20px;
     bottom: -25px;
-    font-size: 4rem;
-    font-weight: 900;
+    font-size: 3.5rem;
+    font-weight: 700;
     color: rgba(255, 255, 255, 0.03);
     pointer-events: none;
 }
@@ -1366,7 +1367,7 @@ select.form-control {
 
 .vip-card-brand {
     font-size: 1.2rem;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: 1px;
 }
 
@@ -1387,7 +1388,6 @@ select.form-control {
 .holder-name {
     font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: 1px;
     text-transform: uppercase;
 }
 
@@ -1400,7 +1400,7 @@ select.form-control {
     color: #000;
     padding: 3px 8px;
     border-radius: var(--radius-sm);
-    font-weight: 800;
+    font-weight: 700;
 }
 
 /* ================= 11. INVOICE & ORDER SUCCESS ================= */
@@ -1416,8 +1416,8 @@ select.form-control {
 }
 
 .invoice-logo {
-    font-size: 1.8rem;
-    font-weight: 900;
+    font-size: 1.6rem;
+    font-weight: 700;
     letter-spacing: 1px;
 }
 
@@ -1456,7 +1456,7 @@ select.form-control {
 
 .calc-total-row {
     font-size: 1.2rem;
-    font-weight: 800;
+    font-weight: 700;
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
@@ -1477,7 +1477,7 @@ select.form-control {
     color: #e74c3c;
     border: 2px dashed #e74c3c;
     padding: 6px 14px;
-    font-weight: 900;
+    font-weight: 700;
     margin: 15px 0;
     transform: rotate(-5deg);
 }
@@ -1501,7 +1501,7 @@ select.form-control {
 }
 
 .order-code-val {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     letter-spacing: 2px;
 }
 
@@ -1529,7 +1529,7 @@ select.form-control {
 
 .sidebar-logo {
     font-size: 1.4rem;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .sidebar-user {
@@ -1585,10 +1585,9 @@ select.form-control {
 }
 
 .admin-page-title {
-    font-size: 1.6rem;
-    font-weight: 800;
+    font-size: 1.5rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 /* KPI Cards */
@@ -1613,8 +1612,8 @@ select.form-control {
 }
 
 .kpi-num {
-    font-size: 1.6rem;
-    font-weight: 900;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .kpi-label {
@@ -1671,7 +1670,7 @@ select.form-control {
 
 .footer-logo {
     font-size: 1.4rem;
-    font-weight: 900;
+    font-weight: 700;
     margin-bottom: 15px;
 }
 
@@ -1694,7 +1693,6 @@ select.form-control {
     color: var(--gold-primary);
     margin-bottom: 18px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .footer-links li {
@@ -1767,7 +1765,7 @@ select.form-control {
 }
 
 @media (max-width: 768px) {
-    .hero-title { font-size: 2.2rem; }
+    .hero-title { font-size: 2rem; }
     .car-grid { grid-template-columns: 1fr; }
     .nav-search-container { display: none; }
     .nav-menu { display: none; }
