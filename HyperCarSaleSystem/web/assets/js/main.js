@@ -174,6 +174,13 @@ function initCouponChecker() {
 
     if (!btnApply || !couponInput) return;
 
+    couponInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            btnApply.click();
+        }
+    });
+
     btnApply.addEventListener('click', function () {
         var code = couponInput.value.trim();
         var totalAmount = this.getAttribute('data-total') || '0';
@@ -227,10 +234,15 @@ function initCouponChecker() {
                 couponMsg.innerHTML = '<span class="text-danger">' + res.message + '</span>';
                 couponMsg.style.display = 'block';
                 if (discountRow) discountRow.style.display = 'none';
+                showToast(res.message);
             }
         })
         .catch(function (err) {
             console.error('Lỗi check coupon:', err);
+            if (couponMsg) {
+                couponMsg.innerHTML = '<span class="text-danger">Đã có lỗi xảy ra khi kiểm tra mã voucher!</span>';
+                couponMsg.style.display = 'block';
+            }
         });
     });
 }
