@@ -185,6 +185,14 @@ public class Order implements Serializable {
         this.details = details;
     }
 
+    public List<OrderDetail> getOrderDetails() {
+        return details;
+    }
+
+    public void setOrderDetails(List<OrderDetail> details) {
+        this.details = details;
+    }
+
     public void addDetail(OrderDetail detail) {
         if (this.details == null) {
             this.details = new ArrayList<OrderDetail>();

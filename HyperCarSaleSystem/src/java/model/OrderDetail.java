@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * Thực thể ánh xạ bảng OrderDetails (Chi tiết từng siêu xe trong hợp đồng đặt cọc).
@@ -15,6 +14,7 @@ public class OrderDetail implements Serializable {
     private int orderId;
     private int carId;
     private String carModelName; // Thuộc tính bổ trợ JOIN bảng Cars
+    private String carBrandName; // Thuộc tính bổ trợ JOIN bảng Brands
     private String carThumbnailUrl; // Ảnh đại diện xe
     private int quantity; // Số lượng đặt cọc (mặc định 1)
     private BigDecimal unitPrice; // Đơn giá niêm yết tại thời điểm ký cọc
@@ -68,6 +68,14 @@ public class OrderDetail implements Serializable {
         this.carModelName = carModelName;
     }
 
+    public String getCarBrandName() {
+        return carBrandName != null ? carBrandName : "";
+    }
+
+    public void setCarBrandName(String carBrandName) {
+        this.carBrandName = carBrandName;
+    }
+
     public String getCarThumbnailUrl() {
         return carThumbnailUrl;
     }
@@ -106,6 +114,17 @@ public class OrderDetail implements Serializable {
 
     public void setCustomOptions(String customOptions) {
         this.customOptions = customOptions;
+    }
+
+    /**
+     * Tính tiền cọc 10% cho dòng sản phẩm này.
+     */
+    public BigDecimal getDepositPrice() {
+        if (this.unitPrice == null) {
+            return BigDecimal.ZERO;
+        }
+        return this.unitPrice.multiply(new BigDecimal(this.quantity))
+                             .multiply(new BigDecimal("0.10"));
     }
 
     /**

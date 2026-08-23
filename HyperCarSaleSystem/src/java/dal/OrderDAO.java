@@ -310,9 +310,11 @@ public class OrderDAO extends DBContext {
      */
     public List<OrderDetail> getOrderDetailsByOrderId(int orderId) {
         List<OrderDetail> list = new ArrayList<OrderDetail>();
-        String sql = "SELECT d.*, c.model_name AS car_model_name, c.thumbnail_url AS car_thumbnail_url "
+        String sql = "SELECT d.*, c.model_name AS car_model_name, c.thumbnail_url AS car_thumbnail_url, "
+                   + "b.brand_name AS car_brand_name "
                    + "FROM OrderDetails d "
                    + "JOIN Cars c ON d.car_id = c.car_id "
+                   + "LEFT JOIN Brands b ON c.brand_id = b.brand_id "
                    + "WHERE d.order_id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -324,6 +326,7 @@ public class OrderDAO extends DBContext {
                     d.setOrderId(rs.getInt("order_id"));
                     d.setCarId(rs.getInt("car_id"));
                     d.setCarModelName(rs.getString("car_model_name"));
+                    d.setCarBrandName(rs.getString("car_brand_name"));
                     d.setCarThumbnailUrl(rs.getString("car_thumbnail_url"));
                     d.setQuantity(rs.getInt("quantity"));
                     d.setUnitPrice(rs.getBigDecimal("unit_price"));
