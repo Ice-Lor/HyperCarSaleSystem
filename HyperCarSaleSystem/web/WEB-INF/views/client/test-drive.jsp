@@ -48,14 +48,15 @@
                     <div class="form-row">
                         <div class="form-group col-6">
                             <label class="form-label">Ngày Trải Nghiệm <span class="text-danger">*</span></label>
-                            <input type="date" name="bookingDate" class="form-control" required>
+                            <input type="date" id="bookingDateInput" name="bookingDate" class="form-control" 
+                                   value="${param.bookingDate}" required>
                         </div>
                         <div class="form-group col-6">
                             <label class="form-label">Khung Giờ Lái Thử <span class="text-danger">*</span></label>
                             <select name="timeSlot" class="form-control" required>
                                 <option value="09:00 - 11:00">09:00 - 11:00 (Sáng)</option>
                                 <option value="14:00 - 16:00">14:00 - 16:00 (Chiều)</option>
-                                <option value="16:30 - 18:30">16:30 - 18:30 (Hoàng Hôn VIP)</option>
+                                <option value="16:30 - 18:30">16:30 - 18:30 (Hoàng Hôn)</option>
                             </select>
                         </div>
                     </div>

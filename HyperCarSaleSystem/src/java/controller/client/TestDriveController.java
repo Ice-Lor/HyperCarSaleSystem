@@ -83,15 +83,16 @@ public class TestDriveController extends HttpServlet {
 
         Date bookingDate;
         try {
-            bookingDate = Date.valueOf(bookingDateRaw);
-            // Kiểm tra ngày không được ở trong quá khứ
-            Date today = new Date(System.currentTimeMillis());
-            if (bookingDate.before(today)) {
+            java.time.LocalDate bookingLocalDate = java.time.LocalDate.parse(bookingDateRaw);
+            java.time.LocalDate today = java.time.LocalDate.now();
+            // Kiểm tra chỉ chặn các ngày trước ngày hôm nay
+            if (bookingLocalDate.isBefore(today)) {
                 request.setAttribute("error", "Ngày đăng ký lái thử phải từ ngày hôm nay trở đi!");
                 doGet(request, response);
                 return;
             }
-        } catch (IllegalArgumentException e) {
+            bookingDate = Date.valueOf(bookingLocalDate);
+        } catch (Exception e) {
             request.setAttribute("error", "Định dạng ngày đăng ký không hợp lệ!");
             doGet(request, response);
             return;
