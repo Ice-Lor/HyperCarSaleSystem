@@ -19,7 +19,7 @@ import util.ValidationUtil;
 /**
  * Controller Danh mục siêu xe (Showroom & Tìm kiếm đa tiêu chí kết hợp phân trang).
  */
-@WebServlet(name = "CarListController", urlPatterns = {"/cars"})
+@WebServlet(name = "CarListController", urlPatterns = {"/cars", "/car-list"})
 public class CarListController extends HttpServlet {
 
     private static final int DEFAULT_PAGE_SIZE = 6;
