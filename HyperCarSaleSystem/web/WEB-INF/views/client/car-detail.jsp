@@ -60,7 +60,9 @@
                     </c:forEach>
                 </div>
                 <span class="rating-score font-bold">${averageRating} / 5.0</span>
-                <span class="rating-count">(${reviews.size()} đánh giá của khách hàng)</span>
+                <a href="#reviews" class="rating-count text-muted" style="text-decoration: underline; cursor: pointer;">
+                    (${reviews.size()} đánh giá của khách hàng)
+                </a>
             </div>
 
             <!-- Bảng giá niêm yết & Số tiền đặt cọc -->

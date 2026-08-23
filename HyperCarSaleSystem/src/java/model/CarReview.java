@@ -104,6 +104,14 @@ public class CarReview implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public Timestamp getReviewDate() {
+        return createdAt;
+    }
+
+    public void setReviewDate(Timestamp reviewDate) {
+        this.createdAt = reviewDate;
+    }
+
     @Override
     public String toString() {
         return "CarReview{" + "reviewId=" + reviewId + ", username=" + username + ", carModelName=" + carModelName 
