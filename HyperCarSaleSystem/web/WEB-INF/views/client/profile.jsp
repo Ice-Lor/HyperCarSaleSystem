@@ -1,33 +1,33 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="Hồ Sơ Thành Viên VIP" scope="request"/>
+<c:set var="pageTitle" value="Hồ Sơ Cá Nhân" scope="request"/>
 <jsp:include page="../common/header.jsp" />
 <jsp:include page="../common/navbar.jsp" />
 
 <div class="page-header">
     <div class="container">
-        <h1 class="page-title">HỒ SƠ <span class="text-gold">THÀNH VIÊN VIP</span></h1>
-        <p class="page-subtitle">Quản lý thông tin định danh cá nhân và thiết lập bảo mật tài khoản thượng lưu</p>
+        <h1 class="page-title">HỒ SƠ <span class="text-gold">CÁ NHÂN</span></h1>
+        <p class="page-subtitle">Quản lý thông tin định danh cá nhân và thiết lập bảo mật tài khoản</p>
     </div>
 </div>
 
 <div class="container section">
     <div class="profile-layout">
-        <!-- CỘT TRÁI: THẺ THÀNH VIÊN VIP CARD -->
+        <!-- CỘT TRÁI: THẺ THÀNH VIÊN CARD -->
         <div class="profile-sidebar-col">
             <div class="vip-card">
                 <div class="vip-card-chip">💳</div>
-                <div class="vip-card-brand"><span class="text-gold">HYPER</span>CAR VIP</div>
+                <div class="vip-card-brand"><span class="text-gold">HYPER</span>CAR MEMBER</div>
                 <div class="vip-card-number">**** **** **** ${sessionScope.user.userId + 8888}</div>
                 <div class="vip-card-holder">
-                    <div class="holder-label">CHỦ THẺ THƯỢNG LƯU</div>
+                    <div class="holder-label">CHỦ THẺ THÀNH VIÊN</div>
                     <div class="holder-name">${sessionScope.user.fullName}</div>
                 </div>
-                <div class="vip-card-badge">BLACK CARD MEMBER</div>
+                <div class="vip-card-badge">OFFICIAL MEMBER</div>
             </div>
 
             <div class="card p-3 mt-4">
-                <div class="font-bold text-gold mb-2">ĐẶC QUYỀN CỦA QUÝ KHÁCH:</div>
+                <div class="font-bold text-gold mb-2">QUYỀN LỢI CỦA THÀNH VIÊN:</div>
                 <ul class="vip-perks-list font-sm">
                     <li>✓ Ưu tiên trải nghiệm trường đua F1</li>
                     <li>✓ Quyền đặt trước các mẫu siêu xe độc bản (1 of 1)</li>
@@ -60,7 +60,7 @@
                             <input type="text" class="form-control" value="${sessionScope.user.username}" disabled>
                         </div>
                         <div class="form-group col-6">
-                            <label class="form-label">Địa Chỉ Email VIP <span class="text-danger">*</span></label>
+                            <label class="form-label">Địa Chỉ Email <span class="text-danger">*</span></label>
                             <input type="email" name="email" class="form-control" 
                                    value="${sessionScope.user.email}" required>
                         </div>
@@ -73,7 +73,7 @@
                                    value="${sessionScope.user.fullName}" required>
                         </div>
                         <div class="form-group col-6">
-                            <label class="form-label">Số Điện Thoại VIP:</label>
+                            <label class="form-label">Số Điện Thoại:</label>
                             <input type="tel" name="phone" class="form-control" 
                                    value="${sessionScope.user.phone}">
                         </div>

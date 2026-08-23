@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="Đăng Nhập Khách Hàng VIP" scope="request"/>
+<c:set var="pageTitle" value="Đăng Nhập Thành Viên" scope="request"/>
 <jsp:include page="../common/header.jsp" />
 <jsp:include page="../common/navbar.jsp" />
 
 <div class="auth-wrapper">
     <div class="auth-card">
         <div class="auth-header">
-            <h2 class="auth-title">ĐĂNG NHẬP <span class="text-gold">VIP</span></h2>
+            <h2 class="auth-title">ĐĂNG NHẬP <span class="text-gold">HỆ THỐNG</span></h2>
             <p class="auth-subtitle">Cổng giao dịch & quản trị siêu xe độc bản HyperCar</p>
         </div>
 
@@ -22,7 +22,7 @@
             <div class="alert alert-danger">Khu vực yêu cầu quyền Quản Trị Viên (Admin)!</div>
         </c:if>
         <c:if test="${param.success == 'registered'}">
-            <div class="alert alert-success">Đăng ký tài khoản VIP thành công! Vui lòng đăng nhập.</div>
+            <div class="alert alert-success">Đăng ký tài khoản thành công! Vui lòng đăng nhập.</div>
         </c:if>
         <c:if test="${param.msg == 'logged_out'}">
             <div class="alert alert-info">Đã đăng xuất tài khoản an toàn khỏi hệ thống.</div>
@@ -48,8 +48,8 @@
         </form>
 
         <div class="auth-footer">
-            <p>Chưa có tài khoản thượng lưu? 
-                <a href="${pageContext.request.contextPath}/register" class="text-gold font-bold">Đăng ký thành viên VIP</a>
+            <p>Chưa có tài khoản? 
+                <a href="${pageContext.request.contextPath}/register" class="text-gold font-bold">Đăng ký tài khoản mới</a>
             </p>
         </div>
 
@@ -58,7 +58,7 @@
             <div class="demo-title">💡 Tài khoản thử nghiệm (Mật khẩu: 123456):</div>
             <div class="demo-list">
                 <span>👑 <strong>Admin:</strong> admin</span> | 
-                <span>🏎️ <strong>Khách VIP:</strong> johnwick / tonystark</span>
+                <span>🏎️ <strong>Khách hàng:</strong> johnwick / tonystark</span>
             </div>
         </div>
     </div>

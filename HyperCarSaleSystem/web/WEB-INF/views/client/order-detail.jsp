@@ -51,7 +51,7 @@
                 <div class="info-block">
                     <h4 class="info-title">THÔNG TIN KHÁCH HÀNG (BÊN B):</h4>
                     <p><strong>Họ và tên:</strong> ${order.userFullName}</p>
-                    <p><strong>Tài khoản VIP:</strong> ${order.username}</p>
+                    <p><strong>Tài khoản:</strong> ${order.username}</p>
                     <p><strong>Số điện thoại:</strong> ${order.phone}</p>
                 </div>
                 <div class="info-block">

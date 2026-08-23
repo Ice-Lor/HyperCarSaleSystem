@@ -189,7 +189,7 @@
 <section class="section concierge-section bg-darker">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">ĐẶC QUYỀN <span class="text-gold">KHÁCH HÀNG THƯỢNG LƯU</span></h2>
+            <h2 class="section-title">ĐẶC QUYỀN <span class="text-gold">DÀNH CHO KHÁCH HÀNG</span></h2>
             <p class="section-subtitle">Cam kết bảo mật tuyệt đối và dịch vụ chăm sóc chuẩn 6 sao</p>
         </div>
 
@@ -197,7 +197,7 @@
             <div class="concierge-card">
                 <div class="concierge-icon">🔒</div>
                 <h3 class="concierge-title">Bảo Mật Danh Tính 100%</h3>
-                <p class="concierge-desc">Mọi giao dịch và thông tin sở hữu siêu xe đều được bảo vệ bởi thỏa thuận bảo mật NDA cấp cao nhất.</p>
+                <p class="concierge-desc">Mọi giao dịch và thông tin sở hữu siêu xe đều được bảo mật tuyệt đối theo tiêu chuẩn cao nhất.</p>
             </div>
             <div class="concierge-card">
                 <div class="concierge-icon">🚛</div>

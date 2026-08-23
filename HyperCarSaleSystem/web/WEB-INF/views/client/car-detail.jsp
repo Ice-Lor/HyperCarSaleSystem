@@ -60,7 +60,7 @@
                     </c:forEach>
                 </div>
                 <span class="rating-score font-bold">${averageRating} / 5.0</span>
-                <span class="rating-count">(${reviews.size()} đánh giá của khách VIP)</span>
+                <span class="rating-count">(${reviews.size()} đánh giá của khách hàng)</span>
             </div>
 
             <!-- Bảng giá niêm yết & Số tiền đặt cọc -->
@@ -191,7 +191,7 @@
                     
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
-                            <p class="text-muted">Vui lòng đăng nhập tài khoản VIP để gửi đánh giá cảm nhận về siêu xe.</p>
+                            <p class="text-muted">Vui lòng đăng nhập tài khoản để gửi đánh giá cảm nhận về siêu xe.</p>
                             <a href="${pageContext.request.contextPath}/login" class="btn btn-gold btn-block">Đăng Nhập Ngay</a>
                         </c:when>
                         <c:when test="${hasReviewed}">
@@ -219,7 +219,7 @@
                                               placeholder="Chia sẻ cảm giác cầm lái, âm thanh động cơ và độ hoàn thiện nội thất..." required></textarea>
                                 </div>
 
-                                <button type="submit" class="btn btn-gold btn-block">GỬI ĐÁNH GIÁ VIP</button>
+                                <button type="submit" class="btn btn-gold btn-block">GỬI ĐÁNH GIÁ</button>
                             </form>
                         </c:otherwise>
                     </c:choose>

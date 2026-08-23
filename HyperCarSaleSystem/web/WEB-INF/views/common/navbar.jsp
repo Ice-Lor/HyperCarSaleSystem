@@ -49,10 +49,10 @@
                 <c:when test="${not empty sessionScope.user}">
                     <div class="user-dropdown">
                         <button class="btn btn-outline btn-sm user-dropdown-btn">
-                            👑 ${sessionScope.user.fullName} ▼
+                            👤 ${sessionScope.user.fullName} ▼
                         </button>
                         <div class="dropdown-menu">
-                            <a href="${pageContext.request.contextPath}/profile" class="dropdown-item">👤 Hồ Sơ VIP</a>
+                            <a href="${pageContext.request.contextPath}/profile" class="dropdown-item">👤 Hồ Sơ Cá Nhân</a>
                             <a href="${pageContext.request.contextPath}/order-history" class="dropdown-item">📜 Lịch Sử Đặt Cọc</a>
                             <a href="${pageContext.request.contextPath}/test-drive" class="dropdown-item">🏎️ Lịch Lái Thử</a>
                             
@@ -71,7 +71,7 @@
                 <c:otherwise>
                     <div class="auth-buttons">
                         <a href="${pageContext.request.contextPath}/login" class="btn btn-outline btn-sm">Đăng Nhập</a>
-                        <a href="${pageContext.request.contextPath}/register" class="btn btn-gold btn-sm">Đăng Ký VIP</a>
+                        <a href="${pageContext.request.contextPath}/register" class="btn btn-gold btn-sm">Đăng Ký</a>
                     </div>
                 </c:otherwise>
             </c:choose>

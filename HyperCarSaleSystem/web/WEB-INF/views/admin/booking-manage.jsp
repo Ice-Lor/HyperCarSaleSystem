@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Khách Hàng VIP</th>
+                        <th>Khách Hàng</th>
                         <th>Siêu Xe Trải Nghiệm</th>
                         <th>Ngày Hẹn</th>
                         <th>Khung Giờ</th>

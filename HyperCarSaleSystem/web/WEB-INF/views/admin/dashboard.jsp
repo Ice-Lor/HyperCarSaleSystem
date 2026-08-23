@@ -67,7 +67,7 @@
                 <thead>
                     <tr>
                         <th>Mã Hợp Đồng</th>
-                        <th>Khách Hàng VIP</th>
+                        <th>Khách Hàng</th>
                         <th>Số Điện Thoại</th>
                         <th>Tiền Cọc (10%)</th>
                         <th>Phương Thức</th>

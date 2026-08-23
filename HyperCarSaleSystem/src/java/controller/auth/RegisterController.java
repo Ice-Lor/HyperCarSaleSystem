@@ -116,7 +116,7 @@ public class RegisterController extends HttpServlet {
         int newUserId = userDAO.register(newUser);
 
         if (newUserId > 0) {
-            logDAO.log(newUserId, "REGISTER", "Thành viên VIP " + username + " đã đăng ký tài khoản thành công.");
+            logDAO.log(newUserId, "REGISTER", "Thành viên " + username + " đã đăng ký tài khoản thành công.");
             response.sendRedirect(request.getContextPath() + "/login?success=registered");
         } else {
             request.setAttribute("error", "Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau!");

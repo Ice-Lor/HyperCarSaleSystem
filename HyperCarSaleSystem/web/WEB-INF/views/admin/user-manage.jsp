@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="Quản Lý Khách Hàng VIP" scope="request"/>
+<c:set var="pageTitle" value="Quản Lý Người Dùng" scope="request"/>
 <jsp:include page="../common/header.jsp" />
 
 <div class="admin-wrapper">
@@ -10,7 +10,7 @@
 
     <main class="admin-main">
         <div class="admin-topbar">
-            <h1 class="admin-page-title">QUẢN LÝ THÀNH VIÊN VIP & PHÂN QUYỀN</h1>
+            <h1 class="admin-page-title">QUẢN LÝ NGƯỜI DÙNG & PHÂN QUYỀN</h1>
         </div>
 
         <c:if test="${param.msg == 'status_updated'}">
@@ -45,7 +45,7 @@
                                         <span class="badge badge-danger">👑 ADMIN</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="badge badge-gold">💎 VIP MEMBER</span>
+                                        <span class="badge badge-gold">👤 CUSTOMER</span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>

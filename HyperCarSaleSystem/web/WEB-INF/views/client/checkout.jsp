@@ -35,7 +35,7 @@
                                    value="${empty param.fullName ? user.fullName : param.fullName}" required>
                         </div>
                         <div class="form-group col-6">
-                            <label class="form-label">Số Điện Thoại VIP <span class="text-danger">*</span></label>
+                            <label class="form-label">Số Điện Thoại <span class="text-danger">*</span></label>
                             <input type="tel" name="phone" class="form-control" 
                                    value="${empty param.phone ? user.phone : param.phone}" required>
                         </div>
@@ -65,8 +65,8 @@
                             <div class="pm-content">
                                 <span class="pm-icon">🏦</span>
                                 <div class="pm-text">
-                                    <div class="pm-title font-bold">Chuyển Khoản Ngân Hàng VIP</div>
-                                    <div class="font-sm text-muted">Vietcombank / Techcombank Private Banking</div>
+                                    <div class="pm-title font-bold">Chuyển Khoản Ngân Hàng</div>
+                                    <div class="font-sm text-muted">Vietcombank / Techcombank Banking</div>
                                 </div>
                             </div>
                         </label>
@@ -77,7 +77,7 @@
                                 <span class="pm-icon">🏢</span>
                                 <div class="pm-text">
                                     <div class="pm-title font-bold">Thanh Toán Trực Tiếp Showroom</div>
-                                    <div class="font-sm text-muted">Tại Lounge VIP Landmark 81 hoặc Sala</div>
+                                    <div class="font-sm text-muted">Tại Showroom Landmark 81 hoặc Sala</div>
                                 </div>
                             </div>
                         </label>
@@ -121,7 +121,7 @@
 
                     <!-- Ô NHẬP VOUCHER / COUPON AJAX REALTIME -->
                     <div class="coupon-section">
-                        <label class="form-label font-bold">Mã Ưu Đãi / Voucher VIP:</label>
+                        <label class="form-label font-bold">Mã Ưu Đãi / Voucher:</label>
                         <div class="coupon-input-group">
                             <input type="text" id="couponCodeInput" name="couponCode" class="form-control" 
                                    placeholder="vd: VIP50K, HYPER2026" autocomplete="off">

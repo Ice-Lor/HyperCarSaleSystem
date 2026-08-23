@@ -44,7 +44,7 @@
         </li>
         <li class="sidebar-item ${param.active == 'users' ? 'active' : ''}">
             <a href="${pageContext.request.contextPath}/admin/users" class="sidebar-link">
-                👥 <span>Khách Hàng VIP</span>
+                👥 <span>Quản Lý Người Dùng</span>
             </a>
         </li>
         <li class="sidebar-item ${param.active == 'bookings' ? 'active' : ''}">

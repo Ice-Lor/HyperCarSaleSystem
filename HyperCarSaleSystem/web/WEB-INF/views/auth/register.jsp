@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" value="Đăng Ký Thành Viên VIP" scope="request"/>
+<c:set var="pageTitle" value="Đăng Ký Tài Khoản Thành Viên" scope="request"/>
 <jsp:include page="../common/header.jsp" />
 <jsp:include page="../common/navbar.jsp" />
 
 <div class="auth-wrapper">
     <div class="auth-card auth-card-lg">
         <div class="auth-header">
-            <h2 class="auth-title">ĐĂNG KÝ <span class="text-gold">THÀNH VIÊN VIP</span></h2>
-            <p class="auth-subtitle">Trải nghiệm dịch vụ cá nhân hóa và đặc quyền đặt cọc siêu xe giới hạn</p>
+            <h2 class="auth-title">ĐĂNG KÝ <span class="text-gold">TÀI KHOẢN MỚI</span></h2>
+            <p class="auth-subtitle">Trải nghiệm dịch vụ cá nhân hóa và đặt cọc siêu xe độc bản</p>
         </div>
 
         <!-- Thông báo lỗi nếu có -->
@@ -29,7 +29,7 @@
                 <div class="form-group col-6">
                     <label for="email" class="form-label">Địa Chỉ Email <span class="text-danger">*</span></label>
                     <input type="email" id="email" name="email" class="form-control" 
-                           placeholder="vd: vip@wayne.com" value="${email}" required>
+                           placeholder="vd: contact@wayne.com" value="${email}" required>
                 </div>
             </div>
 
@@ -65,11 +65,11 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-gold btn-block btn-lg mt-3">HOÀN TẤT ĐĂNG KÝ VIP</button>
+            <button type="submit" class="btn btn-gold btn-block btn-lg mt-3">HOÀN TẤT ĐĂNG KÝ</button>
         </form>
 
         <div class="auth-footer">
-            <p>Đã là thành viên thượng lưu? 
+            <p>Đã có tài khoản? 
                 <a href="${pageContext.request.contextPath}/login" class="text-gold font-bold">Đăng nhập ngay</a>
             </p>
         </div>

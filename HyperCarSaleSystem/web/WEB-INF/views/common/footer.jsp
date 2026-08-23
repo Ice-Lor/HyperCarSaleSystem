@@ -12,8 +12,8 @@
             <div class="footer-contact">
                 <p>📍 <strong>Trụ sở chính:</strong> Tòa nhà Landmark 81, Vinhomes Central Park, TP. Hồ Chí Minh</p>
                 <p>📍 <strong>Showroom Trưng Bày:</strong> Khu Đô Thị Sala, TP. Thủ Đức, TP. HCM</p>
-                <p>📞 <strong>Hotline VIP 24/7:</strong> 1900 8888 - 0988 888 888</p>
-                <p>✉️ <strong>Email Concierge:</strong> vip@hypercars.vn</p>
+                <p>📞 <strong>Hotline 24/7:</strong> 1900 8888 - 0988 888 888</p>
+                <p>✉️ <strong>Email Concierge:</strong> contact@hypercars.vn</p>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
             </ul>
         </div>
 
-        <!-- Cột 3: Dịch Vụ & Đặc Quyền Khách Hàng VIP -->
+        <!-- Cột 3: Dịch Vụ & Đặc Quyền Khách Hàng -->
         <div class="footer-col">
             <h4 class="footer-heading">Đặc Quyền Khách Hàng</h4>
             <ul class="footer-links">
