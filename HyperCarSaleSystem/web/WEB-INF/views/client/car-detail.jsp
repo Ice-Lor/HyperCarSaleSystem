@@ -105,7 +105,7 @@
                 <div class="spec-box">
                     <span class="spec-icon">📅</span>
                     <div class="spec-data">
-                        <span class="spec-num">${car.year}</span>
+                        <span class="spec-num">${car.year > 0 ? car.year : (car.modelYear > 0 ? car.modelYear : 2024)}</span>
                         <span class="spec-name">Năm Sản Xuất</span>
                     </div>
                 </div>

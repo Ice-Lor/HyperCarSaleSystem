@@ -151,6 +151,14 @@ public class Car implements Serializable {
         this.year = year;
     }
 
+    public int getModelYear() {
+        return year;
+    }
+
+    public int getProductionYear() {
+        return year;
+    }
+
     public int getHorsepower() {
         return horsepower;
     }
