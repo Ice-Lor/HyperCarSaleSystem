@@ -197,12 +197,12 @@ INSERT INTO Roles (role_name) VALUES
 GO
 
 -- Users (Mật khẩu mặc định: 123456 -> Mã hóa jBCrypt)
--- Hash của '123456': $2a$10$w8L0QyS29pQdZ4lHqjUgeOB1H7vS0Xo6WdUkpC22xI4qR3eNq8v1i
+-- Hash của '123456': $2a$10$YDE71OzxcYYeL/LYTwgJNOnBsPj5YdOzUgAQht3AfZfS.iEXb8lpq
 INSERT INTO Users (username, password_hash, full_name, email, phone, address, role_id, status) VALUES
-('admin', '$2a$10$w8L0QyS29pQdZ4lHqjUgeOB1H7vS0Xo6WdUkpC22xI4qR3eNq8v1i', N'Giám Đốc Quản Trị Hệ Thống', 'admin@hypercars.vn', '0988888888', N'Tòa Landmark 81, TP. Hồ Chí Minh', 1, 1),
-('johnwick', '$2a$10$w8L0QyS29pQdZ4lHqjUgeOB1H7vS0Xo6WdUkpC22xI4qR3eNq8v1i', N'John Wick', 'john.wick@continental.com', '0912345678', N'Continental Hotel, New York / Q1, TP. HCM', 2, 1),
-('tonystark', '$2a$10$w8L0QyS29pQdZ4lHqjUgeOB1H7vS0Xo6WdUkpC22xI4qR3eNq8v1i', N'Tony Stark', 'tony@starkindustries.com', '0999999999', N'Stark Tower, Manhattan / Ba Đình, Hà Nội', 2, 1),
-('staff01', '$2a$10$w8L0QyS29pQdZ4lHqjUgeOB1H7vS0Xo6WdUkpC22xI4qR3eNq8v1i', N'Chuyên Viên Tư Vấn VIP 01', 'staff@hypercars.vn', '0901234567', N'Showroom HyperCar Sala, TP. Thủ Đức', 3, 1);
+('admin', '$2a$10$YDE71OzxcYYeL/LYTwgJNOnBsPj5YdOzUgAQht3AfZfS.iEXb8lpq', N'Giám Đốc Quản Trị Hệ Thống', 'admin@hypercars.vn', '0988888888', N'Tòa Landmark 81, TP. Hồ Chí Minh', 1, 1),
+('johnwick', '$2a$10$YDE71OzxcYYeL/LYTwgJNOnBsPj5YdOzUgAQht3AfZfS.iEXb8lpq', N'John Wick', 'john.wick@continental.com', '0912345678', N'Continental Hotel, New York / Q1, TP. HCM', 2, 1),
+('tonystark', '$2a$10$YDE71OzxcYYeL/LYTwgJNOnBsPj5YdOzUgAQht3AfZfS.iEXb8lpq', N'Tony Stark', 'tony@starkindustries.com', '0999999999', N'Stark Tower, Manhattan / Ba Đình, Hà Nội', 2, 1),
+('staff01', '$2a$10$YDE71OzxcYYeL/LYTwgJNOnBsPj5YdOzUgAQht3AfZfS.iEXb8lpq', N'Chuyên Viên Tư Vấn VIP 01', 'staff@hypercars.vn', '0901234567', N'Showroom HyperCar Sala, TP. Thủ Đức', 3, 1);
 GO
 
 -- Brands (ẢNH LOCAL)
