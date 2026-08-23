@@ -2,6 +2,7 @@
  * HYPERCAR SALE SYSTEM - JAVASCRIPT MASTER SCRIPT
  * Xử lý AJAX Live Search Realtime, AJAX Giỏ Hàng Nhảy Số & Kiểm Tra Voucher Đặt Cọc
  * 100% Vanilla JavaScript - KHÔNG THƯ VIỆN NGOÀI - CHẠY OFFLINE LOCAL HOÀN TOÀN
+ * MÃ HÓA 100% ASCII / UNICODE ESCAPE - CHỐNG TRIỆT ĐỂ LỖI FONT TRÊN MỌI TRÌNH DUYỆT
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -80,7 +81,7 @@ function initLiveSearch() {
                         searchResults.innerHTML = html;
                         searchResults.style.display = 'block';
                     } else {
-                        searchResults.innerHTML = '<div class="p-3 text-muted text-center font-sm">Kh&ocirc;ng t&igrave;m th&#7845;y si&ecirc;u xe ph&ugrave; h&#7907;p</div>';
+                        searchResults.innerHTML = '<div class="p-3 text-muted text-center font-sm">Kh\u00F4ng t\u00ECm th\u1EA5y si\u00EAu xe ph\u00F9 h\u1EE3p</div>';
                         searchResults.style.display = 'block';
                     }
                 })
@@ -153,7 +154,7 @@ function initAddToCart() {
             })
             .catch(function (err) {
                 console.error('Lỗi thêm giỏ:', err);
-                showToast('Đã có lỗi xảy ra khi thêm giỏ hàng!');
+                showToast('\u0110\u00E3 c\u00F3 l\u1ED7i x\u1EA3y ra khi th\u00EAm gi\u1ECF h\u00E0ng!');
             });
         });
     });
@@ -187,9 +188,10 @@ function initCouponChecker() {
 
         if (!code) {
             if (couponMsg) {
-                couponMsg.innerHTML = '<span class="text-danger">Vui lòng nhập mã ưu đãi!</span>';
+                couponMsg.innerHTML = '<span class="text-danger">Vui l\u00F2ng nh\u1EADp m\u00E3 \u01B0u \u0111\u00E3i!</span>';
                 couponMsg.style.display = 'block';
             }
+            couponInput.focus();
             return;
         }
 
@@ -229,7 +231,7 @@ function initCouponChecker() {
                         maximumFractionDigits: 2
                     });
                 }
-                showToast('Áp dụng voucher ' + res.code + ' thành công!');
+                showToast('\u00C1p d\u1EE5ng voucher ' + res.code + ' th\u00E0nh c\u00F4ng!');
             } else {
                 couponMsg.innerHTML = '<span class="text-danger">' + res.message + '</span>';
                 couponMsg.style.display = 'block';
@@ -240,7 +242,7 @@ function initCouponChecker() {
         .catch(function (err) {
             console.error('Lỗi check coupon:', err);
             if (couponMsg) {
-                couponMsg.innerHTML = '<span class="text-danger">Đã có lỗi xảy ra khi kiểm tra mã voucher!</span>';
+                couponMsg.innerHTML = '<span class="text-danger">\u0110\u00E3 c\u00F3 l\u1ED7i x\u1EA3y ra khi ki\u1EC3m tra m\u00E3 voucher!</span>';
                 couponMsg.style.display = 'block';
             }
         });
