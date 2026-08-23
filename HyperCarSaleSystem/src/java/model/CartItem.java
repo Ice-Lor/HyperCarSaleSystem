@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * Đối tượng xe nằm trong Giỏ hàng đặt cọc (Session Cart).
@@ -70,6 +69,13 @@ public class CartItem implements Serializable {
     }
 
     /**
+     * Alias getter cho JSP EL ${item.totalAmount}.
+     */
+    public BigDecimal getTotalAmount() {
+        return getSubtotal();
+    }
+
+    /**
      * Tổng số tiền đặt cọc cần thanh toán của dòng sản phẩm này.
      */
     public BigDecimal getDepositSubtotal() {
@@ -77,6 +83,13 @@ public class CartItem implements Serializable {
             return BigDecimal.ZERO;
         }
         return this.car.getDepositAmount().multiply(new BigDecimal(this.quantity));
+    }
+
+    /**
+     * Alias getter cho JSP EL ${item.depositAmount}.
+     */
+    public BigDecimal getDepositAmount() {
+        return getDepositSubtotal();
     }
 
     @Override
