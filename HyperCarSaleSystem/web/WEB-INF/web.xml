@@ -243,6 +243,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ExportReportController</servlet-name>
+        <url-pattern>/admin/export-report</url-pattern>
         <url-pattern>/admin/export-orders</url-pattern>
     </servlet-mapping>
 

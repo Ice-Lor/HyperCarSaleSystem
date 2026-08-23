@@ -16,7 +16,7 @@ import util.FormatUtil;
 /**
  * Controller Xuất Báo Cáo Doanh Thu & Hợp Đồng Đặt Cọc ra file CSV (Excel tương thích 100% UTF-8).
  */
-@WebServlet(name = "ExportReportController", urlPatterns = {"/admin/export-report"})
+@WebServlet(name = "ExportReportController", urlPatterns = {"/admin/export-report", "/admin/export-orders"})
 public class ExportReportController extends HttpServlet {
 
     private final OrderDAO orderDAO = new OrderDAO();
