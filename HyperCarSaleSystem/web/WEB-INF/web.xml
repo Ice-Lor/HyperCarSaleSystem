@@ -116,6 +116,7 @@
         <servlet-name>CarListController</servlet-name>
         <url-pattern>/cars</url-pattern>
         <url-pattern>/car-list</url-pattern>
+        <url-pattern>/car</url-pattern>
     </servlet-mapping>
 
     <servlet>
